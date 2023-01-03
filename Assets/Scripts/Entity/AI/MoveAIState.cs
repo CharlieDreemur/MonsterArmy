@@ -23,7 +23,7 @@ public class MoveAIState : IAIState
    }
 
    //更新
-   public override void Update(List<ICharacter> Targets){
+   public override void Update(List<Entity> Targets){
        //有目标时，改为待机状态
        if(Targets != null && Targets.Count > 0){
            charAI.ChangeAIState(new IdleAIState());

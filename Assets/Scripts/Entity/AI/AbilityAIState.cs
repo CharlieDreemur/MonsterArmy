@@ -20,7 +20,7 @@ public class AbilityAIState : IAIState
         isActivate = false;
         Debug.Log("目前是AbilityAiState");
     }
-    public override void Update(List<ICharacter> Targets)
+    public override void Update(List<Entity> Targets)
     {
         
         if(!isActivate){

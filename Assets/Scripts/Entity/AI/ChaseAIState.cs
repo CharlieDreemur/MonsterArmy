@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class ChaseAIState : IAIState
 {
-    private ICharacter chaseTarget = null; //追击的目标
+    private Entity chaseTarget = null; //追击的目标
     private const float CHASE_CHECK_DIST = 0.2f; //TODO:chase_check_dist?
     private Vector3 chasePosition = Vector3.zero;
     private Transform chaseTransform = null;
     private bool b_OnChase = false;
-    public ChaseAIState(ICharacter _chaseTarget){
+    public ChaseAIState(Entity _chaseTarget){
         chaseTarget = _chaseTarget;
     }
     //更新
-    public override void Update(List<ICharacter> Targets) {
+    public override void Update(List<Entity> Targets) {
         //没有目标时，改为待机
         if(chaseTarget == null || chaseTarget.IsKilled()){
             charAI.ChangeAIState(new IdleAIState());
@@ -37,7 +37,7 @@ public class ChaseAIState : IAIState
             }
             else{
                 //定时搜索更近的目标
-                ICharacter target = FindCloestTarget(Targets);
+                Entity target = FindCloestTarget(Targets);
                 if(target!=chaseTarget){
                     chaseTarget = target;
                 }
@@ -60,7 +60,7 @@ public class ChaseAIState : IAIState
     }
 
     // 目標被移除
-	public override void RemoveTarget(ICharacter Target)
+	public override void RemoveTarget(Entity Target)
 	{
 		if( chaseTarget.GetGameObject().name == Target.GetGameObject().name )
 			chaseTarget = null;

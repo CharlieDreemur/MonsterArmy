@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 /// <summary>
 ///Ability，GameEffect,buff相关的API
 /// </summary>
-public class AbilityController : MonoBehaviour
+public class AbilityManager: MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

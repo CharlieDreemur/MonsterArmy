@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 
 public class Projectile : MonoBehaviour, IPooledObject
 {   
-    public Character_OnShoot EventOnShoot;
+    public ProjectileArgs EventOnShoot;
     private Vector3 direction;
 
     [ShowInInspector]
@@ -46,10 +46,10 @@ public class Projectile : MonoBehaviour, IPooledObject
         }
         projectileTrack.Update();
     }
-    public void Init(Character_OnShoot e){
+    public void Init(ProjectileArgs e){
 
         EventOnShoot = e;
-        ID = EntityController.Instance.GetID(GetTarget());
+        ID = EntityManager.Instance.GetID(GetTarget());
         if(ETFX !=null){
             ETFX.SetScale(GetProjectileData().scale);
         }
@@ -151,7 +151,7 @@ public class Projectile : MonoBehaviour, IPooledObject
             if(ETFX!=null){
                 ETFX.HitImpact();
             }
-            EventOnShoot.GetTarget().UnderAttack(GetAttacker());
+            EventOnShoot.target.UnderAttack(GetAttacker());
             OnObjectRecycle();
         }
         
@@ -159,23 +159,23 @@ public class Projectile : MonoBehaviour, IPooledObject
 
    
     public ProjectileData GetProjectileData(){
-        return EventOnShoot.GetProjectileData();
+        return EventOnShoot.projectileData;
     }   
 
     public Vector3 GetPosition(){
         return transform.position;
     }
 
-    public ICharacter GetTarget(){
-        return EventOnShoot.GetTarget();
+    public Entity GetTarget(){
+        return EventOnShoot.target;
     }
 
-    public ICharacter GetAttacker(){
-        return EventOnShoot.GetAttacker();
+    public Entity GetAttacker(){
+        return EventOnShoot.attacker;
     }
 
     public Vector3 GetRelativePos(){
-        return EventOnShoot.GetAttacker().GetCharacterData().relativePos;
+        return EventOnShoot.attacker.GetCharacterData().relativePos;
     }
     public Rigidbody2D GetRigidBody2D(){
         return rigidBody2D;

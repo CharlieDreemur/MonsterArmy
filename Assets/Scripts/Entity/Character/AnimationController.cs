@@ -9,7 +9,7 @@ using Sirenix.OdinInspector;
 /// 帮助ICharacter控制动画相关
 /// </summary>
 [InlineProperty] [System.Serializable] [HideLabel] 
-public class ICharacterAnimation : MonoBehaviour{
+public class AnimationController : MonoBehaviour{
     public Animator animator; //动画控制
     public float RunAnimationLength;
     public const float CONST_BASE_MOVESPEED = 10.0f;

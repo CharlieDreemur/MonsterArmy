@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class Friend : ICharacter
+public class Friend : Entity
 
 {
     // //创建时自动绑定

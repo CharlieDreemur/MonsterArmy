@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 
 
 //继承monobehavior，我们使用一个统一的manager来遍历每个ICharacter
-public abstract class ICharacter : MonoBehaviour
+public abstract class Entity : MonoBehaviour
 {
     [FoldoutGroup("角色基本信息")]
     public ICharacterData data;
@@ -32,7 +32,7 @@ public abstract class ICharacter : MonoBehaviour
     [ShowInInspector] [FoldoutGroup("角色基本资源")]
     protected ICharacterAI charAI = null; //AI
     [ShowInInspector] [FoldoutGroup("角色动画资源")]
-    protected ICharacterAnimation charAnimation = null; //动画控制
+    protected AnimationController charAnimation = null; //动画控制
     
     [ShowInInspector] [FoldoutGroup("角色基本资源")]
     protected SpriteRenderer spriteRenderer = null; //精灵控制
@@ -46,11 +46,11 @@ public abstract class ICharacter : MonoBehaviour
     [FoldoutGroup("角色细节数据")]
     public float HurtTimerLength = 0.3f; //受伤计时器的默认时间长度
 
-    public static event EventHandler<Character_OnShoot> Event_Shoot;
+    public static event EventHandler<ProjectileArgs> Event_Shoot;
 
 
     [ShowInInspector] [FoldoutGroup("角色战斗数据")] [InlineProperty] [HideLabel]
-    protected ICharacterAbility charAbility = null; //角色与技能交互的部分，为了减少单个类的长度我们决定把一些功能放进别的类
+    protected AbilityController charAbility = null; //角色与技能交互的部分，为了减少单个类的长度我们决定把一些功能放进别的类
 
 
 
@@ -90,7 +90,7 @@ public abstract class ICharacter : MonoBehaviour
         GetCharacterAttribute().Init(data);
         SetAI(new CharacterAI(this));
         SetAbilityFromData();
-        SetCharacterAnimation(GetComponent<ICharacterAnimation>());
+        SetCharacterAnimation(GetComponent<AnimationController>());
         //SetSpriteRenderer(_obj.GetComponent<SpriteRenderer>());
         SetAudioSource(GetComponent<AudioSource>());
         SetSpawnPosition(charAttr.Transform_SpawnPos);
@@ -129,7 +129,7 @@ public abstract class ICharacter : MonoBehaviour
         SetAbilityFromData(GetCharacterAttribute().List_AbilityData, this);
     }
 
-    public void SetAbilityFromData(List<AbilityData> abilityDatas, ICharacter character)
+    public void SetAbilityFromData(List<AbilityData> abilityDatas, Entity character)
     {
 
         if (abilityDatas == null || abilityDatas.Count == 0)
@@ -149,7 +149,7 @@ public abstract class ICharacter : MonoBehaviour
         });
     }
 
-    public void SetCharacterAnimation(ICharacterAnimation charAnimation){
+    public void SetCharacterAnimation(AnimationController charAnimation){
         this.charAnimation = charAnimation;
     }
     
@@ -172,7 +172,7 @@ public abstract class ICharacter : MonoBehaviour
         }  
     }
 
-    public void SetCharacterAbility(ICharacterAbility charAbility){
+    public void SetCharacterAbility(AbilityController charAbility){
         this.charAbility = charAbility;
     }
     public void SetColor(Color _color)
@@ -252,7 +252,7 @@ public abstract class ICharacter : MonoBehaviour
         return spawnPos;
     }
    
-    public ICharacterAnimation GetCharacterAnimation(){
+    public AnimationController GetCharacterAnimation(){
         return charAnimation;
     }
     public SpriteRenderer GetSpriteRenderer()
@@ -275,7 +275,7 @@ public abstract class ICharacter : MonoBehaviour
     }
 
  
-    public ICharacterAbility GetCharacterAbility(){
+    public AbilityController GetCharacterAbility(){
         return charAbility;
     }
 
@@ -290,13 +290,13 @@ public abstract class ICharacter : MonoBehaviour
     }
 
     //更新AI
-    public void UpdateAI(List<ICharacter> Targets)
+    public void UpdateAI(List<Entity> Targets)
     {
         charAI.UpdateAI(Targets);
     }
 
     //通知AI有角色被删除
-    public void RemoveAITarget(ICharacter Targets)
+    public void RemoveAITarget(Entity Targets)
     {
         charAI.RemoveAITarget(Targets);
     }
@@ -375,7 +375,7 @@ public abstract class ICharacter : MonoBehaviour
 
         }
     }
-    public void Attack(ICharacter target)
+    public void Attack(Entity target)
     {   
         FaceEnemy(target.GetPosition());
         AttackAnimation(GetCharacterData().attackAnimationType);
@@ -383,11 +383,11 @@ public abstract class ICharacter : MonoBehaviour
         Tool_Timer.StartCoroutine(AttackWait(charAttr.attributeData.fixedData.AtkInterval*0.6f, this, target));
     }
 
-    public void RangedAttack(ICharacter target)
+    public void RangedAttack(Entity target)
     {   
         FaceEnemy(target.GetPosition());
         AttackAnimation(GetCharacterData().attackAnimationType);
-        Character_OnShoot character_OnShoot = new Character_OnShoot(this, target, charAttr.projectileData);
+        ProjectileArgs character_OnShoot = new ProjectileArgs(this, target, charAttr.projectileData);
         Action action = ()=>Event_Shoot(this, character_OnShoot);
         Tool_Timer.DelayToInvokeBySecond(action, charAttr.attributeData.fixedData.AtkInterval*0.6f);
     }
@@ -398,7 +398,7 @@ public abstract class ICharacter : MonoBehaviour
     /// 遭受一次attacker的攻击
     /// </summary>
     /// <param name="attacker"></param>
-    public void UnderAttack(ICharacter attacker)
+    public void UnderAttack(Entity attacker)
     {   
         if(isKilled){
             return;
@@ -473,7 +473,7 @@ public abstract class ICharacter : MonoBehaviour
         }
     }
     
-    IEnumerator AttackWait(float seconds, ICharacter attacker, ICharacter target)
+    IEnumerator AttackWait(float seconds, Entity attacker, Entity target)
     {
         yield return new WaitForSeconds(seconds);
         //Debug.Log("AttackWait"+Time.time);

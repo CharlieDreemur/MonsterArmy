@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //control all the componets that will be auto setup to each characters
-public static class CharacterComponetsController
+public static class EntityComponetsControllerUtils
 {
 
 
@@ -33,11 +33,11 @@ public static class CharacterComponetsController
     /// <param name="character"></param>
     public static void AddEntityAnimation(GameObject character){
         //CheckComponents
-        if(character.gameObject.GetComponent<ICharacterAnimation>()!=null){
+        if(character.gameObject.GetComponent<AnimationController>()!=null){
             Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name+"components already exist");
             return;
         }
-        character.gameObject.AddComponent<ICharacterAnimation>();
+        character.gameObject.AddComponent<AnimationController>();
 
     }
 

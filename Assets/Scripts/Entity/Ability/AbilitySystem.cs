@@ -7,15 +7,15 @@ using UnityEngine;
 /// </summary>
 public static class AbilitySystem 
 {
-    public static void ActivateAbility(AbilityData data, ICharacter character){
+    public static void ActivateAbility(AbilityData data, Entity character){
 
     }
 
-    public static void ActivateGameEffect(GameEffectData data, ICharacter character){
+    public static void ActivateGameEffect(GameEffectData data, Entity character){
 
     }
 
-    public static void GiveBuff(BuffData data, ICharacter character){
+    public static void GiveBuff(BuffData data, Entity character){
 
     }
 

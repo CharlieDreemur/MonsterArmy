@@ -1,20 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
 
-public class DamageTextManager : MonoBehaviour
+public class DamageTextManager : Singleton<DamageTextManager>
 {
     private UnityAction<string> action;
     public static DamageTextData data;
-    private void Awake(){  
+    protected override void OnAwake(){  
         data = Resources.Load("Data/UI/DamageTextData") as DamageTextData;
         action = new UnityAction<string>(Create);
+        
     }
-    private void OnEnable() {
+
+    public void Init(){
         EventManager.StartListening("CreateDamageText", action);
     }
+    
     private void OnDisable() {
         EventManager.StopListening("CreateDamageText", action);
     }
@@ -39,8 +43,7 @@ public class DamageTextManager : MonoBehaviour
     
 }
 
-[System.Serializable]
-public struct CreateDamageTextEventArgs{
+public class CreateDamageTextEventArgs : EventArgs{
     public CreateDamageTextEventArgs(Vector3 pos, int damageAmount, Enum_DamageType damageType)
     {
         this.pos = pos;

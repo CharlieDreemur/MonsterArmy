@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
-using System;
 
 public class SEvent :  UnityEvent<string>{}
 /// <summary>
@@ -11,18 +10,23 @@ public class SEvent :  UnityEvent<string>{}
 /// </summary>
 public class EventManager : Singleton<EventManager>
 {
-    [SerializeField]
-    private Dictionary<string, SEvent>eventDictionary;
     [ShowInInspector]
-    private static bool isInit = false;
-    protected override void Awake()
+    private Dictionary<string, SEvent>eventDictionary;
+
+    public void Init()
     {
-        base.Awake();
-        eventDictionary = new Dictionary<string, SEvent>();
-        isInit = true;
-        Debug.LogWarning(Instance);
+        if (eventDictionary == null)
+        {
+            eventDictionary = new Dictionary<string, SEvent>();
+        }
     }
+
+
     public static void StartListening(string eventName, UnityAction<string> listener){
+        if(Instance == null){
+            //Debug.LogWarning("EventManager does not init");
+            return;
+        }
         SEvent thisEvent = null;
         if(Instance.eventDictionary.TryGetValue(eventName, out thisEvent)){
             thisEvent.AddListener(listener);
@@ -35,7 +39,8 @@ public class EventManager : Singleton<EventManager>
     }   
 
     public static void StopListening(string eventName, UnityAction<string> listener){
-        if(!isInit){
+        if(Instance == null){
+            //Debug.LogWarning("EventManager does not init");
             return;
         }
         SEvent thisEvent = null;

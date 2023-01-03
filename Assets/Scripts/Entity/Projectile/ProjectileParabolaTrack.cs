@@ -30,10 +30,10 @@ public class ProjectileParabolaTrack : IProjectileTrack
     private float tan;
 
     [SerializeField]
-    private ICharacter attacker;
+    private Entity attacker;
 
     [SerializeField]
-    private ICharacter target;
+    private Entity target;
 
     [SerializeField]
     private Vector3 projectilePos;

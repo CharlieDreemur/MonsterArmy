@@ -5,12 +5,12 @@ using UnityEngine;
 public class AttackAIState : IAIState
 {
     [SerializeField]
-    private ICharacter attackTarget = null; //攻击目标
-    public AttackAIState(ICharacter _attackTarget){
+    private Entity attackTarget = null; //攻击目标
+    public AttackAIState(Entity _attackTarget){
         attackTarget = _attackTarget;
     }
     //更新
-    public override void Update(List<ICharacter> Targets){
+    public override void Update(List<Entity> Targets){
     
         //没有目标时，改为Idle
         if(attackTarget == null || attackTarget.IsKilled()||Targets ==null || Targets.Count ==0){
@@ -38,7 +38,7 @@ public class AttackAIState : IAIState
 
     }
     //目标被删除
-    public override void RemoveTarget(ICharacter Target)
+    public override void RemoveTarget(Entity Target)
     {
         if(attackTarget.GetGameObject().name == Target.GetGameObject().name)
             attackTarget = null;

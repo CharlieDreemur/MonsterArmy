@@ -70,7 +70,7 @@ public class HealthBarSetup : MonoBehaviour
  
   
 
-    public void Init(ICharacter character){
+    public void Init(Entity character){
         Health_Width = HealthFill.GetComponent<Renderer>().bounds.size.x;
         HealthFill_Pos_x = HealthFill.localPosition.x;
         charAttr = character.GetCharacterAttribute();

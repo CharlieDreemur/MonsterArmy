@@ -15,13 +15,13 @@ public class GameEffect : IAbility
 {
     public GameEffectData gameEffectData;
     public Enum_GameEffectState gameEffectState = Enum_GameEffectState.inactive;
-    public ICharacter character;
+    public Entity character;
     private ICharacterAttribute charAttribute;
     private AttributeDataFixed charAttributeData;
-    public List<ICharacter> List_Target; //最终技能目标的列表
+    public List<Entity> List_Target; //最终技能目标的列表
     [LabelText("技能最终伤害")] [ShowInInspector] [ReadOnly]
     private int finalValue;
-    public GameEffect(GameEffectData data, ICharacter character)
+    public GameEffect(GameEffectData data, Entity character)
     {
         gameEffectData = data; //引用类型,两个值会一起改变
         SetCharacter(character);
@@ -39,7 +39,7 @@ public class GameEffect : IAbility
     {
         gameEffectData = data as GameEffectData;
     }
-    public void SetCharacter(ICharacter _character)
+    public void SetCharacter(Entity _character)
     {
         character = _character;
         charAttribute = _character.GetCharacterAttribute();
@@ -75,11 +75,11 @@ public class GameEffect : IAbility
 
     }
 
-    public void Activate(List<ICharacter> List_Target){
+    public void Activate(List<Entity> List_Target){
         this.List_Target = List_Target;
         Activate();
     }
-    public IEnumerator ActivateDelay(List<ICharacter> List_Target, float seconds){
+    public IEnumerator ActivateDelay(List<Entity> List_Target, float seconds){
         this.List_Target = List_Target;
         yield return new WaitForSeconds(seconds);
         Activate();

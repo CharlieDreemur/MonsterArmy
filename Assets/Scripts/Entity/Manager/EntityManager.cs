@@ -1,26 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 //管理所有的ICharacter，负责ICharacter的生成和更新,ICharacter的对象池，之后会考虑将这两个功能分离并增加characterFactory
-public class EntityController:MonoBehaviour
+public class EntityManager: Singleton<EntityManager>
 {   
-    static public EntityController Instance{get; private set;}
     public SetupData setupData;
     [Header("Set in the Inspector")]
     [Header("Set Dynamically")]
 
     public List<FriendData> List_FriendData = new List<FriendData>();
     public List<EnemyData> List_EnemyData = new List<EnemyData>();
-    public Dictionary<int, ICharacter> Dic_ICharController = new Dictionary<int, ICharacter>();
-    public List<ICharacter> List_Friend = new List<ICharacter>(); //玩家方所有单位的List
-    public List<ICharacter> List_Enemy = new List<ICharacter>(); //敌人方所有单位的List
+    public Dictionary<int, Entity> Dic_ICharController = new Dictionary<int, Entity>();
+    public List<Entity> List_Friend = new List<Entity>(); //玩家方所有单位的List
+    public List<Entity> List_Enemy = new List<Entity>(); //敌人方所有单位的List
 
     public Transform parent;
-    // Start is called before the first frame update
-    private void Awake()
+    public void Init()
     {   
-        Init();
         for(int i = 0; i<List_FriendData.Count;i++){
             InitiateFriend(i);
         }
@@ -29,15 +27,13 @@ public class EntityController:MonoBehaviour
             InitiateEnemy(i);
         }
     }
-    void Start(){
-        
-    }
-    // Update is called once per frame
-    void Update()
+
+    // 我们希望可以在MainManager手动控制Update顺序
+    public void OnUpdate()
     {
 
         //遍历字典的ICharacter并更新
-        foreach(ICharacter item in Dic_ICharController.Values)
+        foreach(Entity item in Dic_ICharController.Values)
         {
             SetDictionaryToList(Dic_ICharController);
             //更新目标
@@ -54,23 +50,12 @@ public class EntityController:MonoBehaviour
 
     }
 
-    public void Init(){
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     //将Dic_ICharController按照阵营添加进不同的List
-    public void SetDictionaryToList(Dictionary<int, ICharacter> _Dic_ICharController){
+    public void SetDictionaryToList(Dictionary<int, Entity> _Dic_ICharController){
         List_Friend.Clear();
         List_Enemy.Clear();
-        foreach(ICharacter item in _Dic_ICharController.Values){
+        foreach(Entity item in _Dic_ICharController.Values){
             switch (item.type_Character){
                 case Enum_Character.Character:
                     List_Friend.Add(item as Friend);
@@ -101,7 +86,7 @@ public class EntityController:MonoBehaviour
         }
 
         //传入初始敌方友军列表
-        charController.SetCharacterAbility(new ICharacterAbility(charController, List_Enemy, List_Friend));
+        charController.SetCharacterAbility(new AbilityController(charController, List_Enemy, List_Friend));
         //注意一定要确保所有模块都添加好了再Init()
         charController.Init(List_FriendData[index]);
         Dic_ICharController.Add(Obj_char.GetInstanceID(), charController);
@@ -119,7 +104,7 @@ public class EntityController:MonoBehaviour
         Enemy enemyController = Obj_char.AddComponent<Enemy>();
         EnemyAttribute charAttr = Obj_char.AddComponent<EnemyAttribute>(); 
         //传入初始敌方友军列表
-        enemyController.SetCharacterAbility(new ICharacterAbility(enemyController, List_Enemy, List_Friend));  
+        enemyController.SetCharacterAbility(new AbilityController(enemyController, List_Enemy, List_Friend));  
         //注意一定要确保所有模块都添加好了再Init()      
         enemyController.Init(List_EnemyData[index]);
         Dic_ICharController.Add(Obj_char.GetInstanceID(), enemyController);
@@ -136,7 +121,7 @@ public class EntityController:MonoBehaviour
         if(parent != null){
             obj.transform.SetParent(parent);
         }
-        CharacterComponetsController.AddAllComponents(setupData, obj);
+        EntityComponetsControllerUtils.AddAllComponents(setupData, obj);
         return obj;
     }
     /*
@@ -153,7 +138,7 @@ public class EntityController:MonoBehaviour
       /*
     @function 删除一个索引为指定ID/Key的元素
     */
-    public void RemoveCharacterWithValue(ICharacter IChar){
+    public void RemoveCharacterWithValue(Entity IChar){
         if(!Dic_ICharController.ContainsValue(IChar)){
             Debug.LogWarning(this.name+"Dic_ICharController没有value为该IChar的元素");
             return;
@@ -164,7 +149,7 @@ public class EntityController:MonoBehaviour
     /*
     @function 在字典中返回为对应值的索引
     */
-    public int GetID(ICharacter IChar){
+    public int GetID(Entity IChar){
         foreach(int key in Dic_ICharController.Keys){
             if(Dic_ICharController[key] == IChar){
                 return key;
@@ -178,20 +163,15 @@ public class EntityController:MonoBehaviour
     /*
     @function 获取对应ID的Icharacter
     */
-    public ICharacter GetCharacter(int ID){
+    public Entity GetCharacter(int ID){
         return Dic_ICharController[ID];
     }
 
     /*
     @function 获取对应obj的Icharacter
     */
-    public ICharacter GetCharacter(GameObject obj){
+    public Entity GetCharacter(GameObject obj){
         return GetCharacter(obj.GetInstanceID());
     }
 
-    public void PrintDic(){
-        foreach(int key in Dic_ICharController.Keys){
-            Debug.Log(key+":"+Dic_ICharController[key]+" ");
-        }
-    }
 }

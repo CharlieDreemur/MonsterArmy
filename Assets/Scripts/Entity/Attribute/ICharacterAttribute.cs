@@ -102,7 +102,7 @@ public ICharacterData data;
         /*
     @funciton 返回敌人对我方的一次攻击造成的伤害，考虑闪避，暴击，防御等因素
     */
-    public int GetDamage(ICharacter attacker, out bool IsDodge, out Enum_DamageType damageType){
+    public int GetDamage(Entity attacker, out bool IsDodge, out Enum_DamageType damageType){
         return GetDamage(attacker.GetCharacterAttribute(), this, out IsDodge, out damageType);
     }
 
@@ -110,7 +110,7 @@ public ICharacterData data;
     /*
     @funciton:给予两个人物，返回一方对另一方的一次攻击造成的伤害，考虑闪避，暴击，防御等因素
     */
-    public static int GetDamage(ICharacter attacker, ICharacter target, out bool IsDodge, out Enum_DamageType damageType){
+    public static int GetDamage(Entity attacker, Entity target, out bool IsDodge, out Enum_DamageType damageType){
     
         return GetDamage(attacker.GetCharacterAttribute(), target.GetCharacterAttribute(), out IsDodge, out damageType);
     }

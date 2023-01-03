@@ -13,7 +13,7 @@ public class IdleAIState : IAIState
    }
 
    //更新
-   public override void Update(List<ICharacter> Targets){
+   public override void Update(List<Entity> Targets){
         //没有目标时
         if(Targets == null || Targets.Count == 0)
         {
@@ -24,7 +24,7 @@ public class IdleAIState : IAIState
             return;
         }
         //找出最近的目标
-        ICharacter theNearTarget = FindCloestTarget(Targets);
+        Entity theNearTarget = FindCloestTarget(Targets);
         
         //没有目标，会不动
         if(theNearTarget ==null){

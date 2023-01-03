@@ -8,16 +8,16 @@ using System;
 /// 负责AbilitySystem相关的ICharacter逻辑
 /// </summary>
 [HideLabel] [System.Serializable] [InlineProperty] 
-public class ICharacterAbility
+public class AbilityController
 {
     [ReadOnly]
-    public ICharacter character;
+    public Entity character;
 
     [ShowInInspector] [LabelText("敌人列表")] 
-    public List<ICharacter> List_Enemy = null;
+    public List<Entity> List_Enemy = null;
 
     [ShowInInspector] [LabelText("友方列表")]
-    public List<ICharacter> List_Friend = null;
+    public List<Entity> List_Friend = null;
 
     [ShowInInspector] [LabelText("Buff列表")] 
 
@@ -27,26 +27,26 @@ public class ICharacterAbility
     public List<Ability> List_Ability = new List<Ability>(); //关于Ability的List
     
 
-    public ICharacterAbility(ICharacter character, List<ICharacter> List_Enemy,  List<ICharacter> List_Friend){
+    public AbilityController(Entity character, List<Entity> List_Enemy,  List<Entity> List_Friend){
         SetCharacter(character);
         SetEnemyList(List_Enemy);
         SetFriendList(List_Friend);
     }
 
-    public void UpdateTargets(List<ICharacter> List_Enemy,  List<ICharacter> List_Friend){
+    public void UpdateTargets(List<Entity> List_Enemy,  List<Entity> List_Friend){
         SetEnemyList(List_Enemy);
         SetFriendList(List_Friend);
     }
 
 
-    public void SetCharacter(ICharacter character){
+    public void SetCharacter(Entity character){
         this.character = character;
     }
     /// <summary>
     /// 设置Enemy目标列表
     /// </summary>
     /// <param name="List_Enemy"></param>
-    public void SetEnemyList(List<ICharacter> List_Enemy)
+    public void SetEnemyList(List<Entity> List_Enemy)
     {
         this.List_Enemy = List_Enemy;
     }
@@ -55,7 +55,7 @@ public class ICharacterAbility
     /// 获取Enemy目标列表
     /// </summary>
     /// <returns></returns>
-    public List<ICharacter> GetEnemyList()
+    public List<Entity> GetEnemyList()
     {
         return this.List_Enemy;
     }
@@ -64,7 +64,7 @@ public class ICharacterAbility
     /// 设置Friend目标列表
     /// </summary>
     /// <param name="List_Friend"></param>
-    public void SetFriendList(List<ICharacter> List_Friend)
+    public void SetFriendList(List<Entity> List_Friend)
     {
         this.List_Friend = List_Friend;
     }
@@ -73,7 +73,7 @@ public class ICharacterAbility
     /// 获取Friend目标列表
     /// </summary>
     /// <returns></returns>
-    public List<ICharacter> GetFriendList()
+    public List<Entity> GetFriendList()
     {
         return this.List_Friend;
     }
