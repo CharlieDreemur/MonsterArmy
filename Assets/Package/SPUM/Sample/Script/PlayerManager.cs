@@ -1,0 +1,126 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[ExecuteInEditMode]
+public class PlayerManager : MonoBehaviour
+{
+    public PlayerObj _prefabObj;
+    public List<UnityEngine.GameObject> _savedUnitList = new List<UnityEngine.GameObject>();
+    public Vector3 _startPos;
+    public int _columnNum;
+
+    public Transform _playerPool;
+    public List<PlayerObj> _playerList = new List<PlayerObj>();
+    public PlayerObj _nowObj;
+    public Transform _playerObjCircle;
+    public Transform _goalObjCircle;
+
+    public bool _generate;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(_generate)
+        {
+            GetPlayerList();
+            _generate = false;
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if(hit.collider != null)
+            {
+                if(hit.collider.CompareTag("Player"))
+                {
+                    _nowObj = hit.collider.GetComponent<PlayerObj>();
+                }
+                else
+                {
+                    //Set move Player object to this point
+                    if(_nowObj!=null)
+                    {
+                        Vector2 goalPos = hit.point;
+                        _goalObjCircle.transform.position = hit.point;
+                        _nowObj.SetMovePos(goalPos);
+                    }
+                }
+            }
+        }
+
+        if(_nowObj!=null)
+        {
+            _playerObjCircle.transform.position = _nowObj.transform.position;
+        }
+    }
+
+    public void GetPlayerList()
+    {
+        //reset list.
+        List<UnityEngine.GameObject> tList = new List<UnityEngine.GameObject>();
+        for(var i =0; i < _playerPool.transform.childCount; i++)
+        {
+            UnityEngine.GameObject tOBjj = _playerPool.transform.GetChild(i).gameObject;
+            tList.Add(tOBjj);
+        }
+        foreach(var obj in tList)
+        {
+            DestroyImmediate(obj);
+        }
+
+        //net Edited. 2022.01.18
+        _playerList.Clear();
+        _savedUnitList.Clear();
+
+        var saveArray = Resources.LoadAll<UnityEngine.GameObject>("SPUM/SPUM_Units");
+        _savedUnitList.AddRange(saveArray);
+        //
+
+        
+        float numXStart = 0;
+        float numYStart = 0;
+
+        float numX = 1f;
+        float numY = 1f;
+
+        int sColumnNum = _columnNum;
+
+        for(var i = 0 ; i < _savedUnitList.Count;i++)
+        {
+            if(i > sColumnNum-1)
+            {
+                numYStart -= 1f;
+                numXStart -= numX * _columnNum;
+                sColumnNum += _columnNum;
+            }
+
+            UnityEngine.GameObject ttObj = Instantiate(_prefabObj.gameObject) as UnityEngine.GameObject;
+            ttObj.transform.SetParent(_playerPool);
+            ttObj.transform.localScale = new Vector3(1,1,1);
+
+
+            UnityEngine.GameObject tObj = Instantiate(_savedUnitList[i]) as UnityEngine.GameObject;
+            tObj.transform.SetParent(ttObj.transform);
+            tObj.transform.localScale = new Vector3(1,1,1);
+            tObj.transform.localPosition = Vector3.zero;
+
+            ttObj.name = _savedUnitList[i].name;
+
+            PlayerObj tObjST = ttObj.GetComponent<PlayerObj>();
+            SPUM_Prefabs tObjSTT = tObj.GetComponent<SPUM_Prefabs>();
+
+            tObjST._prefabs = tObjSTT;
+
+            ttObj.transform.localPosition = new Vector3(numXStart + numX * i,numYStart + numY,0);
+
+            _playerList.Add(tObjST);
+            
+        }
+    }
+}

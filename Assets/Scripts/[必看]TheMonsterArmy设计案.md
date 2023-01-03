@@ -1,0 +1,5 @@
+TheMonsterArmy全局设计案
+
+ICharacter作为连接所有功能的中介者，但为了使ICharacter不过分庞大
+对于大部分的额外功能，我们应该采用组件的方式(考虑装饰类模式），主动获取ICharacter，而ICharcter不需要知道每个组件的内部工作方式
+对于物体的创建，我的建议是使用工厂模式和对象池

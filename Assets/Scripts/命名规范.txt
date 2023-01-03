@@ -1,0 +1,11 @@
+//这个文本列出了该项目的类，变量，函数等所有的命名规范
+关于变量：
+小写+首字母大写：moveSpeed, abc, soundTrack
+对于布尔型变量：b_moveSpeed, b_isKilled
+
+关于函数：
+每一个单词的首字母大写: Getabc, SetGameobject
+
+关于类：
+对于抽象类：I+首字母大写：ICharacter，ICharacterAttribute
+对于普通类: 首字母大写

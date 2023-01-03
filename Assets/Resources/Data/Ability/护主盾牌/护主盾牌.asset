@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5e1ecf346ec33747974571a5f90ec65, type: 3}
+  m_Name: "\u62A4\u4E3B\u76FE\u724C"
+  m_EditorClassIdentifier: 
+  baseInfo:
+    ID: 
+    name: 
+    description: 
+  abilityType: 0
+  costType: 1
+  costValue: 5
+  cooldown: 8
+  releaseType: 0
+  channelTime: 0
+  animationType: 7
+  targetChooser:
+    effectTargetChooser: 3
+    effectTargetNumber: 0
+    effectTargetType: 1
+    targetNumber: 1
+    isTargetAll: 0
+    range: 20
+    isRangeInfinity: 0
+  List_VFX: []
+  List_GameEffectData:
+  - {fileID: 11400000, guid: 949d5ce08d068c14dbe7cc3060b47c8a, type: 2}

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57677c60e3e85cc4db2ff48b33e15ea4, type: 3}
+  m_Name: NewRecruit
+  m_EditorClassIdentifier: 
+  baseInfo:
+    ID: 101
+    name: "\u65B0\u5175\uFF08\u654C\u65B9\uFF09"
+    description: "\u53EA\u7ECF\u8FC7\u57FA\u672C\u8BAD\u7EC3\u7684\u65B0\u5175\u62C5\u5B50\uFF0C\u4E00\u7FA4\u62B1\u7740\u7406\u60F3\u548C\u6FC0\u60C5\u7684\u5E74\u8F7B\u4EBA\u3002"
+  prefab: {fileID: 1913146683106853599, guid: f5fcff0f62c4e1a41a3b621ae9a9ff83, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  material: {fileID: 2100000, guid: 8a37d575fdee5064492410056578aac6, type: 2}
+  scale: {x: 8, y: 8, z: 0}
+  attackType: 1
+  attackAnimationType: 0
+  projectileData: {fileID: 0}
+  relativePos: {x: 0, y: 0, z: 0}
+  Transform_SpawnPos: {x: 15, y: 0, z: 0}
+  attributeData:
+    nowData:
+      nowHP: 0
+      isAutoNowHP: 1
+      nowMP: 0
+      isAutoNowMP: 1
+    fixedData:
+      maxHP:
+        baseAttribute: 30
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 30
+      maxMP:
+        baseAttribute: 0
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 0
+      atk:
+        baseAttribute: 4
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 4
+      def:
+        baseAttribute: 2
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 2
+      ap:
+        baseAttribute: 0
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 0
+      shieldValue: 0
+      atkSpeed: 0
+      moveSpeed: 2
+      atkRange: 5
+      critChance: 0.1
+      critDamage: 2
+      dodgeChance: 0
+  List_AbilityData: []
+  type_enemy: 1

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9127a30d05b153743a8ba38436fac346, type: 3}
+  m_Name: BowSkull
+  m_EditorClassIdentifier: 
+  baseInfo:
+    ID: 003
+    name: "\u5F13\u7BAD\u9AB7\u9AC5"
+    description: 
+  prefab: {fileID: 7740767085625411481, guid: fcbe50c64605f404bba712cf03f7b69a, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  material: {fileID: 2100000, guid: 8a37d575fdee5064492410056578aac6, type: 2}
+  scale: {x: 8, y: 8, z: 0}
+  attackType: 2
+  attackAnimationType: 1
+  projectileData: {fileID: 11400000, guid: ec51828e1bc884f4e9390128a8fc3a4a, type: 2}
+  relativePos: {x: 0, y: 4, z: 0}
+  Transform_SpawnPos: {x: -35, y: 0, z: 0}
+  attributeData:
+    nowData:
+      nowHP: 0
+      isAutoNowHP: 1
+      nowMP: 0
+      isAutoNowMP: 1
+    fixedData:
+      maxHP:
+        baseAttribute: 30
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 30
+      maxMP:
+        baseAttribute: 20
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 20
+      atk:
+        baseAttribute: 5
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 5
+      def:
+        baseAttribute: 2
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 2
+      ap:
+        baseAttribute: 12
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 12
+      shieldValue: 0
+      atkSpeed: 0.5
+      moveSpeed: 2
+      atkRange: 25
+      critChance: 0
+      critDamage: 2
+      dodgeChance: 0
+  List_AbilityData: []
+  grade: 0
+  profession: 0
+  star: 0

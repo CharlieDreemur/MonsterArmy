@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5e1ecf346ec33747974571a5f90ec65, type: 3}
+  m_Name: Ability.Poison
+  m_EditorClassIdentifier: 
+  baseInfo:
+    ID: 0001
+    name: Poison Attack
+    description: 
+  abilityType: 0
+  costType: 1
+  costValue: 5
+  cooldown: 6
+  releaseType: 1
+  channelTime: 1
+  animationType: 9
+  targetChooser:
+    effectTargetChooser: 1
+    effectTargetNumber: 0
+    effectTargetType: 0
+    targetNumber: 1
+    isTargetAll: 0
+    range: 20
+    isRangeInfinity: 0
+  List_VFX:
+  - prefab: {fileID: 6887227890853314882, guid: 9271a8ee1686fa249819d5cbd0ea0812, type: 3}
+    locationType: 1
+    relativeposition: {x: 0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    speed: 0
+    startDelay: 0
+  List_GameEffectData:
+  - {fileID: 11400000, guid: c5379be162ff6604a8b75e5084edbe6d, type: 2}
+  - {fileID: 11400000, guid: 70234e858b1d9364996088b96db5efc3, type: 2}

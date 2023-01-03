@@ -1,0 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class #SCRIPTNAME# : MonoBehaviour
+{
+    [Header("Set in the Inspector")]
+    [Header("Set Dynamically")]
+    public string fileName = "#SCRIPTNAME#";
+}

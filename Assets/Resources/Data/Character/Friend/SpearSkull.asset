@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9127a30d05b153743a8ba38436fac346, type: 3}
+  m_Name: SpearSkull
+  m_EditorClassIdentifier: 
+  baseInfo:
+    ID: 005
+    name: "\u957F\u77DB\u9AB7\u9AC5"
+    description: 
+  prefab: {fileID: 5050676834862559169, guid: 57b85811a37504f4cb99cecdb7c5840e, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  material: {fileID: 2100000, guid: 8a37d575fdee5064492410056578aac6, type: 2}
+  scale: {x: 8, y: 8, z: 0}
+  attackType: 1
+  attackAnimationType: 0
+  projectileData: {fileID: 0}
+  relativePos: {x: 0, y: 0, z: 0}
+  Transform_SpawnPos: {x: -25, y: -5, z: 0}
+  attributeData:
+    nowData:
+      nowHP: 0
+      isAutoNowHP: 1
+      nowMP: 0
+      isAutoNowMP: 1
+    fixedData:
+      maxHP:
+        baseAttribute: 25
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 25
+      maxMP:
+        baseAttribute: 20
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 20
+      atk:
+        baseAttribute: 4
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 4
+      def:
+        baseAttribute: 2
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 2
+      ap:
+        baseAttribute: 0
+        addAttribute: 0
+        pctAddAttribute: 0
+        finalAttribute: 0
+      shieldValue: 0
+      atkSpeed: 0
+      moveSpeed: 2
+      atkRange: 5
+      critChance: 0
+      critDamage: 2
+      dodgeChance: 0
+  List_AbilityData: []
+  grade: 0
+  profession: 0
+  star: 0

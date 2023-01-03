@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0cd24d2fc2303041a49e5c5173d8680, type: 3}
+  m_Name: GE.Poison.Buff
+  m_EditorClassIdentifier: 
+  baseInfo:
+    ID: 0001
+    name: GE.Poison.Buff
+    description: Give a Poison Buff
+  effectTime: 0
+  durationTime: 5
+  effectType: 1
+  hurtOrHeal: 0
+  projectileData: {fileID: 0}
+  buffData:
+  - {fileID: 11400000, guid: 40c825c6e018e6a4b9fd60ff86881f9f, type: 2}
+  startEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  chantEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  endEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  attributeDataGE:
+    baseValue: 1
+    pctType: 1
+    pctValue: 20

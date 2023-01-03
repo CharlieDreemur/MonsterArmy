@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5e1ecf346ec33747974571a5f90ec65, type: 3}
+  m_Name: Ability.RangedDamage
+  m_EditorClassIdentifier: 
+  baseInfo:
+    ID: 0001
+    name: "\u6D4B\u8BD5\u7528\u8303\u56F4\u4F24\u5BB3"
+    description: "\u5728\u4E00\u5B9A\u5706\u5F62\u534A\u5F84\u5185\u5BF9\u6240\u6709\u654C\u4EBA\u9020\u6210\u4F24\u5BB3"
+  abilityType: 0
+  costType: 1
+  costValue: 10
+  cooldown: 10
+  releaseType: 1
+  channelTime: 1
+  animationType: 6
+  targetChooser:
+    effectTargetChooser: 5
+    effectTargetNumber: 1
+    effectTargetType: 0
+    targetNumber: 1
+    isTargetAll: 1
+    range: 10
+    isRange: 1
+  List_Vfx: []
+  List_GameEffectData:
+  - {fileID: 11400000, guid: 7be92ed36127d4540b1e9fb0d53a0388, type: 2}
