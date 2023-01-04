@@ -10,7 +10,7 @@ using Sirenix.OdinInspector;
 public class ICharacterAttribute : MonoBehaviour
 {
 [ShowInInspector] [Sirenix.OdinInspector.ReadOnly] [Tooltip("角色各自的数据和他们的data文件是解绑的，是复制的关系而不是引用的关系。")]
-public ICharacterData data; 
+public EntityData data; 
 #region PrivateProperty
     protected string characterName;
     protected Color color = Color.white;
@@ -67,7 +67,7 @@ public ICharacterData data;
     /// 按照data来初始化所有角色属性
     /// </summary>
     /// <param name="data"></param>
-    public virtual void Init(ICharacterData data){
+    public virtual void Init(EntityData data){
         this.data = data;
         characterName = data.name;
         Color = data.color;

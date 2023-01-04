@@ -13,7 +13,7 @@ public class Enemy : Entity
       [FoldoutGroup("角色基本信息")]
       public new EnemyData data;
   
-      public override void Init(ICharacterData data){
+      public override void Init(EntityData data){
 
         this.data = data as EnemyData;
         //Debug.Log("Enemy.Init()");

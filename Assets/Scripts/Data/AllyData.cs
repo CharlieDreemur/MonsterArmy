@@ -36,7 +36,7 @@ public enum Enum_Star{
 [CreateAssetMenu(fileName = "FriendData", menuName = "TheMonsterArmy/ScriptableObject/FriendData", order = 0)]
 //每个character的初始属性
 //[read only]
-public class FriendData : ICharacterData {
+public class AllyData : EntityData {
     [FoldoutGroup("英雄类型")]
     public Enum_Grade grade = Enum_Grade.none; //品质
     [FoldoutGroup("英雄类型")]

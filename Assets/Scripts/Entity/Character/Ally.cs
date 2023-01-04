@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class Friend : Entity
+public class Ally : Entity
 
 {
     // //创建时自动绑定
@@ -11,9 +11,9 @@ public class Friend : Entity
     //     Init(_obj, _charData);
     // }
     [FoldoutGroup("角色基本信息")]
-    public new FriendData data;
-    public override void Init(ICharacterData data){
-        this.data = data as FriendData;
+    public new AllyData data;
+    public override void Init(EntityData data){
+        this.data = data as AllyData;
         type_Character = Enum_Character.Character;
         SetCharacterAttribute(GetComponent<CharacterAttribute>());
         base.Init(data);

@@ -15,8 +15,8 @@ public class CharacterAttribute : ICharacterAttribute
         }
     }
 
-    public override void Init(ICharacterData data){
-        Star = (data as FriendData).star;
+    public override void Init(EntityData data){
+        Star = (data as AllyData).star;
         base.Init(data);
     }
 

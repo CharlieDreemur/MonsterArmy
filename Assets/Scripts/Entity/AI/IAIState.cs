@@ -28,7 +28,7 @@ public abstract class IAIState
          //找出最近的目标
         Vector3 NowPosition = charAI.GetPosition();
         Entity theNearTarget = null;
-        float MinDist = FriendData.CONST_DETECT_RANGE;
+        float MinDist = AllyData.CONST_DETECT_RANGE;
         foreach(Entity Target in Targets){
             //已经阵亡的不计算
             if(Target.IsKilled()){

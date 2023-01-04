@@ -10,7 +10,7 @@ public class EntityManager: Singleton<EntityManager>
     [Header("Set in the Inspector")]
     [Header("Set Dynamically")]
 
-    public List<FriendData> List_FriendData = new List<FriendData>();
+    public List<AllyData> List_FriendData = new List<AllyData>();
     public List<EnemyData> List_EnemyData = new List<EnemyData>();
     public Dictionary<int, Entity> Dic_ICharController = new Dictionary<int, Entity>();
     public List<Entity> List_Friend = new List<Entity>(); //玩家方所有单位的List
@@ -20,7 +20,7 @@ public class EntityManager: Singleton<EntityManager>
     public void Init()
     {   
         for(int i = 0; i<List_FriendData.Count;i++){
-            InitiateFriend(i);
+            InitiateAlly(i);
         }
 
         for(int i = 0; i<List_EnemyData.Count;i++){
@@ -58,7 +58,7 @@ public class EntityManager: Singleton<EntityManager>
         foreach(Entity item in _Dic_ICharController.Values){
             switch (item.type_Character){
                 case Enum_Character.Character:
-                    List_Friend.Add(item as Friend);
+                    List_Friend.Add(item as Ally);
                     break;
                 case Enum_Character.Enemy:
                     List_Enemy.Add(item as Enemy);
@@ -71,15 +71,15 @@ public class EntityManager: Singleton<EntityManager>
     /*
     @function 实例化一个GameObject, 添加对应的Character和CharacterAI到字典
     */
-    public void InitiateFriend(int index){
+    public void InitiateAlly(int index){
         if(List_FriendData[index]==null){
             Debug.LogWarning("没有对应的CharData");
             return;
         }
-        GameObject Obj_char = InitiateCharacter(List_FriendData[index].Prefab, index);
+        GameObject Obj_char = InitiateEntity(List_FriendData[index].Prefab, index);
         
         //Character charController = new Character(Obj_char, List_CharData[index]);
-        Friend charController = Obj_char.AddComponent<Friend>();        
+        Ally charController = Obj_char.AddComponent<Ally>();        
         CharacterAttribute charAttr = Obj_char.AddComponent<CharacterAttribute>();    
         if(parent != null){
             Obj_char.transform.SetParent(parent);
@@ -99,7 +99,7 @@ public class EntityManager: Singleton<EntityManager>
             Debug.LogWarning("没有对应的EnemyData");
              return;
         }
-        GameObject Obj_char = InitiateCharacter(List_EnemyData[index].Prefab, index);
+        GameObject Obj_char = InitiateEntity(List_EnemyData[index].Prefab, index);
         //Enemy enemyController = new Enemy(Obj_char, List_EnemyData[index]);
         Enemy enemyController = Obj_char.AddComponent<Enemy>();
         EnemyAttribute charAttr = Obj_char.AddComponent<EnemyAttribute>(); 
@@ -112,7 +112,7 @@ public class EntityManager: Singleton<EntityManager>
     }
 
     //上面两个的公用部分
-    public GameObject InitiateCharacter(GameObject prefab, int index){
+    public GameObject InitiateEntity(GameObject prefab, int index){
         if(prefab == null){
             Debug.LogWarning(this.name+"没有对应index的prefabs");
             return null;
@@ -127,7 +127,7 @@ public class EntityManager: Singleton<EntityManager>
     /*
     @function 删除一个索引为指定ID/Key的元素
     */
-    public void RemoveCharacterWithID(int ID){
+    public void RemoveEntityWithID(int ID){
         if(!Dic_ICharController.ContainsKey(ID)){
             Debug.LogWarning(this.name+"Dic_ICharController没有key为该ID的元素");
             return;
@@ -138,7 +138,7 @@ public class EntityManager: Singleton<EntityManager>
       /*
     @function 删除一个索引为指定ID/Key的元素
     */
-    public void RemoveCharacterWithValue(Entity IChar){
+    public void RemoveEntityWithValue(Entity IChar){
         if(!Dic_ICharController.ContainsValue(IChar)){
             Debug.LogWarning(this.name+"Dic_ICharController没有value为该IChar的元素");
             return;
@@ -163,15 +163,15 @@ public class EntityManager: Singleton<EntityManager>
     /*
     @function 获取对应ID的Icharacter
     */
-    public Entity GetCharacter(int ID){
+    public Entity GetEntity(int ID){
         return Dic_ICharController[ID];
     }
 
     /*
     @function 获取对应obj的Icharacter
     */
-    public Entity GetCharacter(GameObject obj){
-        return GetCharacter(obj.GetInstanceID());
+    public Entity GetEntity(GameObject obj){
+        return GetEntity(obj.GetInstanceID());
     }
 
 }

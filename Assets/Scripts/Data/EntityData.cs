@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 
 
 [System.Serializable]
-public abstract class ICharacterData : IDataWithPrefab
+public abstract class EntityData : IDataWithPrefab
 {
     public DataBaseInfo baseInfo;
 

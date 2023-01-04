@@ -16,7 +16,7 @@ public class CharacterDebugger : MonoBehaviour
     }
 
     void Start(){
-        charController = manager.GetCharacter(gameObject);
+        charController = manager.GetEntity(gameObject);
         
         charAttr = charController.GetCharacterAttribute();
     }

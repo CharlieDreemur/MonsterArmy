@@ -11,7 +11,7 @@ using Sirenix.OdinInspector;
 public abstract class Entity : MonoBehaviour
 {
     [FoldoutGroup("角色基本信息")]
-    public ICharacterData data;
+    public EntityData data;
     public Enum_Character type_Character = Enum_Character.ICharacter;
     [FoldoutGroup("角色基本资源")]
     public Texture2D Icon;
@@ -85,7 +85,7 @@ public abstract class Entity : MonoBehaviour
     
 
     }
-    public virtual void Init(ICharacterData data)
+    public virtual void Init(EntityData data)
     {
         GetCharacterAttribute().Init(data);
         SetAI(new CharacterAI(this));
@@ -260,7 +260,7 @@ public abstract class Entity : MonoBehaviour
         return spriteRenderer;
     }
 
-    public ICharacterData GetCharacterData()
+    public EntityData GetCharacterData()
     {
         return charAttr.data;
     }

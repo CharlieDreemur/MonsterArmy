@@ -12,7 +12,7 @@ public enum Enum_Enemy{
 }
 
 [CreateAssetMenu(fileName = "EnemyData", menuName = "TheMonsterArmy/ScriptableObject/EnemyData", order = 1)]
-public class EnemyData : ICharacterData
+public class EnemyData : EntityData
 {
     [FoldoutGroup("敌方类型")]
     public Enum_Enemy type_enemy = Enum_Enemy.pawn;
