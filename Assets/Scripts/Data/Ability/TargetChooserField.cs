@@ -8,7 +8,7 @@ using System;
 public enum Enum_EffectTargetType{
     enemy, //敌方
 
-    friend, //友方
+    ally, //友方
 }
 
 [EnumToggleButtons]

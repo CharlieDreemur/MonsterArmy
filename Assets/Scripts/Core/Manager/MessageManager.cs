@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MessageBoard : Singleton<MessageBoard>
+public class MessageManager : Singleton<MessageManager>
 {
     private string currentText;
     public Text messageText;
-    public bool isData;
-    public string AddMessage(string content){
+    public bool isPrintTime;
+    public static string AddMessage(string content){
+        return Instance.PrintMessage(content);
+    }
+    private string PrintMessage(string content){
         string prefix = null;
-        if(isData){
+        if(isPrintTime){
             prefix = "["+System.DateTime.Now.ToString("HH;mm:ss")+"]";
         }
         if(currentText == null){

@@ -31,7 +31,7 @@ public abstract class Singleton<T> : Singleton where T : SerializedMonoBehaviour
         {
             if (Quitting)
             {
-                Debug.LogWarning($"[{nameof(Singleton)}<{typeof(T)}>] Instance will not be returned because the application is quitting.");
+                //Debug.LogWarning($"[{nameof(Singleton)}<{typeof(T)}>] Instance will not be returned because the application is quitting.");
                 // ReSharper disable once AssignNullToNotNullAttribute
                 return null;
             }

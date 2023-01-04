@@ -12,7 +12,7 @@ public class EventManager : Singleton<EventManager>
 {
     [ShowInInspector]
     private Dictionary<string, SEvent>eventDictionary;
-
+    public bool isPrintMessage = true;
     public void Init()
     {
         if (eventDictionary == null)
@@ -20,7 +20,12 @@ public class EventManager : Singleton<EventManager>
             eventDictionary = new Dictionary<string, SEvent>();
         }
     }
-
+    private void OnDisable() {
+        foreach(var item in eventDictionary){
+            if(item.Value == null) return;
+            item.Value.RemoveAllListeners();
+        }
+    }
 
     public static void StartListening(string eventName, UnityAction<string> listener){
         if(Instance == null){
@@ -43,6 +48,10 @@ public class EventManager : Singleton<EventManager>
             //Debug.LogWarning("EventManager does not init");
             return;
         }
+        if (!Instance.enabled){
+            Debug.LogWarning("EventManager disabled");
+            return;
+        }
         SEvent thisEvent = null;
         if(Instance.eventDictionary.TryGetValue(eventName, out thisEvent)){
             thisEvent.RemoveListener(listener);
@@ -52,6 +61,9 @@ public class EventManager : Singleton<EventManager>
     public static void TriggerEvent(string eventName, string value){
         SEvent thisEvent = null;
         if(Instance.eventDictionary.TryGetValue(eventName, out thisEvent)){
+            if(Instance.isPrintMessage){
+                MessageManager.AddMessage($"Call [{eventName}]");
+            }
             thisEvent.Invoke(value);
         }
         else{
@@ -59,5 +71,5 @@ public class EventManager : Singleton<EventManager>
         }
     }
 
-
+    
 }

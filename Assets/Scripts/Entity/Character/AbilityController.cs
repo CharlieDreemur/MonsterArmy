@@ -17,7 +17,7 @@ public class AbilityController
     public List<Entity> List_Enemy = null;
 
     [ShowInInspector] [LabelText("友方列表")]
-    public List<Entity> List_Friend = null;
+    public List<Entity> List_Ally = null;
 
     [ShowInInspector] [LabelText("Buff列表")] 
 
@@ -27,15 +27,15 @@ public class AbilityController
     public List<Ability> List_Ability = new List<Ability>(); //关于Ability的List
     
 
-    public AbilityController(Entity character, List<Entity> List_Enemy,  List<Entity> List_Friend){
+    public AbilityController(Entity character, List<Entity> List_Enemy,  List<Entity> List_Ally){
         SetCharacter(character);
         SetEnemyList(List_Enemy);
-        SetFriendList(List_Friend);
+        SetAllyList(List_Ally);
     }
 
-    public void UpdateTargets(List<Entity> List_Enemy,  List<Entity> List_Friend){
+    public void UpdateTargets(List<Entity> List_Enemy,  List<Entity> List_Ally){
         SetEnemyList(List_Enemy);
-        SetFriendList(List_Friend);
+        SetAllyList(List_Ally);
     }
 
 
@@ -61,21 +61,21 @@ public class AbilityController
     }
 
     /// <summary>
-    /// 设置Friend目标列表
+    /// 设置Ally目标列表
     /// </summary>
-    /// <param name="List_Friend"></param>
-    public void SetFriendList(List<Entity> List_Friend)
+    /// <param name="List_Ally"></param>
+    public void SetAllyList(List<Entity> List_Ally)
     {
-        this.List_Friend = List_Friend;
+        this.List_Ally = List_Ally;
     }
 
     /// <summary>
-    /// 获取Friend目标列表
+    /// 获取Ally目标列表
     /// </summary>
     /// <returns></returns>
-    public List<Entity> GetFriendList()
+    public List<Entity> GetAllyList()
     {
-        return this.List_Friend;
+        return this.List_Ally;
     }
 
     /// <summary>

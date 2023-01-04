@@ -2,29 +2,34 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 //所有管理projectile的public方法
-public class ProjectileManager: Singleton<ProjectileManager>
+public class ProjectileManager: Singleton<ProjectileManager>, IManager
 {
   //public static Transform parent;
   ObjectPooler objectPooler;
-  void Awake() {
-    //parent = gameObject.transform;
-  }
-
-  private void Start() {
+  private UnityAction<string> instantiateProjectileAction;
+  protected override void OnAwake() {
+    instantiateProjectileAction = new UnityAction<string>(CreateProjectile);
     objectPooler = ObjectPooler.Instance;
   }
-  void OnEnable() {
-    Entity.Event_Shoot+=Event_OnShoot;
+
+  public void Init(){
+    EventManager.StartListening("InstantiateProjectile", instantiateProjectileAction);
   }
 
   void OnDisable() {
-    Entity.Event_Shoot-=Event_OnShoot;
+    EventManager.StopListening("InstantiateProjectile", instantiateProjectileAction);
+    Debug.Log("ProjectileManager OnDisable");
   }
   
+  public static void CreateProjectile(string jsonValue){
+    ProjectileArgs args = JsonUtility.FromJson<ProjectileArgs>(jsonValue);
+    CreateProjectile(args);
+  }
   //当检测到射击事件时
-  private static void Event_OnShoot(object sender, ProjectileArgs e){
+  private static void CreateProjectile(ProjectileArgs e){
     Vector3 pos = e.attacker.GetCharacterData().relativePos;
     if(e.attacker.characterDirection == Enum_CharacterDirection.right){
        e.projectileBirthPos = e.GetAttackerPosition()+ pos;

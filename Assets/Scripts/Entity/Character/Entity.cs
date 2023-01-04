@@ -46,7 +46,7 @@ public abstract class Entity : MonoBehaviour
     [FoldoutGroup("角色细节数据")]
     public float HurtTimerLength = 0.3f; //受伤计时器的默认时间长度
 
-    public static event EventHandler<ProjectileArgs> Event_Shoot;
+    //public static event EventHandler<ProjectileArgs> Event_Shoot;
 
 
     [ShowInInspector] [FoldoutGroup("角色战斗数据")] [InlineProperty] [HideLabel]
@@ -387,8 +387,8 @@ public abstract class Entity : MonoBehaviour
     {   
         FaceEnemy(target.GetPosition());
         AttackAnimation(GetCharacterData().attackAnimationType);
-        ProjectileArgs character_OnShoot = new ProjectileArgs(this, target, charAttr.projectileData);
-        Action action = ()=>Event_Shoot(this, character_OnShoot);
+        ProjectileArgs projectileArgs = new ProjectileArgs(this, target, charAttr.projectileData);
+        Action action = ()=>EventManager.TriggerEvent("InstantiateProjectile", JsonUtility.ToJson(projectileArgs));
         Tool_Timer.DelayToInvokeBySecond(action, charAttr.attributeData.fixedData.AtkInterval*0.6f);
     }
 
@@ -450,10 +450,10 @@ public abstract class Entity : MonoBehaviour
     [Button("Suicide")] 
     public void Killed()
     {
-        MessageBoard.Instance.AddMessage(Name+"已死亡");
+        MessageManager.AddMessage(Name+"已死亡");
         isKilled = true;
         SetAI(null);
-        //animator.Play("Death", 0, 0);
+        StopAllCoroutines();
         charAnimation.PlayAnimation(Enum_AnimationType.Death);
         StartCoroutine(DeathWait(charAnimation.DeathAnimationLength));
     }

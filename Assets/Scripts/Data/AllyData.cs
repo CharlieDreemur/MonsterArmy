@@ -33,7 +33,7 @@ public enum Enum_Star{
     four,
     five,
 }
-[CreateAssetMenu(fileName = "FriendData", menuName = "TheMonsterArmy/ScriptableObject/FriendData", order = 0)]
+[CreateAssetMenu(fileName = "AllyData", menuName = "TheMonsterArmy/EntitySystem/AllyData", order = 0)]
 //每个character的初始属性
 //[read only]
 public class AllyData : EntityData {

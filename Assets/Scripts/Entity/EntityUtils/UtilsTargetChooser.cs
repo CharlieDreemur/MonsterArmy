@@ -14,7 +14,7 @@ public static class UtilsTargetChooser
     /// Target选择器，按照条件选择，返回List<ICharacter>，用List<ICharacter>[0]来获取单体目标
     /// </summary>
     /// <returns></returns>
-    public static List<Entity> ChooseTarget(TargetChooserField chooser, Entity character, List<Entity> enemys, List<Entity> friends) 
+    public static List<Entity> ChooseTarget(TargetChooserField chooser, Entity character, List<Entity> enemys, List<Entity> allies) 
     {
         List<Entity> List_Return = new List<Entity>();
         switch (chooser.effectTargetChooser)
@@ -28,8 +28,8 @@ public static class UtilsTargetChooser
                         List_Return = UtilsTargetChooser.FindClosest(character, enemys, chooser.targetNumber,  chooser.isTargetAll,  chooser.isRangeInfinity,  chooser.range);
                         break;
 
-                    case Enum_EffectTargetType.friend:
-                        List_Return = UtilsTargetChooser.FindClosest(character, friends,  chooser.targetNumber,  chooser.isTargetAll,  chooser.isRangeInfinity,  chooser.range);
+                    case Enum_EffectTargetType.ally:
+                        List_Return = UtilsTargetChooser.FindClosest(character, allies,  chooser.targetNumber,  chooser.isTargetAll,  chooser.isRangeInfinity,  chooser.range);
                         break;
                 }
 
@@ -40,8 +40,8 @@ public static class UtilsTargetChooser
                     case Enum_EffectTargetType.enemy:
                         List_Return = UtilsTargetChooser.FindFarest(character, enemys,  chooser.targetNumber,  chooser.isTargetAll,  chooser.isRangeInfinity,  chooser.range);
                         break;
-                    case Enum_EffectTargetType.friend:
-                        List_Return = UtilsTargetChooser.FindFarest(character, friends,  chooser.targetNumber,  chooser.isTargetAll,  chooser.isRangeInfinity,  chooser.range);
+                    case Enum_EffectTargetType.ally:
+                        List_Return = UtilsTargetChooser.FindFarest(character, allies,  chooser.targetNumber,  chooser.isTargetAll,  chooser.isRangeInfinity,  chooser.range);
                         break;
                 }
 
@@ -53,8 +53,8 @@ public static class UtilsTargetChooser
                         List_Return = UtilsTargetChooser.FindLeastHP(character, enemys,  chooser.targetNumber, chooser.isTargetAll, chooser.isRangeInfinity, chooser.range);
                         break;
 
-                    case Enum_EffectTargetType.friend:
-                        List_Return = UtilsTargetChooser.FindLeastHP(character, friends, chooser.targetNumber, chooser.isTargetAll, chooser.isRangeInfinity, chooser.range);
+                    case Enum_EffectTargetType.ally:
+                        List_Return = UtilsTargetChooser.FindLeastHP(character, allies, chooser.targetNumber, chooser.isTargetAll, chooser.isRangeInfinity, chooser.range);
                         break;
                 }
                 break;
@@ -64,8 +64,8 @@ public static class UtilsTargetChooser
                     case Enum_EffectTargetType.enemy:
                         List_Return = UtilsTargetChooser.FindMostHP(character, enemys, chooser.targetNumber, chooser.isTargetAll, chooser.isRangeInfinity, chooser.range);
                         break;
-                    case Enum_EffectTargetType.friend:
-                        List_Return = UtilsTargetChooser.FindMostHP(character, friends, chooser.targetNumber, chooser.isTargetAll, chooser.isRangeInfinity, chooser.range);
+                    case Enum_EffectTargetType.ally:
+                        List_Return = UtilsTargetChooser.FindMostHP(character, allies, chooser.targetNumber, chooser.isTargetAll, chooser.isRangeInfinity, chooser.range);
                         break;
                 }
                 break;
@@ -75,8 +75,8 @@ public static class UtilsTargetChooser
                     case Enum_EffectTargetType.enemy:
                         List_Return = UtilsTargetChooser.FindInRange(character, enemys, chooser.range);
                         break;
-                    case Enum_EffectTargetType.friend:
-                        List_Return = UtilsTargetChooser.FindInRange(character, friends, chooser.range);
+                    case Enum_EffectTargetType.ally:
+                        List_Return = UtilsTargetChooser.FindInRange(character, allies, chooser.range);
                         break;
                 }
                 break;

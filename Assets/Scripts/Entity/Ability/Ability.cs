@@ -174,7 +174,7 @@ public class Ability : IAbility
         AbilityCost();
         abilityState = Enum_AbilityState.channel;
         foreach(Entity target in List_Target){
-            MessageBoard.Instance.AddMessage(character.Name+"对"+target.Name+"释放了"+abilityData.baseInfo.name);
+            MessageManager.AddMessage(character.Name+"对"+target.Name+"释放了"+abilityData.baseInfo.name);
         }
         //播放角色释放技能的动画
         character.GetCharacterAnimation().PlayAnimationInLength(abilityData.animationType, abilityData.channelTime);
@@ -203,7 +203,7 @@ public class Ability : IAbility
             return;
         }
         abilityState = Enum_AbilityState.channel;
-        MessageBoard.Instance.AddMessage(character.Name+"对"+List_Target[0].Name+"释放了"+abilityData.baseInfo.name);
+        MessageManager.AddMessage(character.Name+"对"+List_Target[0].Name+"释放了"+abilityData.baseInfo.name);
         //播放角色释放技能的动画
         character.GetCharacterAnimation().PlayAnimationInLength(abilityData.animationType, abilityData.channelTime);
         //对于引导技能，延时调用
@@ -350,7 +350,7 @@ public class Ability : IAbility
 
     public List<Entity> ChooseTarget()
     {
-        return UtilsTargetChooser.ChooseTarget(abilityData.targetChooser, character, character.GetCharacterAbility().GetEnemyList(), character.GetCharacterAbility().GetFriendList());
+        return UtilsTargetChooser.ChooseTarget(abilityData.targetChooser, character, character.GetCharacterAbility().GetEnemyList(), character.GetCharacterAbility().GetAllyList());
     }
     
     

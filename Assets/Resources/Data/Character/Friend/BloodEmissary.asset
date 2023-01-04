@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9127a30d05b153743a8ba38436fac346, type: 3}
+  m_Script: {fileID: 11500000, guid: 879f5e1ffe5c7b147968fb5a374a530f, type: 3}
   m_Name: BloodEmissary
   m_EditorClassIdentifier: 
   baseInfo:

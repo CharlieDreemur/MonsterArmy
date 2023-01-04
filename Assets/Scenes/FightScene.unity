@@ -160,7 +160,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 5}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &63632323
 MonoBehaviour:
@@ -212,9 +212,10 @@ GameObject:
   m_Component:
   - component: {fileID: 87797046}
   - component: {fileID: 87797052}
+  - component: {fileID: 87797051}
   - component: {fileID: 87797047}
   - component: {fileID: 87797050}
-  - component: {fileID: 87797051}
+  - component: {fileID: 87797053}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -302,15 +303,15 @@ MonoBehaviour:
       Data: 
   _persistent: 1
   setupData: {fileID: 11400000, guid: 4bca1f1ffc429004b833ec2ef4257305, type: 2}
-  List_FriendData:
-  - {fileID: 11400000, guid: d6c9393237bd8f04faf3bb0397ab7f07, type: 2}
+  List_AllyData:
+  - {fileID: 11400000, guid: 4ff683e766f34304c8a9ace8872d90dd, type: 2}
   - {fileID: 11400000, guid: 67147af3b6b5ee24684759dbb7e5e6d1, type: 2}
   - {fileID: 11400000, guid: e7d34b9ce12d1c94a8f6b138bd23f6ce, type: 2}
   List_EnemyData:
   - {fileID: 11400000, guid: 0e8eb3a7bf4c385409caac2f2a91ba75, type: 2}
   - {fileID: 11400000, guid: dcc816fe1a55fef4ba5eaa6c5c3a157a, type: 2}
   - {fileID: 11400000, guid: 66f2524ff7716b34cb1247d8450b3909, type: 2}
-  List_Friend: []
+  List_Ally: []
   List_Enemy: []
   parent: {fileID: 0}
 --- !u!114 &87797051
@@ -335,6 +336,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _persistent: 1
+  isPrintMessage: 1
 --- !u!114 &87797052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,6 +347,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe39fb557f7a6aa48bd157630fc0bbcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _persistent: 1
+--- !u!114 &87797053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87797045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5967ee936ff223943b5a49af7f602b26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -970,7 +994,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1563362791}
-  - component: {fileID: 1563362790}
   m_Layer: 0
   m_Name: Projectiles
   m_TagString: Untagged
@@ -978,28 +1001,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1563362790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563362789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5967ee936ff223943b5a49af7f602b26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  _persistent: 1
 --- !u!4 &1563362791
 Transform:
   m_ObjectHideFlags: 0
@@ -1026,6 +1027,7 @@ GameObject:
   - component: {fileID: 1751087867}
   - component: {fileID: 1751087869}
   - component: {fileID: 1751087868}
+  - component: {fileID: 1751087870}
   m_Layer: 5
   m_Name: MessageBoard
   m_TagString: Untagged
@@ -1092,6 +1094,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751087866}
   m_CullTransparentMesh: 1
+--- !u!114 &1751087870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751087866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb3dc1410092834d815b955c538dd0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _persistent: 1
+  messageText: {fileID: 2040659163}
+  isPrintTime: 0
 --- !u!1 &2017678610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1228,6 @@ GameObject:
   - component: {fileID: 2040659161}
   - component: {fileID: 2040659164}
   - component: {fileID: 2040659163}
-  - component: {fileID: 2040659162}
   - component: {fileID: 2040659165}
   m_Layer: 5
   m_Name: Text
@@ -1226,35 +1251,11 @@ RectTransform:
   m_Father: {fileID: 63632322}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 295, y: 0}
-  m_SizeDelta: {x: 300, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 295, y: -5}
+  m_SizeDelta: {x: 300, y: 20}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &2040659162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2040659160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05e89dfef2073e44da072f617cf5f649, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  _persistent: 1
-  messageText: {fileID: 2040659163}
-  isData: 0
 --- !u!114 &2040659163
 MonoBehaviour:
   m_ObjectHideFlags: 0

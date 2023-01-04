@@ -5,14 +5,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
 
-public class DamageTextManager : Singleton<DamageTextManager>
+public class DamageTextManager : Singleton<DamageTextManager>, IManager
 {
     private UnityAction<string> action;
     public static DamageTextData data;
     protected override void OnAwake(){  
         data = Resources.Load("Data/UI/DamageTextData") as DamageTextData;
         action = new UnityAction<string>(Create);
-        
     }
 
     public void Init(){
