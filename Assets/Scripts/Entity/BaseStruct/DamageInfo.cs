@@ -18,9 +18,8 @@ public struct DamageInfo
 {
     public DamageInfo(
         float damage,
-        Entity instigator = null, 
+        Entity instigator, 
         float knockback = 0.0f,
-        //List<BuffFactory> buffsToApplyIn = null,
         DamageType damageType = DamageType.AttackDamage
     )
     {
@@ -29,7 +28,7 @@ public struct DamageInfo
         this.damage = damage;
         this.knockback = knockback;
 
-        this.instigator = instigator;
+        this.attacker = instigator;
         this.damageType = damageType;
         /*
         if (buffsToApplyIn is null)
@@ -46,19 +45,7 @@ public struct DamageInfo
     public float knockback;
     //public List<BuffFactory> BuffsToApply;
     public DamageType damageType;
-    private Entity instigator;
+    public Entity attacker;
 
-    /*public Entity Instigator
-    {
-        get
-        {
-            if (instigator is null)
-            {
-                //Debug.LogWarning("Warning: Instigator is null!");
-            }
-            return instigator;
-        }
-        set => instigator = value;
-    }
-    */
+    
 }

@@ -65,11 +65,11 @@ public class EntityManager: Singleton<EntityManager>, IManager
                 continue;
             }
             //更新目标
-            switch (item.type_Character){
-                case Enum_Character.Character:
+            switch (item.entityType){
+                case EntityType.Ally:
                     item.GetCharacterAbility().UpdateTargets(List_Enemy, List_Ally);
                     break;
-                case Enum_Character.Enemy:
+                case EntityType.Enemy:
                     item.GetCharacterAbility().UpdateTargets(List_Ally, List_Enemy);
                     break;
             }
@@ -84,11 +84,11 @@ public class EntityManager: Singleton<EntityManager>, IManager
         List_Ally.Clear();
         List_Enemy.Clear();
         foreach(Entity item in _Dic_ICharController.Values){
-            switch (item.type_Character){
-                case Enum_Character.Character:
+            switch (item.entityType){
+                case EntityType.Ally:
                     List_Ally.Add(item as Ally);
                     break;
-                case Enum_Character.Enemy:
+                case EntityType.Enemy:
                     List_Enemy.Add(item as Enemy);
                     break;
             }
@@ -113,7 +113,7 @@ public class EntityManager: Singleton<EntityManager>, IManager
         GameObject Obj_char = InitiateEntity(data.Prefab);
         if (Obj_char == null) return;
         Ally charController = Obj_char.AddComponent<Ally>();        
-        CharacterAttribute charAttr = Obj_char.AddComponent<CharacterAttribute>();    
+        AllyAttribute charAttr = Obj_char.AddComponent<AllyAttribute>();    
         if(parent != null){
             Obj_char.transform.SetParent(parent);
         }

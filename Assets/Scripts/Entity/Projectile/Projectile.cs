@@ -2,203 +2,292 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+using UnityEngine.Events;
+using System.Reflection;
 using Sirenix.OdinInspector;
 
-public class Projectile : MonoBehaviour, IPooledObject
-{   
-    public ProjectileArgs EventOnShoot;
-    private Vector3 direction;
+public enum ProjectileTrackType {straight, homing, parabola }
 
-    [ShowInInspector]
-    private IProjectileTrack projectileTrack;
-    private int ID;
-    private Rigidbody2D rigidBody2D;
-    private ETFXProjectile ETFX ;
-    private Tween tween; //DoTween的进程
+//WAY too much abstraction 
 
-    /// <summary>
-    /// Awake里的只会触发一次，不会在每次重新生成的时候再触发
-    /// </summary>
-    public void Awake(){
-        rigidBody2D = gameObject.GetComponent<Rigidbody2D>();
-        ETFX = GetComponent<ETFXProjectile>();
+//Everything needed for instantiate a projectile that given not by projectile itself and need to set by outer classes
+[System.Serializable]
+public class ProjectileArgs:EventArgs{
+public bool isInit;
+    
+    public ProjectileArgs(
+        ProjectileData data, 
+        Vector3 spawnPos, 
+        DamageInfo damageInfo, 
+        Entity target
+        )
+    {
+        this.data = data;
+        this.spawnPos = spawnPos;
+        this.damageInfo = damageInfo;
+        this.target = target;
+        this.direction =  UtilsClass.GetPosToDirection(damageInfo.attacker.transform.position, target.transform.position);
+        isInit = true;
     }
-    public void OnObjectSpawn(){
-        StartCoroutine("LifeCycleTimer", GetProjectileData().lifeCycle); //启动生命周期计时器
-        //Action_projectile();
-        if(projectileTrack == null){
-            Debug.LogWarning("ProjectileTrack does not exist");
-            return;
+    public ProjectileArgs(
+        ProjectileData data, 
+        Vector3 spawnPos, 
+        DamageInfo damageInfo, 
+        Vector3 direction, 
+        Entity target = null
+        )
+    {
+        this.data = data;
+        this.spawnPos = spawnPos;
+        this.damageInfo = damageInfo;
+        this.direction = direction;
+        this.target = target;
+
+        isInit = true;
+    }
+
+    public ProjectileData Data
+    {
+        get
+        {
+            if (data is null)
+            {
+                Debug.LogWarning("Warning: ProjectileArgs.data is null!");
+            }
+            return data;
+        }
+        set => data = value;
+    }
+    public DamageInfo damageInfo;
+    public Vector3 spawnPos;
+    public Vector3 direction;
+    public Entity target; //homing target
+    [SerializeField]
+    private ProjectileData data;
+ 
+  public Vector3 GetAttackerPosition(){
+    return damageInfo.attacker.GetPosition();
+  }
+
+  public Vector3 GetTargetPosition(){
+    return target.GetPosition();
+  }
+
+}
+
+
+public class Projectile : MonoBehaviour, IPoolObject
+{
+    //Inheriter Base Values
+    public bool isInit = false;
+    public bool isTrigger = false; //You can't trigger it twice
+    public ProjectileArgs args;
+    [ShowInInspector]
+    public AbstractProjectileTrack track;
+    public ETFXProjectile ETFX;
+    public float distance;
+    public float time;
+    public Rigidbody2D RB
+    {
+        get
+        {
+            if (rb is null)
+            {
+                Debug.LogWarning("Warning: ProjectileArgs.rigidbody is null!");
+            }
+            return rb;
+        }
+        set => rb = value;
+    }
+    [SerializeField]
+    private Entity collideEntity;
+    [SerializeField]
+    private List<Entity> triggerEntities;
+    [SerializeField]
+    private Rigidbody2D rb;
+    [SerializeField]
+
+
+
+    public static GameObject InstantiateProjectile(ProjectileArgs projectileArgs)
+    {
+        GameObject attack = PoolManager.Spawn(projectileArgs.Data.prefab, projectileArgs.spawnPos, Quaternion.identity);
+        Projectile projectileComponent = attack.GetComponent<Projectile>();
+        projectileComponent.Init(projectileArgs);
+        return attack;
+    }
+
+    public void Init(ProjectileArgs projectileArgs)
+    {
+        this.args = projectileArgs;
+        //Only run after the cast is initialized
+        if(!isInit || args.Data == projectileArgs.Data)
+        {
+            DataInit();
         }
         if(ETFX!=null){
             ETFX.Init();
         }
-        
-        projectileTrack.Shoot();
-       
+        isInit = true;
+        OnEnable();
     }
 
-    public void Update(){
-        if(projectileTrack == null){
-            Debug.LogWarning("ProjectileTrack does not exist");
+    void Awake()
+    {
+        gameObject.tag = "Projectile";
+        RB = GetComponent<Rigidbody2D>();
+    }
+
+    //Be Called Each time when spawn by PoolManger
+    private void OnEnable()
+    {
+        if (!isInit)
+        {
             return;
         }
-        projectileTrack.Update();
+        isTrigger = false;
+        distance = 0f;
+        time = 0f;
+        triggerEntities = new List<Entity>();
+        StartCoroutine(ReleaseObject(args.Data.lifeCycle));
     }
-    public void Init(ProjectileArgs e){
 
-        EventOnShoot = e;
-        ID = EntityManager.Instance.GetID(GetTarget());
-        if(ETFX !=null){
-            ETFX.SetScale(GetProjectileData().scale);
+    private void OnDisable()
+    {
+        StopCoroutine("ReleaseObject"); //Since Already Release, Release Coroutine will be stopped
+    }
+
+    private void DataInit()
+    {
+        transform.localScale = args.Data.scale;
+        if(ETFX!=null){
+            ETFX.SetScale(args.Data.scale);
         }
-        else{
-            transform.localScale = GetProjectileData().scale;
-        }
-
-
-        //GetComponent<SpriteRenderer>().color = GetProjectileData().color;
-        Vector3 projectilePos = GetAttacker().GetCharacterData().relativePos;
-        switch (GetProjectileData().projectileType)
+        switch (args.Data.trackType)
         {
-            case Enum_ProjectileType.parabola:
-            projectileTrack = new ProjectileParabolaTrack(this);
-
-            break;
-
-            case Enum_ProjectileType.straight:
-            projectileTrack = new ProjectileStraightTrack(this);
-            break;
-
-            case Enum_ProjectileType.track:
-
-            break;
-            
-            default:
-            //Action_projectile = Shoot_Straight;
-            break;
+            case ProjectileTrackType.straight:
+                track = new ProjectileTrackStraight(this);
+                break;
+            case ProjectileTrackType.parabola:
+                track = new ProjectileTrackParabola(this);
+                break;
+            case ProjectileTrackType.homing:
+                if (args.target is null)
+                {
+                    Debug.LogWarning("Homing Projectile while target is null");
+                    return;
+                }
+                break;
         }
-        
+    }
+
+    /// <summary>
+    /// It will activate the event list one by one in the data
+    /// </summary>
+    public void Trigger()
+    {
+        isTrigger = true;
+        if(args.Data.isAreaAttack){
+            CreateAreaAttack();
+        }
+        OnRelease();
+    }
+
+    void FixedUpdate()
+    {
+        if (!isInit)
+        {
+            return;
+        }
+        time += Time.fixedDeltaTime;
+        if (distance > args.Data.maxDistance)
+        {
+            Release();
+        }
+        track.Update();
+    }
+
+    public virtual void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (isTrigger) { return; }
+
+        bool isEntity = collider.TryGetComponent(out Entity entity);
+        if (!isEntity) { return; }
+        if (entity == args.damageInfo.attacker)
+        {
+            Physics2D.IgnoreCollision(args.damageInfo.attacker.GetComponent<Collider2D>(), collider);
+            return;
+        }
+        //Only attack enemy
+        if(args.damageInfo.attacker.entityType == entity.entityType){
+            return;
+        }
+        /*
+        if (args.ignoredCollisionList != null && args.ignoredCollisionList.Count > 0)
+        {
+            foreach (Entity item in args.ignoredCollisionList)
+            {
+                if (entity == item)
+                {
+                    Physics.IgnoreCollision(item.GetComponent<Collider>(), collider);
+                    return;
+                }
+            }
+        }
+        */
+        triggerEntities.Add(entity);
+        collideEntity = entity;
+        Trigger();
+        if(!args.Data.isAreaAttack){
+            collideEntity.TakeDamage(args.damageInfo);
+        }   
+    }
+
+    //Release the projectile
+    void Release()
+    {
+        if (args.Data.isTriggerWhenRelease)
+        {
+            Trigger();
+            return;
+        }
+        OnRelease();
     }
 
 
-    #region Action_projectile
+    public IEnumerator ReleaseObject(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        if (args.Data.isTriggerWhenRelease)
+        {
+            Trigger();
+            yield break;
+        }
+        OnRelease();
+    }
 
+    public void OnSpawn()
+    {
+        throw new NotImplementedException();
+    }
 
+    public void OnRelease()
+    {
+        if(ETFX!=null){
+            ETFX.HitImpact();
+        }
+        PoolManager.Release(gameObject);
+    }
 
     
-    /*
-    /// <summary>
-    /// 按照贝塞尔抛物线向目标位置射击，不跟踪
-    /// </summary>
-    private void Shoot_Parabola(){
-        int resolution = 50;
-        Vector3 startPos = Vector3.zero;
-        Vector3 endPos = target.GetPosition();
-
-        float height = 0f;
-        if(projectileData.isAutoHeight){
-            height = DistanceToTarget * 0.5f;
-        }
-        else{
-            height = projectileData.height;
-        }
-        
-        Vector3 bezierCenterPoint = (startPos+endPos)*0.5f +(Vector3.up*height);
-        Vector3[] path = new Vector3[resolution];//resolution为int类型，表示要取得路径点数量，值越大，取得的路径点越多，曲线最后越平滑
-        for (int i = 0; i < resolution; i++)
+    public void CreateAreaAttack()
     {
-        var t = (i+1) / (float)resolution;//归化到0~1范围
-        path[i] = GetBezierPoint(t,startPos, bezierCenterPoint, endPos);//使用贝塞尔曲线的公式取得t时的路径点
-    }
-        tween = transform.DOPath(path, duration).SetEase(Ease.InOutQuad).SetLookAt(0, Vector3.left);
         
-    }
-
-     /// <param name="t">0到1的值，0获取曲线的起点，1获得曲线的终点</param>
-    /// <param name="start">曲线的起始位置</param>
-    /// <param name="center">决定曲线形状的控制点</param>
-    /// <param name="end">曲线的终点</param>
-    public static Vector3 GetBezierPoint(float t, Vector3 start, Vector3 center, Vector3 end)
-    {
-        return (1 - t) * (1 - t) * start + 2 * t * (1 - t) * center + t * t * end;
-    }
-
-    */
-    #endregion
-
-   
-
-    public void SetDirection(Vector3 _direction){
-        direction = _direction;
-    }
-
-    public void EulerRotate(Vector3 _direction){
-        transform.eulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVectorFloat(_direction));
-    }
-  
-
-    private void OnTriggerEnter2D(Collider2D other) {
-       
-        if(!other.CompareTag("Character")){
-            return;
-        }
-        if(ID==other.gameObject.GetInstanceID()){
-            //TODO: 如果两个敌人并排，瞄准前方敌人的弓箭刚好打中后方的敌人，是否结算伤害？
-            //Debug.Log("arrow_attack"+target);
-            
-            if(ETFX!=null){
-                ETFX.HitImpact();
-            }
-            EventOnShoot.target.UnderAttack(GetAttacker());
-            OnObjectRecycle();
-        }
-        
-    }
-
-   
-    public ProjectileData GetProjectileData(){
-        return EventOnShoot.projectileData;
-    }   
-
-    public Vector3 GetPosition(){
-        return transform.position;
-    }
-
-    public Entity GetTarget(){
-        return EventOnShoot.target;
-    }
-
-    public Entity GetAttacker(){
-        return EventOnShoot.attacker;
-    }
-
-    public Vector3 GetRelativePos(){
-        return EventOnShoot.attacker.GetCharacterData().relativePos;
-    }
-    public Rigidbody2D GetRigidBody2D(){
-        return rigidBody2D;
-    }
-
-    /// <summary>
-    /// 经过生命周期后自动回收
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator LifeCycleTimer(float second){
-        yield return new WaitForSeconds(second);
-        OnObjectRecycle();
-    }
-
-    /// <summary>
-    /// projectile的回收处理
-    /// </summary>
-    public void OnObjectRecycle(){
-        StopCoroutine("LifeCycleTimer"); //终止生命周期计时器
-        ObjectPooler.Instance.Recycle(GetProjectileData(), gameObject);
-        tween.Kill();
-    } 
-    private void OnDestroy() {
-        tween.Kill();
+        UnityEngine.Assertions.Assert.IsNotNull(args.Data.collideData, "Warning: attackData cannot be null");
+        UnityEngine.Assertions.Assert.IsNotNull(args.Data.collideData.prefab, "Warning: genericAttackPrefab cannot be null");
+        GameObject attack = PoolManager.Spawn(args.Data.collideData.prefab, transform.position, Quaternion.identity);
+        AreaAttack areaAttackComponent = attack.GetComponent<AreaAttack>();
+        areaAttackComponent.ApplyAttackInfo(args.Data.collideData);
+        areaAttackComponent.SetDamageInfo(args.damageInfo);
     }
 }

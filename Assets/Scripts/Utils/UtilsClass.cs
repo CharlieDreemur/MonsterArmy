@@ -8,29 +8,32 @@ using System.Reflection;
 public static class UtilsClass
 {
     /* 利用反射实现深拷贝*/
-        public static object DeepCopy(object _object)
+    public static object DeepCopy(object _object)
+    {
+        Type T = _object.GetType();
+        object Obj = Activator.CreateInstance(T);
+
+        PropertyInfo[] PI = T.GetProperties();
+        for (int i = 0; i < PI.Length; i++)
         {
-            Type T = _object.GetType();
-            object Obj = Activator.CreateInstance(T);
-            
-            PropertyInfo[] PI = T.GetProperties();
-            for (int i = 0; i < PI.Length; i++)
+            PropertyInfo P = PI[i];
+            if (P != null)
             {
-                PropertyInfo P = PI[i];
-                if(P!=null){
-                    P.SetValue(Obj, P.GetValue(_object));
-                }
+                P.SetValue(Obj, P.GetValue(_object));
             }
-            return Obj;
+        }
+        return Obj;
     }
 
     //Create Text in the World
-    public static TextMesh CreateWorldText(string text, Transform parent = null, Vector3 localPostition = default(Vector3), int fontSize =40, Color?color = null, TextAnchor textAnchor = TextAnchor.UpperLeft, TextAlignment textAlignment = TextAlignment.Left, int sortingOrder = 5000){
-        if(color == null) color = Color.white;
+    public static TextMesh CreateWorldText(string text, Transform parent = null, Vector3 localPostition = default(Vector3), int fontSize = 40, Color? color = null, TextAnchor textAnchor = TextAnchor.UpperLeft, TextAlignment textAlignment = TextAlignment.Left, int sortingOrder = 5000)
+    {
+        if (color == null) color = Color.white;
         return CreateWorldText(parent, text, localPostition, fontSize, (Color)color, textAnchor, textAlignment, sortingOrder);
     }
 
-    public static TextMesh CreateWorldText(Transform parent, string text, Vector3 localPosition, int fontSize, Color color, TextAnchor textAnchor, TextAlignment textAlignment, int sortingOrder){
+    public static TextMesh CreateWorldText(Transform parent, string text, Vector3 localPosition, int fontSize, Color color, TextAnchor textAnchor, TextAlignment textAlignment, int sortingOrder)
+    {
         UnityEngine.GameObject gameObject = new UnityEngine.GameObject("World_Text", typeof(TextMesh));
         Transform transform = gameObject.transform;
         transform.SetParent(parent, false);
@@ -46,22 +49,26 @@ public static class UtilsClass
     }
 
     //Get Mouse Position in World with Z = 0f, used in 2D
-    public static Vector3 GetMouseWorldPosition2D(){
+    public static Vector3 GetMouseWorldPosition2D()
+    {
         Vector3 vec = GetMouseWorldPosition3D(Input.mousePosition, Camera.main);
         vec.z = 0f;
         return vec;
     }
 
-    public static Vector3 GetMouseWorldPosition3D(){
+    public static Vector3 GetMouseWorldPosition3D()
+    {
         return GetMouseWorldPosition3D(Input.mousePosition, Camera.main);
     }
 
-    public static Vector3 GetMouseWorldPosition3D(Camera worldCamera){
+    public static Vector3 GetMouseWorldPosition3D(Camera worldCamera)
+    {
         return GetMouseWorldPosition3D(Input.mousePosition, worldCamera);
     }
-    
 
-    public static Vector3 GetMouseWorldPosition3D(Vector3 screenPosition, Camera worldCamera){
+
+    public static Vector3 GetMouseWorldPosition3D(Vector3 screenPosition, Camera worldCamera)
+    {
         Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
         return worldPosition;
     }
@@ -71,10 +78,11 @@ public static class UtilsClass
     /// </summary>
     /// <param name="direction"></param>
     /// <returns></returns>
-    public static float GetAngleFromVectorFloat(Vector3 direction){
+    public static float GetAngleFromVectorFloat(Vector3 direction)
+    {
         direction = direction.normalized;
         float n = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        if(n < 0) n+= 360;
+        if (n < 0) n += 360;
         return n;
     }
 
@@ -83,7 +91,8 @@ public static class UtilsClass
     /// </summary>
     /// <param name="direction"></param>
     /// <returns></returns>
-    public static int GetAngleFromVectorInt(Vector3 direction){
+    public static int GetAngleFromVectorInt(Vector3 direction)
+    {
         int angle = Mathf.RoundToInt(GetAngleFromVectorFloat(direction));
         return angle;
     }
@@ -94,22 +103,26 @@ public static class UtilsClass
     /// <param name="startPos">起始位置</param>
     /// <param name="endPos">目标位置</param>
     /// <returns></returns>
-    public static Vector3 GetPosToDirection(Vector3 startPos, Vector3 endPos){
+    public static Vector3 GetPosToDirection(Vector3 startPos, Vector3 endPos)
+    {
         return (endPos - startPos).normalized;
     }
-    
-  
+
+
     /// <summary>
     /// 获取animator下某个动画片段的时长
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="name"></param>
     /// <returns></returns>
-    public static float GetAnimatorLength(Animator animator, string name){
+    public static float GetAnimatorLength(Animator animator, string name)
+    {
         float length = 0;
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-        foreach(AnimationClip clip in clips){
-            if(clip.name.Equals(name)){
+        foreach (AnimationClip clip in clips)
+        {
+            if (clip.name.Equals(name))
+            {
                 length = clip.length;
                 break;
             }
@@ -117,7 +130,7 @@ public static class UtilsClass
         return length;
     }
 
-   
+
 
 
     /// <summary>
@@ -126,14 +139,43 @@ public static class UtilsClass
     /// <param name="ani"></param>
     /// <param name="name"></param>
     /// <param name="speed"></param>
-    public static void SetAnimationSpeed(Animation ani, string name, float speed){
-        if(ani == null){
+    public static void SetAnimationSpeed(Animation ani, string name, float speed)
+    {
+        if (ani == null)
+        {
             return;
         }
         AnimationState state = ani[name];
-        if(!state) state.speed = speed;
+        if (!state) state.speed = speed;
     }
 
 
+
+}
+/// <summary>
+/// Vector3 Utils
+/// </summary>
+public static class VectorHelperExtensions
+{
+    public static Vector3 Flatten(this Vector3 vector)
+    {
+        vector.y = 0.0f;
+        return vector;
+    }
+
+    public static float Distance2D(this Vector3 from, in Vector3 to)
+    {
+        return Vector3.Distance(Flatten(from), Flatten(to));
+    }
+
+    public static Vector3 Direction2D(this Vector3 from, in Vector3 to)
+    {
+        return (Flatten(to) - Flatten(from)).normalized;
+    }
+
+    public static Vector3 RotateAboutUp(this Vector3 currentRot, in float angle)
+    {
+        return Quaternion.AngleAxis(angle, Vector3.up) * currentRot;
+    }
 
 }

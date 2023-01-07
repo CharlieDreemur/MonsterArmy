@@ -16,7 +16,7 @@ public class GameEffect : IAbility
     public GameEffectData gameEffectData;
     public Enum_GameEffectState gameEffectState = Enum_GameEffectState.inactive;
     public Entity character;
-    private ICharacterAttribute charAttribute;
+    private EntityAttribute charAttribute;
     private AttributeDataFixed charAttributeData;
     public List<Entity> List_Target; //最终技能目标的列表
     [LabelText("技能最终伤害")] [ShowInInspector] [ReadOnly]
@@ -35,9 +35,9 @@ public class GameEffect : IAbility
     }
 
    
-    public void SetData(IData data)
+    public void SetData(GameEffectData data)
     {
-        gameEffectData = data as GameEffectData;
+        gameEffectData = data;
     }
     public void SetCharacter(Entity _character)
     {
@@ -124,7 +124,7 @@ public class GameEffect : IAbility
                  Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name + "projectile未完成");
                  break;
         }
-        Debug.Log("GameEffect"+gameEffectData.name+"执行完毕");
+        Debug.Log("GameEffect"+gameEffectData+"执行完毕");
         gameEffectState = Enum_GameEffectState.inactive; //GameEffect Activate完成
     }
 

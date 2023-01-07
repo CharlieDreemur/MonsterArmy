@@ -16,7 +16,7 @@ public class Buff : IBuff
     [SerializeField]
     private Entity character;
 
-    private ICharacterAttribute charAttribute;
+    private EntityAttribute charAttribute;
 
     [SerializeField]
     private AttributeDataFixed changedfixedData = new AttributeDataFixed(); //该Buff修改的英雄数据，方便回潮

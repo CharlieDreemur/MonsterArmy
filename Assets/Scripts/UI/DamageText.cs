@@ -4,9 +4,9 @@ using UnityEngine;
 using TMPro;
 
 
-public class DamageText : MonoBehaviour, IPooledObject
+public class DamageText : MonoBehaviour, IPoolObject
 {
-    public static DamageTextData data;
+    public DamageTextData data;
     private TextMeshPro textMesh; 
     private Color color;
     private int damageAmount;
@@ -17,20 +17,12 @@ public class DamageText : MonoBehaviour, IPooledObject
 
     private static int sortingOrder; //渲染层级，确保后生产的text会在上层
 
-    public void SetData(DamageTextData _data){
-        data = _data;
-    }    
-    
-    public DamageTextData GetData(){
-        return data;
-    }
-
     private void Awake(){
         textMesh = transform.GetComponent<TextMeshPro>();
        
     }
     
-    public void OnObjectSpawn(){
+    public void OnSpawn(){
         textMesh.SetText(damageAmount.ToString());
         switch(damageType){
             case Enum_DamageType.normal:
@@ -62,15 +54,15 @@ public class DamageText : MonoBehaviour, IPooledObject
         transform.localScale = Vector3.one;
     }
 
-    public void OnObjectRecycle(){
-        ObjectPooler.Instance.Recycle(GetData(), gameObject);
+    public void OnRelease(){
+        PoolManager.Release(gameObject);
     }
-    public void Init(DamageTextData _data, int damageAmount, Enum_DamageType damageType){
-        if(_data==null){
+    public void Init(DamageTextData data, int damageAmount, Enum_DamageType damageType){
+        if(data==null){
             Debug.LogWarning("没有提供伤害跳字的数据");
             return;
         }
-        SetData(_data);
+        this.data = data;
         disappearTimer = data.disappearTime;
         this.damageType = damageType;
         this.damageAmount = damageAmount;
@@ -102,7 +94,7 @@ public class DamageText : MonoBehaviour, IPooledObject
             color.a -= data.disappearSpeed * Time.deltaTime;
             textMesh.color = color;
             if(color.a < 0){
-                OnObjectRecycle();
+                OnRelease();
                 
             }
         }

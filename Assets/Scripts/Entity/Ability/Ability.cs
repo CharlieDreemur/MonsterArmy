@@ -23,15 +23,6 @@ interface IAbility{
     /// </summary>
     public void Stop();
 
-    /// <summary>
-    /// 设置数据
-    /// </summary>
-    public void SetData(IData data);
-
-    /// <summary>
-    /// 设置角色
-    /// </summary>
-    public void SetCharacter(Entity character);
 }
 
 [EnumToggleButtons]
@@ -64,7 +55,7 @@ public class Ability : IAbility
     [LabelText("冷却剩余时间")]
     public float remainTime; //还有多少s冷却结束
 
-    private ICharacterAttribute charAttribute;
+    private EntityAttribute charAttribute;
     
     private AttributeDataFixed charFixedData;
 
@@ -144,8 +135,8 @@ public class Ability : IAbility
         }
         
     }
-    public void SetData(IData data){
-        abilityData = data as AbilityData;
+    public void SetData(AbilityData data){
+        abilityData = data;
     }
     public void SetCharacter(Entity _character){
         character = _character;

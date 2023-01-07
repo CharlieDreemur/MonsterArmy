@@ -33,10 +33,10 @@ public class DamageTextManager : Singleton<DamageTextManager>, IManager
             //return null;
         }
         //GameObject damageTextGameObject = Instantiate(data.prefab, pos, Quaternion.identity);
-        UnityEngine.GameObject damageTextGameObject = ObjectPooler.Instance.Spawn(data, args.pos, Quaternion.identity);
+        UnityEngine.GameObject damageTextGameObject = PoolManager.Spawn(data.Prefab, args.pos, Quaternion.identity);
         DamageText damageText = damageTextGameObject.GetComponent<DamageText>();
         damageText.Init(data, args.damageAmount, args.damageType);
-        damageText.OnObjectSpawn();
+        damageText.OnSpawn();
         //return damageText;
     }
     

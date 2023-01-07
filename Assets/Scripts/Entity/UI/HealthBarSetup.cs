@@ -33,7 +33,7 @@ public class HealthBarSetup : MonoBehaviour
     private float HealthFill_Pos_x;
 
     [SerializeField]
-    private ICharacterAttribute charAttr;
+    private EntityAttribute charAttr;
     private AttributeDataFixed fixedData;
 
      

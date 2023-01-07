@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 [EnumToggleButtons]
-public enum Enum_Character
+public enum EntityType
 {
-    ICharacter,
-    Character,
+    None,
+    Ally,
     Enemy
 }
 
@@ -23,6 +23,7 @@ public enum Enum_DamageType{
     crit,
     heal,
 }
+
 
 
 [EnumToggleButtons]

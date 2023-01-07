@@ -4,18 +4,11 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 [CreateAssetMenu(fileName = "DamageTextData", menuName = "TheMonsterArmy/ScriptableObject/UISystem/DamageTextData", order = 0)]
-public class DamageTextData : IDataWithPrefab
+public class DamageTextData : ScriptableObject, IPoolData
 {   
     [FoldoutGroup("伤害跳字基本设置")] [HideLabel] [LabelText("跳字模型")] [SerializeField]
-    private UnityEngine.GameObject prefab;
-    public override UnityEngine.GameObject Prefab{
-        get{
-            return prefab;
-        } 
-        set{
-            prefab = value;
-        }
-    }
+    public UnityEngine.GameObject prefab;
+    public UnityEngine.GameObject Prefab{get => prefab; set => prefab = value;}
 
     [FoldoutGroup("伤害跳字基本设置")] [HideLabel] [LabelText("正常字体颜色")]
     public Color normalColor; //正常状态的字体颜色
@@ -47,5 +40,4 @@ public class DamageTextData : IDataWithPrefab
 
     [FoldoutGroup("伤害跳字细节设置")] [HideLabel] [LabelText("字体消失速度")]
     public float disappearSpeed = 3f; //字体的消失速度
-
 }
