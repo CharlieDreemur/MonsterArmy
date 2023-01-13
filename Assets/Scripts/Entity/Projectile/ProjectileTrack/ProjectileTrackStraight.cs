@@ -15,6 +15,7 @@ public class ProjectileTrackStraight : AbstractProjectileTrack
         base.Update();
         float step = Speed * Time.fixedDeltaTime;
         Vector3 displacement = projectile.args.direction * step;
+        
         projectile.transform.position += displacement;
         projectile.transform.position = Vector3.Lerp(projectile.transform.position, projectile.transform.position+displacement, step);
         projectile.distance += step;

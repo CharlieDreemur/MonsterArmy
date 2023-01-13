@@ -64,6 +64,5 @@ MonoBehaviour:
       critChance: 0.1
       critDamage: 2
       dodgeChance: 0
-  List_AbilityData:
-  - {fileID: 11400000, guid: a1b04d9e002de7a48b3d98cf93ac8d76, type: 2}
+  List_AbilityData: []
   type_enemy: 1

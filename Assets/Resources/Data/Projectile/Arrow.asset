@@ -12,16 +12,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3577977f25517546abe453c3c4d692a, type: 3}
   m_Name: Arrow
   m_EditorClassIdentifier: 
-  baseInfo:
-    ID: 
-    name: 
-    description: 
+  Name: Arrow
   prefab: {fileID: 2632309796421532139, guid: d631ef3f54f33e346a12cbd29ad17a5e, type: 3}
+  isAreaAttack: 0
+  collideData: {fileID: 11400000, guid: a4691eed2c6df894f99c0ddac5fd23a6, type: 2}
   lifeCycle: 5
-  color: {r: 1, g: 1, b: 1, a: 1}
-  scale: {x: 0.4, y: 0.4, z: 1}
-  projectileType: 2
-  velocity: 50
+  maxDistance: 100
+  trackType: 2
+  scale: {x: 0.5, y: 0.5, z: 1}
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  speedMultipler: 50
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  isTriggerWhenRelease: 1
+  gravityScale: 5
   isGreaterAngle: 0
-  heightCorrection: 3
-  gravityScale: 10

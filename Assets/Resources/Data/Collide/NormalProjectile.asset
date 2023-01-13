@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: NormalProjectile
   m_EditorClassIdentifier: 
   attackName: 
-  attackObjectType: 0
-  attackDuration: 0
+  prefab: {fileID: 7277307770361454054, guid: 277c2913f7bec034f8a7e7503973ff49, type: 3}
+  attackDuration: 0.07
   maxHitCount: -1
   followInstigator: 0
   attackShape: 0
-  radius: 0
+  radius: 7
   sectorAngle: 0
-  boxSize: {x: 0, y: 0}
+  boxSize: {x: 1, y: 1}
   totalDuration: 0
   damageOverTimeHitCount: -1
   effect: {fileID: 0}

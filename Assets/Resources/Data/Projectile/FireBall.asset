@@ -12,16 +12,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3577977f25517546abe453c3c4d692a, type: 3}
   m_Name: FireBall
   m_EditorClassIdentifier: 
-  baseInfo:
-    ID: 
-    name: 
-    description: 
+  Name: Fireball
   prefab: {fileID: 8796937763197882494, guid: 0525676f6228b364495f899d589f1d95, type: 3}
+  isAreaAttack: 0
+  collideData: {fileID: 11400000, guid: a4691eed2c6df894f99c0ddac5fd23a6, type: 2}
   lifeCycle: 5
-  color: {r: 1, g: 1, b: 1, a: 1}
+  maxDistance: 100
+  trackType: 0
   scale: {x: 2, y: 2, z: 2}
-  projectileType: 1
-  velocity: 40
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  speedMultipler: 20
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  isTriggerWhenRelease: 1
+  gravityScale: 1
   isGreaterAngle: 0
-  heightCorrection: 0
-  gravity: 5
