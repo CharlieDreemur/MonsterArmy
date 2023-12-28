@@ -179,7 +179,7 @@ public abstract class Entity : MonoBehaviour
     {
         spriteRenderer.color = _color;
     }
-    public void SetShader(string parameter, float amount)
+    public void SetShaderFloat(string parameter, float amount)
     {
         if (spriteRenderers == null || spriteRenderers.Length == 0) 
         {
@@ -191,6 +191,16 @@ public abstract class Entity : MonoBehaviour
         
     }
 
+    public void SetShaderColor(string parameter, Color color)
+    {
+        if (spriteRenderers == null || spriteRenderers.Length == 0) 
+        {
+            return;
+        }
+        foreach(SpriteRenderer item in spriteRenderers){
+            item.material.SetColor(parameter, color);
+        }
+    }
 
 
     public void Destroyed()
@@ -421,7 +431,7 @@ public abstract class Entity : MonoBehaviour
         }
 
         //受伤特效shader
-        StartCoroutine(ShaderChange(HurtTimerLength));
+        StartCoroutine(ShaderChange(HurtTimerLength, Color.white));
         UnderHurt(atkDamage, damageType);
     }
 
@@ -449,6 +459,7 @@ public abstract class Entity : MonoBehaviour
         isKilled = true;
         SetAI(null);
         StopAllCoroutines();
+        StartCoroutine(ShaderChange(HurtTimerLength, Color.red));
         charAnimation.PlayAnimation(Enum_AnimationType.Death);
         StartCoroutine(DelayDeath(charAnimation.DeathAnimationLength));
     }
@@ -458,15 +469,19 @@ public abstract class Entity : MonoBehaviour
 
     #region  Timer
     //在seconds秒中内，反复将shader的_flashAmount减少直到0；
-    IEnumerator ShaderChange(float seconds)
+    IEnumerator ShaderChange(float seconds, Color color)
     {
+        SetShaderColor("_FlashColor", color);
+        //print
 
         for (float timer = seconds; timer >= 0; timer -= Time.deltaTime)
         {
-            SetShader("_FlashAmount", timer / seconds);
+            SetShaderFloat("_FlashAmount", timer / seconds);
             yield return 0;
         }
     }
+
+
     
     IEnumerator DelayAttack(float seconds, DamageInfo damageInfo, Entity target)
     {
