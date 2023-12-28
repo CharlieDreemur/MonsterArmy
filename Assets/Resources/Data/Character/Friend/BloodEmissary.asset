@@ -24,7 +24,7 @@ MonoBehaviour:
   attackAnimationType: 0
   projectileData: {fileID: 0}
   relativePos: {x: 0, y: 0, z: 0}
-  Transform_SpawnPos: {x: -30, y: 0, z: 0}
+  Transform_SpawnPos: {x: -20, y: 0, z: 0}
   attributeData:
     nowData:
       nowHP: 0

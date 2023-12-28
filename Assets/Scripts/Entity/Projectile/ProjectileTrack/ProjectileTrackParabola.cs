@@ -49,6 +49,10 @@ public class ProjectileTrackParabola : AbstractProjectileTrack
             return;
         }
         projectilePos = projectile.transform.position;
+        if(projectile.args.target == null){
+            Debug.LogWarning("target is null");
+            return;
+        }
         targetPos = projectile.args.target.transform.position;
         //targetPos.y+=projectile.GetProjectileData().heightCorrection; //高度补正
         distance_x = - (projectilePos.x - targetPos.x);

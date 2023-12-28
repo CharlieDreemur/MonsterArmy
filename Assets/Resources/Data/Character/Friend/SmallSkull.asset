@@ -16,11 +16,11 @@ MonoBehaviour:
     ID: 
     name: "\u5C0F\u9AB7\u9AC5"
     description: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 1618007080319059559, guid: e7ada23a0d5da8f499ed4b51fef7c71e, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
-  material: {fileID: 0}
+  material: {fileID: 2100000, guid: 8a37d575fdee5064492410056578aac6, type: 2}
   scale: {x: 8, y: 8, z: 0}
-  attackType: 0
+  attackType: 1
   attackAnimationType: 0
   projectileData: {fileID: 0}
   relativePos: {x: 0, y: 0, z: 0}

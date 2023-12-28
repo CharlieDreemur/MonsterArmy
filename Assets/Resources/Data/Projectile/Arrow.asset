@@ -69,6 +69,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  isTriggerWhenRelease: 1
-  gravityScale: 5
+  isTriggerWhenRelease: 0
+  gravityScale: 4
   isGreaterAngle: 0

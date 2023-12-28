@@ -25,7 +25,6 @@ public class EntityManager: Singleton<EntityManager>, IManager
     {
         initiateAllyAction = new UnityAction<string>(InitiateAlly);
         initiateEnemyAction = new UnityAction<string>(InitiateEnemy);
-        
     }
     public void Init()
     {   
@@ -216,6 +215,7 @@ public class InstantiateAllyArgs : EventArgs{
         this.data = data;
     }
 }
+
 
 
 public class InstantiateEnemyArgs : EventArgs{

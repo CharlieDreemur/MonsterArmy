@@ -6,19 +6,20 @@ using UnityEngine.Events;
 using System.Reflection;
 using Sirenix.OdinInspector;
 
-public enum ProjectileTrackType {straight, homing, parabola }
+public enum ProjectileTrackType { straight, homing, parabola }
 
 //WAY too much abstraction 
 
 //Everything needed for instantiate a projectile that given not by projectile itself and need to set by outer classes
 [System.Serializable]
-public class ProjectileArgs:EventArgs{
-public bool isInit;
-    
+public class ProjectileArgs : EventArgs
+{
+    public bool isInit;
+
     public ProjectileArgs(
-        ProjectileData data, 
-        Vector3 spawnPos, 
-        DamageInfo damageInfo, 
+        ProjectileData data,
+        Vector3 spawnPos,
+        DamageInfo damageInfo,
         Entity target
         )
     {
@@ -26,14 +27,14 @@ public bool isInit;
         this.spawnPos = spawnPos;
         this.damageInfo = damageInfo;
         this.target = target;
-        this.direction =  UtilsClass.GetPosToDirection(damageInfo.attacker.transform.position, target.transform.position);
+        this.direction = UtilsClass.GetPosToDirection(damageInfo.attacker.transform.position, target.transform.position);
         isInit = true;
     }
     public ProjectileArgs(
-        ProjectileData data, 
-        Vector3 spawnPos, 
-        DamageInfo damageInfo, 
-        Vector3 direction, 
+        ProjectileData data,
+        Vector3 spawnPos,
+        DamageInfo damageInfo,
+        Vector3 direction,
         Entity target = null
         )
     {
@@ -64,14 +65,16 @@ public bool isInit;
     public Entity target; //homing target
     [SerializeField]
     private ProjectileData data;
- 
-  public Vector3 GetAttackerPosition(){
-    return damageInfo.attacker.GetPosition();
-  }
 
-  public Vector3 GetTargetPosition(){
-    return target.GetPosition();
-  }
+    public Vector3 GetAttackerPosition()
+    {
+        return damageInfo.attacker.GetPosition();
+    }
+
+    public Vector3 GetTargetPosition()
+    {
+        return target.GetPosition();
+    }
 
 }
 
@@ -121,11 +124,12 @@ public class Projectile : MonoBehaviour, IPoolObject
     {
         this.args = projectileArgs;
         //Only run after the cast is initialized
-        if(!isInit || args.Data == projectileArgs.Data)
+        if (!isInit || args.Data == projectileArgs.Data)
         {
             DataInit();
         }
-        if(ETFX!=null){
+        if (ETFX != null)
+        {
             ETFX.Init();
         }
         isInit = true;
@@ -160,7 +164,8 @@ public class Projectile : MonoBehaviour, IPoolObject
     private void DataInit()
     {
         transform.localScale = args.Data.scale;
-        if(ETFX!=null){
+        if (ETFX != null)
+        {
             ETFX.SetScale(args.Data.scale);
         }
         switch (args.Data.trackType)
@@ -187,7 +192,8 @@ public class Projectile : MonoBehaviour, IPoolObject
     public void Trigger()
     {
         isTrigger = true;
-        if(args.Data.isAreaAttack){
+        if (args.Data.isAreaAttack)
+        {
             CreateAreaAttack();
         }
         OnRelease();
@@ -219,7 +225,8 @@ public class Projectile : MonoBehaviour, IPoolObject
             return;
         }
         //Only attack enemy
-        if(args.damageInfo.attacker.entityType == entity.entityType){
+        if (args.damageInfo.attacker.entityType == entity.entityType)
+        {
             return;
         }
         /*
@@ -238,9 +245,10 @@ public class Projectile : MonoBehaviour, IPoolObject
         triggerEntities.Add(entity);
         collideEntity = entity;
         Trigger();
-        if(!args.Data.isAreaAttack){
+        if (!args.Data.isAreaAttack)
+        {
             collideEntity.TakeDamage(args.damageInfo);
-        }   
+        }
     }
 
     //Release the projectile
@@ -273,16 +281,17 @@ public class Projectile : MonoBehaviour, IPoolObject
 
     public void OnRelease()
     {
-        if(ETFX!=null){
+        if (ETFX != null)
+        {
             ETFX.HitImpact();
         }
         PoolManager.Release(gameObject);
     }
 
-    
+
     public void CreateAreaAttack()
     {
-        
+
         UnityEngine.Assertions.Assert.IsNotNull(args.Data.collideData, "Warning: attackData cannot be null");
         UnityEngine.Assertions.Assert.IsNotNull(args.Data.collideData.prefab, "Warning: genericAttackPrefab cannot be null");
         GameObject attack = PoolManager.Spawn(args.Data.collideData.prefab, transform.position, Quaternion.identity);

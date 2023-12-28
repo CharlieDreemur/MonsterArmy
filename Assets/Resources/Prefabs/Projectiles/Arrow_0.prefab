@@ -112,6 +112,7 @@ MonoBehaviour:
     direction: {x: 0, y: 0, z: 0}
     target: {fileID: 0}
     data: {fileID: 0}
+  ETFX: {fileID: 0}
   distance: 0
   time: 0
   collideEntity: {fileID: 0}

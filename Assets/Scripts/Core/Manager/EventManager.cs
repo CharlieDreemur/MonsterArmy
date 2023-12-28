@@ -20,6 +20,7 @@ public class EventManager : Singleton<EventManager>
             eventDictionary = new Dictionary<string, SEvent>();
         }
     }
+    
     private void OnDisable() {
         foreach(var item in eventDictionary){
             if(item.Value == null) return;
