@@ -11,13 +11,13 @@ using System;
 public class AbilityController
 {
     [ReadOnly]
-    public Entity character;
+    public Unit character;
 
     [ShowInInspector] [LabelText("敌人列表")] 
-    public List<Entity> List_Enemy = null;
+    public List<Unit> List_Enemy = null;
 
     [ShowInInspector] [LabelText("友方列表")]
-    public List<Entity> List_Ally = null;
+    public List<Unit> List_Ally = null;
 
     [ShowInInspector] [LabelText("Buff列表")] 
 
@@ -27,26 +27,26 @@ public class AbilityController
     public List<Ability> List_Ability = new List<Ability>(); //关于Ability的List
     
 
-    public AbilityController(Entity character, List<Entity> List_Enemy,  List<Entity> List_Ally){
+    public AbilityController(Unit character, List<Unit> List_Enemy,  List<Unit> List_Ally){
         SetCharacter(character);
         SetEnemyList(List_Enemy);
         SetAllyList(List_Ally);
     }
 
-    public void UpdateTargets(List<Entity> List_Enemy,  List<Entity> List_Ally){
+    public void UpdateTargets(List<Unit> List_Enemy,  List<Unit> List_Ally){
         SetEnemyList(List_Enemy);
         SetAllyList(List_Ally);
     }
 
 
-    public void SetCharacter(Entity character){
+    public void SetCharacter(Unit character){
         this.character = character;
     }
     /// <summary>
     /// 设置Enemy目标列表
     /// </summary>
     /// <param name="List_Enemy"></param>
-    public void SetEnemyList(List<Entity> List_Enemy)
+    public void SetEnemyList(List<Unit> List_Enemy)
     {
         this.List_Enemy = List_Enemy;
     }
@@ -55,7 +55,7 @@ public class AbilityController
     /// 获取Enemy目标列表
     /// </summary>
     /// <returns></returns>
-    public List<Entity> GetEnemyList()
+    public List<Unit> GetEnemyList()
     {
         return this.List_Enemy;
     }
@@ -64,7 +64,7 @@ public class AbilityController
     /// 设置Ally目标列表
     /// </summary>
     /// <param name="List_Ally"></param>
-    public void SetAllyList(List<Entity> List_Ally)
+    public void SetAllyList(List<Unit> List_Ally)
     {
         this.List_Ally = List_Ally;
     }
@@ -73,7 +73,7 @@ public class AbilityController
     /// 获取Ally目标列表
     /// </summary>
     /// <returns></returns>
-    public List<Entity> GetAllyList()
+    public List<Unit> GetAllyList()
     {
         return this.List_Ally;
     }

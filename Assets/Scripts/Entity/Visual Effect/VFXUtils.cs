@@ -12,7 +12,7 @@ public static class VFXUtils
     }
 
 
-    public static void ActivateVFX(List<VFX> List_VFX, Vector3 charPos, List<Entity> List_Target){
+    public static void ActivateVFX(List<VFX> List_VFX, Vector3 charPos, List<Unit> List_Target){
         if(List_VFX.Count == 0 || List_VFX == null){
             return;
         }

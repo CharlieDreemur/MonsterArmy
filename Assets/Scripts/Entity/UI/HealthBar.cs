@@ -7,13 +7,13 @@ using Sirenix.OdinInspector;
 public class HealthBar : MonoBehaviour
 {
     public HealthBarData data;
-    public Entity character;
+    public Unit character;
     [SerializeField]
     private UnityEngine.GameObject healthBar;
     [SerializeField]
     private HealthBarSetup setup;
     private void Start() {
-        character = gameObject.GetComponent<Entity>();
+        character = gameObject.GetComponent<Unit>();
         
         if(character==null){
             return;

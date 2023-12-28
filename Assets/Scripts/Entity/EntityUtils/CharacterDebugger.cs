@@ -6,7 +6,7 @@ public class CharacterDebugger : MonoBehaviour
 {
 //一个负责监视ICharacterAttribute及其他变量的调试工具
     public EntityManager manager = null;
-    public Entity charController = null;
+    public Unit charController = null;
     public EntityAttribute charAttr = null;
     public string characterName;
     public Vector3 Transform_SpawnPos = Vector3.zero; //ICharacter出生的坐标

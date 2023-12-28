@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyAttribute : EntityAttribute
 {
 
-    public override void Init(EntityData data, Entity entity){
+    public override void Init(EntityData data, Unit entity){
         base.Init(data, entity);
     }
 }

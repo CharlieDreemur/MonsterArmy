@@ -11,7 +11,7 @@ public abstract class AbstractProjectileTrack
 {
     protected ProjectileData data;
     protected Projectile projectile;
-    protected Entity target;
+    protected Unit target;
     protected float speedMultipler;
     protected AnimationCurve speedCurve;
     protected float Speed

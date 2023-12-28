@@ -20,7 +20,7 @@ public class ProjectileArgs : EventArgs
         ProjectileData data,
         Vector3 spawnPos,
         DamageInfo damageInfo,
-        Entity target
+        Unit target
         )
     {
         this.data = data;
@@ -35,7 +35,7 @@ public class ProjectileArgs : EventArgs
         Vector3 spawnPos,
         DamageInfo damageInfo,
         Vector3 direction,
-        Entity target = null
+        Unit target = null
         )
     {
         this.data = data;
@@ -62,7 +62,7 @@ public class ProjectileArgs : EventArgs
     public DamageInfo damageInfo;
     public Vector3 spawnPos;
     public Vector3 direction;
-    public Entity target; //homing target
+    public Unit target; //homing target
     [SerializeField]
     private ProjectileData data;
 
@@ -103,9 +103,9 @@ public class Projectile : MonoBehaviour, IPoolObject
         set => rb = value;
     }
     [SerializeField]
-    private Entity collideEntity;
+    private Unit collideEntity;
     [SerializeField]
-    private List<Entity> triggerEntities;
+    private List<Unit> triggerEntities;
     [SerializeField]
     private Rigidbody2D rb;
     [SerializeField]
@@ -152,7 +152,7 @@ public class Projectile : MonoBehaviour, IPoolObject
         isTrigger = false;
         distance = 0f;
         time = 0f;
-        triggerEntities = new List<Entity>();
+        triggerEntities = new List<Unit>();
         StartCoroutine(ReleaseObject(args.Data.lifeCycle));
     }
 
@@ -217,7 +217,7 @@ public class Projectile : MonoBehaviour, IPoolObject
     {
         if (isTrigger) { return; }
 
-        bool isEntity = collider.TryGetComponent(out Entity entity);
+        bool isEntity = collider.TryGetComponent(out Unit entity);
         if (!isEntity) { return; }
         if (entity == args.damageInfo.attacker)
         {

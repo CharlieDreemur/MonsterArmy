@@ -52,7 +52,7 @@ public class AreaAttack : MonoBehaviour
 
     private DamageInfo damageInfo;
     private float timeElapsed = 0.0f;
-    private HashSet<Entity> hitEntities;
+    private HashSet<Unit> hitEntities;
 
     private int hitCount;
     private bool attackInitialized;
@@ -60,7 +60,7 @@ public class AreaAttack : MonoBehaviour
 
     void Awake()
     {
-        hitEntities = new HashSet<Entity>();
+        hitEntities = new HashSet<Unit>();
         OnDisable();
     }
 
@@ -160,7 +160,7 @@ public class AreaAttack : MonoBehaviour
         attackInitialized = true;
     }
 
-    public void SetDamageInfo(DamageInfo damageInfoIn, Entity instigator = null)
+    public void SetDamageInfo(DamageInfo damageInfoIn, Unit instigator = null)
     {
         damageInfo = damageInfoIn;
         if (instigator)
@@ -268,7 +268,7 @@ public class AreaAttack : MonoBehaviour
 
         GameObject colliderObject = collider.gameObject;
 
-        if (!colliderObject.TryGetComponent(out Entity entity)) { return; }
+        if (!colliderObject.TryGetComponent(out Unit entity)) { return; }
 
         if (entity == damageInfo.attacker) { return; }
 

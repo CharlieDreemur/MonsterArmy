@@ -18,7 +18,7 @@ public struct DamageInfo
 {
     public DamageInfo(
         float damage,
-        Entity instigator, 
+        Unit instigator, 
         float knockback = 0.0f,
         DamageType damageType = DamageType.AttackDamage
     )
@@ -45,7 +45,7 @@ public struct DamageInfo
     public float knockback;
     //public List<BuffFactory> BuffsToApply;
     public DamageType damageType;
-    public Entity attacker;
+    public Unit attacker;
 
     
 }

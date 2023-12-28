@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class Enemy : Entity
+public class Enemy : Unit
 {
     //创建时自动绑定
     // public Enemy(GameObject _obj, EnemyData _enemydata):base(_obj, _enemydata){

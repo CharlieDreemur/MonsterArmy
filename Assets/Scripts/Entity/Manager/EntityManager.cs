@@ -16,9 +16,9 @@ public class EntityManager: Singleton<EntityManager>, IManager
     private UnityAction<string> initiateEnemyAction;
     public List<AllyData> List_AllyData = new List<AllyData>();
     public List<EnemyData> List_EnemyData = new List<EnemyData>();
-    public Dictionary<int, Entity> Dic_ICharController = new Dictionary<int, Entity>();
-    public List<Entity> List_Ally = new List<Entity>(); //玩家方所有单位的List
-    public List<Entity> List_Enemy = new List<Entity>(); //敌人方所有单位的List
+    public Dictionary<int, Unit> Dic_ICharController = new Dictionary<int, Unit>();
+    public List<Unit> List_Ally = new List<Unit>(); //玩家方所有单位的List
+    public List<Unit> List_Enemy = new List<Unit>(); //敌人方所有单位的List
 
     public Transform parent;
     protected override void OnAwake()
@@ -52,7 +52,7 @@ public class EntityManager: Singleton<EntityManager>, IManager
     {
 
         //遍历字典的ICharacter并更新
-        foreach(Entity item in Dic_ICharController.Values)
+        foreach(Unit item in Dic_ICharController.Values)
         {
             if(item.isKilled){
                 if(List_Enemy.Contains(item)){
@@ -79,10 +79,10 @@ public class EntityManager: Singleton<EntityManager>, IManager
 
 
     //将Dic_ICharController按照阵营添加进不同的List
-    public void SetDictionaryToList(Dictionary<int, Entity> _Dic_ICharController){
+    public void SetDictionaryToList(Dictionary<int, Unit> _Dic_ICharController){
         List_Ally.Clear();
         List_Enemy.Clear();
-        foreach(Entity item in _Dic_ICharController.Values){
+        foreach(Unit item in _Dic_ICharController.Values){
             switch (item.entityType){
                 case EntityType.Ally:
                     List_Ally.Add(item as Ally);
@@ -171,7 +171,7 @@ public class EntityManager: Singleton<EntityManager>, IManager
       /*
     @function 删除一个索引为指定ID/Key的元素
     */
-    public void RemoveEntityWithValue(Entity IChar){
+    public void RemoveEntityWithValue(Unit IChar){
         if(!Dic_ICharController.ContainsValue(IChar)){
             Debug.LogWarning(this.name+"Dic_ICharController没有value为该IChar的元素");
             return;
@@ -182,7 +182,7 @@ public class EntityManager: Singleton<EntityManager>, IManager
     /*
     @function 在字典中返回为对应值的索引
     */
-    public int GetID(Entity IChar){
+    public int GetID(Unit IChar){
         foreach(int key in Dic_ICharController.Keys){
             if(Dic_ICharController[key] == IChar){
                 return key;
@@ -196,14 +196,14 @@ public class EntityManager: Singleton<EntityManager>, IManager
     /*
     @function 获取对应ID的Icharacter
     */
-    public Entity GetEntity(int ID){
+    public Unit GetEntity(int ID){
         return Dic_ICharController[ID];
     }
 
     /*
     @function 获取对应obj的Icharacter
     */
-    public Entity GetEntity(GameObject obj){
+    public Unit GetEntity(GameObject obj){
         return GetEntity(obj.GetInstanceID());
     }
 

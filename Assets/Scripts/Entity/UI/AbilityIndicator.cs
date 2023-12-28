@@ -11,7 +11,7 @@ public class AbilityIndicator: MonoBehaviour
     private UnityEngine.GameObject obj = null; //游戏画面显示的obj,会不断的显示和隐藏
     
     [FoldoutGroup("技能指示器设置")] [HideLabel] [LabelText("角色")] 
-    public Entity character;
+    public Unit character;
 
     [FoldoutGroup("技能指示器设置")] [HideLabel] [LabelText("技能")]
     public AbilityData abilityData;
@@ -30,13 +30,13 @@ public class AbilityIndicator: MonoBehaviour
 
     private float initialScale = 0.84f*2; //默认scale为0.84*2以确保技能指示器的单位长度为1,直径为2
     private void Start() {
-        character = gameObject.GetComponent<Entity>();
+        character = gameObject.GetComponent<Unit>();
         Init(character);
     }
     
     
 
-    private void Init(Entity character){
+    private void Init(Unit character){
         if(character.GetCharacterAbility() == null || character.GetCharacterAbility().List_Ability == null || character.GetCharacterAbility().List_Ability.Count == 0){
             Debug.LogWarning(character.Name+"没有技能");
             this.enabled = true;

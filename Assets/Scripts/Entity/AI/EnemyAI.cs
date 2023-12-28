@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAI : ICharacterAI
 {
-    public EnemyAI(Entity Character):base(Character){
+    public EnemyAI(Unit Character):base(Character){
         ChangeAIState(new IdleAIState());
     }
     //是否可以攻击Heart

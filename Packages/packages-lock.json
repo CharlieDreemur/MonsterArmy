@@ -244,6 +244,14 @@
         "com.unity.render-pipelines.core": "14.0.8"
       }
     },
+    "studio.physalia.flexi": {
+      "version": "file:studio.physalia.flexi",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      }
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

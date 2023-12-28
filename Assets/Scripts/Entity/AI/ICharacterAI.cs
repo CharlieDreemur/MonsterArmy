@@ -9,13 +9,13 @@ using Sirenix.OdinInspector;
 public abstract class ICharacterAI 
 {
   
-    protected Entity character = null;
+    protected Unit character = null;
     [ShowInInspector]
     protected IAIState AIState = null; //角色AI状态
 
     public float attackIntervalTimer = 0f;
     public bool attackable = true; //是否可以攻击，false则角色无法攻击
-    public ICharacterAI(Entity _character){
+    public ICharacterAI(Unit _character){
         character = _character;
         //首次出手无前摇
         attackIntervalTimer = 0f;
@@ -29,7 +29,7 @@ public abstract class ICharacterAI
     }
 
    //攻击目标
-    public virtual void Attack(Entity Target){
+    public virtual void Attack(Unit Target){
     
        //时间到了再攻击
        attackIntervalTimer -= Time.deltaTime;
@@ -55,7 +55,7 @@ public abstract class ICharacterAI
    }
 
     //是否在攻击距离内
-    public bool IsTargetInAttackRange(Entity Target){
+    public bool IsTargetInAttackRange(Unit Target){
         float dist = Vector3.Distance(character.GetPosition(), Target.GetPosition());
         return (dist<=character.GetAttackRange());
     }
@@ -90,7 +90,7 @@ public abstract class ICharacterAI
     }
 
    //目标删除
-    public void RemoveAITarget(Entity Target){
+    public void RemoveAITarget(Unit Target){
        AIState.RemoveTarget(Target);
     }
 
@@ -108,7 +108,7 @@ public abstract class ICharacterAI
     /// <summary>
     /// 检测List_Ability中的所有技能，返回一个包含所有可以使用的技能的List，如果找不到则返回null
     /// </summary>
-    public List<Ability> GetReadyAbilities(Entity target){
+    public List<Ability> GetReadyAbilities(Unit target){
         List<Ability> List_ReturnAbility = null;
         foreach(Ability ability in character.GetCharacterAbility().List_Ability){
             if(ability.CheckAbility(target)){
@@ -123,7 +123,7 @@ public abstract class ICharacterAI
     /// <summary>
     /// 检测List_Ability中的所有技能，返回第一个可以使用的技能，如果找不到则返回null
     /// </summary>
-    public Ability CheckAbility(Entity target){
+    public Ability CheckAbility(Unit target){
         foreach(Ability ability in character.GetCharacterAbility().List_Ability){
             if(ability.CheckAbility(target)){
                 return ability;
@@ -132,7 +132,7 @@ public abstract class ICharacterAI
          return null;
     }
 
-    public void ActivateReadyAbilityInInterval(Entity target){
+    public void ActivateReadyAbilityInInterval(Unit target){
          //技能每60帧执行一次,没有技能不执行
         if(Time.frameCount % 60 != 0 || character.GetCharacterAbility().List_Ability.Count==0 || character.GetCharacterAbility().List_Ability == null){
             return;
@@ -141,7 +141,7 @@ public abstract class ICharacterAI
     }
 
 
-    public void ActivateReadyAbility(Entity target){
+    public void ActivateReadyAbility(Unit target){
     
         //有能够释放的技能时，先释放技能
             Ability ability = CheckAbility(target);
@@ -153,7 +153,7 @@ public abstract class ICharacterAI
     #endregion
     
     //更新AI
-    public void UpdateAI(List<Entity> Targets){
+    public void UpdateAI(List<Unit> Targets){
 
        AIState.Update(Targets);
     }

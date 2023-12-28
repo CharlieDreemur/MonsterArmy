@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class Ally : Entity
+public class Ally : Unit
 
 {
     // //创建时自动绑定

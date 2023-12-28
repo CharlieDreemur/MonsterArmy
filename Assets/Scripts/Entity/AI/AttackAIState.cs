@@ -5,12 +5,12 @@ using UnityEngine;
 public class AttackAIState : IAIState
 {
     [SerializeField]
-    private Entity attackTarget = null; //攻击目标
-    public AttackAIState(Entity _attackTarget){
+    private Unit attackTarget = null; //攻击目标
+    public AttackAIState(Unit _attackTarget){
         attackTarget = _attackTarget;
     }
     //更新
-    public override void Update(List<Entity> Targets){
+    public override void Update(List<Unit> Targets){
     
         //没有目标时，改为Idle
         if(attackTarget == null || attackTarget.IsKilled()||Targets ==null || Targets.Count ==0){
@@ -21,7 +21,8 @@ public class AttackAIState : IAIState
         Ability ability = charAI.CheckAbility(attackTarget);
         //如果有任何可以释放的技能，则切换为释放技能
         if(ability!=null){
-            charAI.ChangeAIState(new AbilityAIState(ability));
+            Debug.Log("Disable Ability Usage For Now");
+            //charAI.ChangeAIState(new AbilityAIState(ability));
             return;
         }
 
@@ -38,7 +39,7 @@ public class AttackAIState : IAIState
 
     }
     //目标被删除
-    public override void RemoveTarget(Entity Target)
+    public override void RemoveTarget(Unit Target)
     {
         if(attackTarget.GetGameObject().name == Target.GetGameObject().name)
             attackTarget = null;

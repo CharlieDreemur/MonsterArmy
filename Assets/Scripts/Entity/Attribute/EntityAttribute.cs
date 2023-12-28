@@ -14,7 +14,7 @@ public EntityData data;
 #region PrivateProperty
     protected string characterName;
     [ShowInInspector]
-    protected Entity entity;
+    protected Unit entity;
     protected Color color = Color.white;
     protected Vector3 scale;
     protected Material material;
@@ -69,7 +69,7 @@ public EntityData data;
     /// 按照data来初始化所有角色属性
     /// </summary>
     /// <param name="data"></param>
-    public virtual void Init(EntityData data, Entity entity){
+    public virtual void Init(EntityData data, Unit entity){
         this.data = data;
         this.entity = entity;
         characterName = data.name;
@@ -115,7 +115,7 @@ public EntityData data;
         /*
     @funciton 返回敌人对我方的一次攻击造成的伤害，考虑闪避，暴击，防御等因素
     */
-    public int CalculateDamage(Entity attacker, out bool IsDodge, out Enum_DamageType damageType){
+    public int CalculateDamage(Unit attacker, out bool IsDodge, out Enum_DamageType damageType){
         return CalculateDamage(attacker.GetCharacterAttribute(), this, out IsDodge, out damageType);
     }
 
@@ -123,7 +123,7 @@ public EntityData data;
     /*
     @funciton:给予两个人物，返回一方对另一方的一次攻击造成的伤害，考虑闪避，暴击，防御等因素
     */
-    public static int CalculateDamage(Entity attacker, Entity target, out bool IsDodge, out Enum_DamageType damageType){
+    public static int CalculateDamage(Unit attacker, Unit target, out bool IsDodge, out Enum_DamageType damageType){
     
         return CalculateDamage(attacker.GetCharacterAttribute(), target.GetCharacterAttribute(), out IsDodge, out damageType);
     }

@@ -14,9 +14,9 @@ public static class UtilsTargetChooser
     /// Target选择器，按照条件选择，返回List<ICharacter>，用List<ICharacter>[0]来获取单体目标
     /// </summary>
     /// <returns></returns>
-    public static List<Entity> ChooseTarget(TargetChooserField chooser, Entity character, List<Entity> enemys, List<Entity> allies) 
+    public static List<Unit> ChooseTarget(TargetChooserField chooser, Unit character, List<Unit> enemys, List<Unit> allies) 
     {
-        List<Entity> List_Return = new List<Entity>();
+        List<Unit> List_Return = new List<Unit>();
         switch (chooser.effectTargetChooser)
         {
             case Enum_EffectTargetChooser.current:
@@ -94,9 +94,9 @@ public static class UtilsTargetChooser
     /// </summary>
     /// <param name="targets"></param>
     /// <returns></returns>
-    public static List<Entity> FindInRange(Entity character, List<Entity> targets, float radius){
+    public static List<Unit> FindInRange(Unit character, List<Unit> targets, float radius){
         Vector3 charPos = character.GetPosition();
-        List<Entity> List_Return = new List<Entity>();
+        List<Unit> List_Return = new List<Unit>();
         targets.ForEach((target)=>{
             if(Vector3.Distance(charPos, target.GetPosition()) < radius){
                 List_Return.Add(target);
@@ -107,11 +107,11 @@ public static class UtilsTargetChooser
     /// <summary>
     /// 找出最近的一个目标
     /// </summary>
-    public static Entity FindClosest(Entity character, List<Entity> targets){
+    public static Unit FindClosest(Unit character, List<Unit> targets){
         Vector3 charPos = character.GetPosition();
-        Entity closestTarget = null;
+        Unit closestTarget = null;
         float MinDist = AllyData.CONST_DETECT_RANGE;
-        foreach(Entity target in targets){
+        foreach(Unit target in targets){
             //已经阵亡的不计算
             if(target.IsKilled()){
                 continue;
@@ -133,8 +133,8 @@ public static class UtilsTargetChooser
     /// <param name="isTargetAll">可选参数，为true时则选择全体目标</param>
     /// <param name="radius">限制搜索的范围,大于范围的将不会被返回</param>
     /// <returns></returns>
-    public static List<Entity> FindClosest(Entity character, List<Entity> targets, int number=1, bool isTargetAll = false, bool isRangeInfinity = false,float radius = 0f){
-        List<Entity> List_Return = new List<Entity>();
+    public static List<Unit> FindClosest(Unit character, List<Unit> targets, int number=1, bool isTargetAll = false, bool isRangeInfinity = false,float radius = 0f){
+        List<Unit> List_Return = new List<Unit>();
         if(number<=0){
             Debug.LogWarning("FindClosest().number=0");
             return null;
@@ -170,11 +170,11 @@ public static class UtilsTargetChooser
     /// <summary>
     /// 找出最远的目标
     /// </summary>
-    public static Entity FindFarest(Entity character, List<Entity> targets){
+    public static Unit FindFarest(Unit character, List<Unit> targets){
         Vector3 charPos = character.GetPosition();
-        Entity farestTarget = null;
+        Unit farestTarget = null;
         float MaxDist = 999f;
-        foreach(Entity target in targets){
+        foreach(Unit target in targets){
             //已经阵亡的不计算
             if(target.IsKilled()){
                 continue;
@@ -197,8 +197,8 @@ public static class UtilsTargetChooser
     /// <param name="isTargetAll">可选参数，为true时则选择全体目标</param>
     /// <param name="radius">限制搜索的范围,大于范围的将不会被返回</param>
     /// <returns></returns>
-    public static List<Entity> FindFarest(Entity character, List<Entity> targets, int number = 1, bool isTargetAll = false, bool isRangeInfinity=false, float radius = 0f){
-        List<Entity> List_Return = new List<Entity>();
+    public static List<Unit> FindFarest(Unit character, List<Unit> targets, int number = 1, bool isTargetAll = false, bool isRangeInfinity=false, float radius = 0f){
+        List<Unit> List_Return = new List<Unit>();
         if(number<=0){
             Debug.LogWarning("FindFarest().number=0");
             return null;
@@ -235,10 +235,10 @@ public static class UtilsTargetChooser
     /// </summary>
     /// <param name="targets"></param>
     /// <returns></returns>
-    public static Entity FindLeastHP(List<Entity> targets){
-        Entity leastHPTarget = null;
+    public static Unit FindLeastHP(List<Unit> targets){
+        Unit leastHPTarget = null;
         int MinHP = 0;
-        foreach(Entity target in targets){
+        foreach(Unit target in targets){
             //已经阵亡的不计算
             if(target.IsKilled()){
                 continue;
@@ -255,8 +255,8 @@ public static class UtilsTargetChooser
     /// <summary>
     /// 找出血量最少的n个目标, 从血量最少到最多的顺序返回, List<ICharacter>
     /// </summary>
-    public static List<Entity> FindLeastHP(List<Entity> targets, int number = 1, bool isTargetAll = false){
-        List<Entity> List_Return = new List<Entity>();
+    public static List<Unit> FindLeastHP(List<Unit> targets, int number = 1, bool isTargetAll = false){
+        List<Unit> List_Return = new List<Unit>();
         if(number<=0){
             Debug.LogWarning("FindLeastHP().number=0");
             return null;
@@ -283,8 +283,8 @@ public static class UtilsTargetChooser
     /// <summary>
     /// 找出血量最少的n个目标, 从血量最少到最多的顺序返回, List<ICharacter>
     /// </summary>
-    public static List<Entity> FindLeastHP(Entity character, List<Entity> targets, int number = 1, bool isTargetAll = false, bool isRangeInfinity=false, float radius = 0f){
-        List<Entity> List_Return = new List<Entity>();
+    public static List<Unit> FindLeastHP(Unit character, List<Unit> targets, int number = 1, bool isTargetAll = false, bool isRangeInfinity=false, float radius = 0f){
+        List<Unit> List_Return = new List<Unit>();
         if(number<=0){
             Debug.LogWarning("FindLeastHP().number=0");
             return null;
@@ -319,10 +319,10 @@ public static class UtilsTargetChooser
     /// <summary>
     /// 找出血量最多的目标
     /// </summary>
-    public static Entity FindMostHP(List<Entity> targets){
-        Entity mostHPTarget = null;
+    public static Unit FindMostHP(List<Unit> targets){
+        Unit mostHPTarget = null;
         int MaxHP = Int32.MaxValue;
-        foreach(Entity target in targets){
+        foreach(Unit target in targets){
             //已经阵亡的不计算
             if(target.IsKilled()){
                 continue;
@@ -339,8 +339,8 @@ public static class UtilsTargetChooser
     /// <summary>
     /// 找出血量最多的目标，从血量最多到最少排序, List<ICharacter>
     /// </summary>
-    public static List<Entity> FindMostHP(List<Entity> targets, int number = 1, bool isTargetAll = false){
-         List<Entity> List_Return = new List<Entity>();
+    public static List<Unit> FindMostHP(List<Unit> targets, int number = 1, bool isTargetAll = false){
+         List<Unit> List_Return = new List<Unit>();
         if(number<=0){
             Debug.LogWarning("FindMostHP().number=0");
             return null;
@@ -367,8 +367,8 @@ public static class UtilsTargetChooser
     /// <summary>
     /// 找出血量最多的目标，从血量最多到最少排序, List<ICharacter>,判断距离
     /// </summary>
-    public static List<Entity> FindMostHP(Entity character, List<Entity> targets, int number = 1, bool isTargetAll = false, bool isRangeInfinity=false, float radius = 0f){
-         List<Entity> List_Return = new List<Entity>();
+    public static List<Unit> FindMostHP(Unit character, List<Unit> targets, int number = 1, bool isTargetAll = false, bool isRangeInfinity=false, float radius = 0f){
+         List<Unit> List_Return = new List<Unit>();
         if(number<=0){
             Debug.LogWarning("FindMostHP().number=0");
             return null;

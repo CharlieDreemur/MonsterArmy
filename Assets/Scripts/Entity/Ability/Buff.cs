@@ -14,7 +14,7 @@ public class Buff : IBuff
     private BuffData data;
     
     [SerializeField]
-    private Entity character;
+    private Unit character;
 
     private EntityAttribute charAttribute;
 
@@ -26,10 +26,10 @@ public class Buff : IBuff
 
     public Coroutine updateCoroutine; //更新计时器的线程
     public UnityEvent buffEvent; //buff的事件
-    public Buff(Entity character, BuffData data){
+    public Buff(Unit character, BuffData data){
         Init(character,data);
     }
-    public void Init(Entity _character, BuffData data)
+    public void Init(Unit _character, BuffData data)
     {
         character = _character;
         this.data = data;
@@ -162,7 +162,7 @@ public class Buff : IBuff
 
 public interface IBuff
 {
-    public void Init(Entity character, BuffData data);
+    public void Init(Unit character, BuffData data);
 
     public void Activate();
     /// <summary>

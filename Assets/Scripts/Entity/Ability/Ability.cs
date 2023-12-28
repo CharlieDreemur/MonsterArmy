@@ -44,11 +44,11 @@ public class Ability : IAbility
     public AbilityData abilityData; //abilityData是不变的
 
     [LabelText("技能拥有者")]
-    public Entity character; //技能使用者
+    public Unit character; //技能使用者
     
     public Enum_AbilityState abilityState;
 
-    public Ability(AbilityData data, Entity character){
+    public Ability(AbilityData data, Unit character){
         Init(data, character);
     }
     
@@ -63,7 +63,7 @@ public class Ability : IAbility
     [LabelText("效果列表")]
     public List<GameEffect> List_GameEffect = new List<GameEffect>();
     [LabelText("目标列表")]
-    public List<Entity> List_Target = new List<Entity>(); //技能目标的列表
+    public List<Unit> List_Target = new List<Unit>(); //技能目标的列表
 
     [ShowInInspector]
     private Task[] gameEffectTasks;
@@ -75,7 +75,7 @@ public class Ability : IAbility
     //private AbilityIndicator indicator = null;
 
 
-    public void Init(AbilityData data, Entity character){
+    public void Init(AbilityData data, Unit character){
         abilityData = data; //引用类型,两个值会一起改变
         SetCharacter(character);
         Init();
@@ -105,7 +105,7 @@ public class Ability : IAbility
     /// <summary>
     /// 根据AbilityData里的GameEffectData实例化GameEffect对象,添加进List_GameEffect里
     /// </summary>
-    public void SetGameEffectFromData(List<GameEffectData> gameEffectDatas, Entity character){
+    public void SetGameEffectFromData(List<GameEffectData> gameEffectDatas, Unit character){
         if(gameEffectDatas == null || gameEffectDatas.Count == 0){
             return;
         }
@@ -138,7 +138,7 @@ public class Ability : IAbility
     public void SetData(AbilityData data){
         abilityData = data;
     }
-    public void SetCharacter(Entity _character){
+    public void SetCharacter(Unit _character){
         character = _character;
         charAttribute = character.GetCharacterAttribute();
         charFixedData = charAttribute.attributeData.fixedData;
@@ -164,7 +164,7 @@ public class Ability : IAbility
         }
         AbilityCost();
         abilityState = Enum_AbilityState.channel;
-        foreach(Entity target in List_Target){
+        foreach(Unit target in List_Target){
             MessageManager.AddMessage(character.Name+"对"+target.Name+"释放了"+abilityData.baseInfo.name);
         }
         //播放角色释放技能的动画
@@ -178,7 +178,7 @@ public class Ability : IAbility
     /// 选定目标的activate
     /// </summary>
     /// <param name="targets"></param>
-    public void Activate(List<Entity> targets){
+    public void Activate(List<Unit> targets){
         //技能列表检查
         if(abilityData.List_GameEffectData == null || abilityData.List_GameEffectData.Count==0){
             return;
@@ -238,7 +238,7 @@ public class Ability : IAbility
     /// 检查技能是否可以对目标释放，必须先传递目标，否则return false
     /// </summary>
     /// <returns></returns>
-    public bool CheckAbility(Entity target){
+    public bool CheckAbility(Unit target){
         if(CheckTime()&&CheckCost()){
             //如果没有距离限制则不需要检测距离
             if(abilityData.targetChooser.isRangeInfinity){
@@ -326,7 +326,7 @@ public class Ability : IAbility
     /// ps:我们认为技能目标为多数（multi）的技能，只需要有一个目标满足即可
     /// </summary>
     /// <returns></returns>
-    private bool CheckDistance(Entity target){
+    private bool CheckDistance(Unit target){
         if(Vector3.Distance(target.GetPosition(), character.GetPosition()) <= GetAbilityRange()){
             return true;
         }
@@ -339,7 +339,7 @@ public class Ability : IAbility
         ///TODO:中断技能释放
     }
 
-    public List<Entity> ChooseTarget()
+    public List<Unit> ChooseTarget()
     {
         return UtilsTargetChooser.ChooseTarget(abilityData.targetChooser, character, character.GetCharacterAbility().GetEnemyList(), character.GetCharacterAbility().GetAllyList());
     }

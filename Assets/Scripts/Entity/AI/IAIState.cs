@@ -20,16 +20,16 @@ public abstract class IAIState
     /// </summary>
     public virtual void CheckAbility(){}
     //更新
-    public abstract void Update(List<Entity> Targets);
+    public abstract void Update(List<Unit> Targets);
     //目标被删除
-    public virtual void RemoveTarget(Entity Target){}
+    public virtual void RemoveTarget(Unit Target){}
 
-    public Entity FindCloestTarget(List<Entity> Targets){
+    public Unit FindCloestTarget(List<Unit> Targets){
          //找出最近的目标
         Vector3 NowPosition = charAI.GetPosition();
-        Entity theNearTarget = null;
+        Unit theNearTarget = null;
         float MinDist = AllyData.CONST_DETECT_RANGE;
-        foreach(Entity Target in Targets){
+        foreach(Unit Target in Targets){
             //已经阵亡的不计算
             if(Target.IsKilled()){
                 continue;

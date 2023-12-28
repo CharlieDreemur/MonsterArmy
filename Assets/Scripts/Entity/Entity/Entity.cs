@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 
 
 //继承monobehavior，我们使用一个统一的manager来遍历每个ICharacter
-public abstract class Entity : MonoBehaviour
+public abstract class Unit : MonoBehaviour
 {
     [FoldoutGroup("角色基本信息")]
     public EntityData data;
@@ -129,7 +129,7 @@ public abstract class Entity : MonoBehaviour
         SetAbilityFromData(GetCharacterAttribute().List_AbilityData, this);
     }
 
-    public void SetAbilityFromData(List<AbilityData> abilityDatas, Entity character)
+    public void SetAbilityFromData(List<AbilityData> abilityDatas, Unit character)
     {
 
         if (abilityDatas == null || abilityDatas.Count == 0)
@@ -300,13 +300,13 @@ public abstract class Entity : MonoBehaviour
     }
 
     //更新AI
-    public void UpdateAI(List<Entity> Targets)
+    public void UpdateAI(List<Unit> Targets)
     {
         charAI.UpdateAI(Targets);
     }
 
     //通知AI有角色被删除
-    public void RemoveAITarget(Entity Targets)
+    public void RemoveAITarget(Unit Targets)
     {
         charAI.RemoveAITarget(Targets);
     }
@@ -385,18 +385,18 @@ public abstract class Entity : MonoBehaviour
 
         }
     }
-    public void AttackUtils(Entity target){
+    public void AttackUtils(Unit target){
         FaceEnemy(target.GetPosition());
         AttackAnimation(GetCharacterData().attackAnimationType);
     }
-    public void Attack(Entity target)
+    public void Attack(Unit target)
     {   
         AttackUtils(target);
         DamageInfo damageInfo = charAttr.GetAttackDamageInfo();
         StartCoroutine(DelayAttack(charAttr.attributeData.fixedData.AtkInterval*0.6f, damageInfo, target));
     }
 
-    public void RangedAttack(Entity target)
+    public void RangedAttack(Unit target)
     {   
         AttackUtils(target);
         DamageInfo damageInfo = charAttr.GetAttackDamageInfo();
@@ -483,7 +483,7 @@ public abstract class Entity : MonoBehaviour
 
 
     
-    IEnumerator DelayAttack(float seconds, DamageInfo damageInfo, Entity target)
+    IEnumerator DelayAttack(float seconds, DamageInfo damageInfo, Unit target)
     {
         yield return new WaitForSeconds(seconds);
         //Debug.Log("AttackWait"+Time.time);

@@ -15,7 +15,7 @@ public class AllyAttribute : EntityAttribute
         }
     }
 
-    public override void Init(EntityData data, Entity entity){
+    public override void Init(EntityData data, Unit entity){
         Star = (data as AllyData).star;
         base.Init(data, entity);
     }
