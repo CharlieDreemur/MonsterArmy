@@ -86,7 +86,6 @@ public abstract class Unit : MonoBehaviour
     {
         GetCharacterAttribute().Init(data, this);
         SetAI(new CharacterAI(this));
-        SetAbilityFromData();
         SetCharacterAnimation(GetComponent<AnimationController>());
         SetSpriteRenderers(GetComponentsInChildren<SpriteRenderer>());
         SetSpawnPosition(charAttr.Transform_SpawnPos);
@@ -113,36 +112,6 @@ public abstract class Unit : MonoBehaviour
     public void SetCharacterAttribute(EntityAttribute charAttr)
     {
         this.charAttr = charAttr;
-    }
-
-    public void SetAbility(List<Ability> List_Ability)
-    {
-        charAbility.List_Ability = List_Ability;
-    }
-
-    public void SetAbilityFromData()
-    {
-        SetAbilityFromData(GetCharacterAttribute().List_AbilityData, this);
-    }
-
-    public void SetAbilityFromData(List<AbilityData> abilityDatas, Unit character)
-    {
-
-        if (abilityDatas == null || abilityDatas.Count == 0)
-        {
-            return;
-        }
-
-        abilityDatas.ForEach((data) =>
-        {
-            if(data == null){
-                Debug.LogWarning("the data of the character's abilityList is Null"+character.Name);
-                return;
-            }
-            //Debug.Log(data.baseInfo.name);
-            charAbility.List_Ability.Add(new Ability(data, character));
-
-        });
     }
 
     public void SetCharacterAnimation(AnimationController charAnimation){
@@ -360,22 +329,10 @@ public abstract class Unit : MonoBehaviour
 
         }
     }
-    public void AttackUtils(Unit target){
+    public void TryAttack(Unit target){
         FaceEnemy(target.GetPosition());
         AttackAnimation(GetCharacterData().attackAnimationType);
-    }
-    public void Attack(Unit target)
-    {   
-        AttackUtils(target);
-        DamageInfo damageInfo = charAttr.GetAttackDamageInfo();
-        StartCoroutine(DelayAttack(charAttr.attributeData.fixedData.AtkInterval*0.6f, damageInfo, target));
-    }
-
-    public void RangedAttack(Unit target)
-    {   
-        AttackUtils(target);
         attackComponent?.TryAttack(this, target);
-
     }
 
     public void TakeDamage(DamageInfo damageInfo){
@@ -455,13 +412,6 @@ public abstract class Unit : MonoBehaviour
     }
 
 
-    
-    IEnumerator DelayAttack(float seconds, DamageInfo damageInfo, Unit target)
-    {
-        yield return new WaitForSeconds(seconds);
-        //Debug.Log("AttackWait"+Time.time);
-        target.TakeDamage(damageInfo);
-    }
 
     IEnumerator DelayDeath(float seconds)
     {

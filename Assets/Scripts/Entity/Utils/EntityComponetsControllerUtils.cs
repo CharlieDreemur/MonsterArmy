@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MonsterArmy.Core.UnitSystem.Components;
 
 //control all the componets that will be auto setup to each characters
 public static class EntityComponetsControllerUtils
@@ -15,6 +16,10 @@ public static class EntityComponetsControllerUtils
         }
         AddEntityAnimation(obj);
         SetMaterial(data, obj);
+        //add attack component
+        if(obj.GetComponent<RangedAttackComponent>() == null)
+            obj.AddComponent<AttackComponent>();
+
         //可选添加组件
         if (data == null)
         {

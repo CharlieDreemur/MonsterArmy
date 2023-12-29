@@ -37,7 +37,9 @@ public abstract class ICharacterAI
            return;
        }
        attackIntervalTimer = character.GetAttackInterval();
+       character.TryAttack(Target);
        //攻击目标
+       /*
        switch (character.GetCharacterData().attackType){
             case Enum_AttackType.Attack:
             character.Attack(Target);
@@ -51,6 +53,7 @@ public abstract class ICharacterAI
             break;
 
        }
+       */
     
    }
 
