@@ -12,4 +12,5 @@ public class SetupData : ScriptableObject{
     public Vector2 CapsuleCollider2D_size;
 
     public HealthBarData healthBarData;
+    public Material material;
 }

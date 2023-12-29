@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using YamlDotNet.Serialization;
-namespace MonsterArmy.Core.Unit
+namespace MonsterArmy.Core.UnitSystem
 {
     [System.Serializable]
     //For import yaml config only
@@ -21,6 +21,8 @@ namespace MonsterArmy.Core.Unit
         public float CritChance;
         public float CritDamage; //Default 1.5
         public float DodgeChance;
+        public Enum_AttackType AttackType;
+        public Enum_AttackAnimationType AttackAnimationType;
     }
 
 

@@ -206,7 +206,7 @@ public class EntityManager: Singleton<EntityManager>, IManager
     public Unit GetEntity(GameObject obj){
         return GetEntity(obj.GetInstanceID());
     }
-
+    
 }
 
 public class InstantiateAllyArgs : EventArgs{

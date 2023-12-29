@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-
+using MonsterArmy.Core.UnitSystem.Components;
 
 //继承monobehavior，我们使用一个统一的manager来遍历每个ICharacter
 public abstract class Unit : MonoBehaviour
@@ -17,8 +17,6 @@ public abstract class Unit : MonoBehaviour
     public Texture2D Icon;
     [FoldoutGroup("角色基本信息")]
     public bool isKilled = false;
-    [ShowInInspector] [FoldoutGroup("角色基本资源")]
-    protected AudioSource audioSource = null;
     [ShowInInspector] [FoldoutGroup("角色基本信息")]
     protected UnityEngine.GameObject obj;
     
@@ -27,15 +25,14 @@ public abstract class Unit : MonoBehaviour
 
     [FoldoutGroup("角色基本信息")] [LabelText("角色朝向")]
 
-    public Enum_CharacterDirection characterDirection;
+    public Enum_FaceDirection characterDirection;
 
     [ShowInInspector] [FoldoutGroup("角色基本资源")]
     protected ICharacterAI charAI = null; //AI
     [ShowInInspector] [FoldoutGroup("角色动画资源")]
-    protected AnimationController charAnimation = null; //动画控制
+    protected AnimationController charAnimController = null; //动画控制
     
     [ShowInInspector] [FoldoutGroup("角色基本资源")]
-    protected SpriteRenderer spriteRenderer = null; //精灵控制
     protected SpriteRenderer[] spriteRenderers; //精灵组
 
     [ShowInInspector] [FoldoutGroup("角色细节数据")]
@@ -52,7 +49,7 @@ public abstract class Unit : MonoBehaviour
     [ShowInInspector] [FoldoutGroup("角色战斗数据")] [InlineProperty] [HideLabel]
     protected AbilityController charAbility = null; //角色与技能交互的部分，为了减少单个类的长度我们决定把一些功能放进别的类
 
-
+    private IAttackComponent attackComponent;
 
     // /*
     // @Constructor 要创建一个ICharacter的controller，需要一个游戏物体，一个供初始化的角色数据
@@ -91,13 +88,12 @@ public abstract class Unit : MonoBehaviour
         SetAI(new CharacterAI(this));
         SetAbilityFromData();
         SetCharacterAnimation(GetComponent<AnimationController>());
-        //SetSpriteRenderer(_obj.GetComponent<SpriteRenderer>());
-        SetAudioSource(GetComponent<AudioSource>());
+        SetSpriteRenderers(GetComponentsInChildren<SpriteRenderer>());
         SetSpawnPosition(charAttr.Transform_SpawnPos);
-        SetMaterial(charAttr.Material);
         GetGameObject().transform.position = GetSpawnPosition();
+        attackComponent = GetComponent<RangedAttackComponent>();
         //Const_AttackAnimationLength = UtilsClass.GetAnimatorLength(animator, "Attack");
-        tag = "Character";
+        tag = "Unit";
         transform.localScale = charAttr.Scale;
         IsInit = true;
     }
@@ -150,35 +146,18 @@ public abstract class Unit : MonoBehaviour
     }
 
     public void SetCharacterAnimation(AnimationController charAnimation){
-        this.charAnimation = charAnimation;
+        this.charAnimController = charAnimation;
     }
     
-    public void SetSpriteRenderer(SpriteRenderer spriteRenderer)
+    public void SetSpriteRenderers(SpriteRenderer[] spriteRenderer)
     {
-        this.spriteRenderer = spriteRenderer;
-    }
-    
-
-    public void SetAudioSource(AudioSource audioSource)
-    {
-        this.audioSource = audioSource;
-    }
-
-
-    public void SetMaterial(Material material){
-        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        foreach(SpriteRenderer item in spriteRenderers){
-            item.material =  material;
-        }  
+        this.spriteRenderers = spriteRenderer;
     }
 
     public void SetCharacterAbility(AbilityController charAbility){
         this.charAbility = charAbility;
     }
-    public void SetColor(Color _color)
-    {
-        spriteRenderer.color = _color;
-    }
+
     public void SetShaderFloat(string parameter, float amount)
     {
         if (spriteRenderers == null || spriteRenderers.Length == 0) 
@@ -217,8 +196,7 @@ public abstract class Unit : MonoBehaviour
     {
         SetAI(null);
         SetCharacterAnimation(null);
-        //SetSpriteRenderer(null);
-        SetAudioSource(null);
+        SetSpriteRenderers(null);
         SetSpawnPosition(Vector3.zero);
     }
 
@@ -263,11 +241,11 @@ public abstract class Unit : MonoBehaviour
     }
    
     public AnimationController GetCharacterAnimation(){
-        return charAnimation;
+        return charAnimController;
     }
-    public SpriteRenderer GetSpriteRenderer()
+    public SpriteRenderer[] GetSpriteRenderers()
     {
-        return spriteRenderer;
+        return spriteRenderers;
     }
 
     public EntityData GetCharacterData()
@@ -275,10 +253,7 @@ public abstract class Unit : MonoBehaviour
         return charAttr.data;
     }
 
-    public AudioSource GetAudioSource()
-    {
-        return audioSource;
-    }
+
     public EntityAttribute GetCharacterAttribute()
     {
         return charAttr;
@@ -337,7 +312,7 @@ public abstract class Unit : MonoBehaviour
     {
         if (charAttr.attributeData.fixedData.MoveSpeed <= 0) return;
         FaceEnemy(targetPos);
-        charAnimation.PlayAnimationInLength(Enum_AnimationType.Run, GetCharacterAttribute().attributeData.fixedData.MoveSpeed);
+        charAnimController.PlayAnimationInLength(Enum_AnimationType.Run, GetCharacterAttribute().attributeData.fixedData.MoveSpeed);
         //animator.SetInteger("AnimationState", 1);
     
         GetGameObject().transform.position = Vector3.MoveTowards(GetPosition(), targetPos, charAttr.attributeData.fixedData.MoveSpeed * Time.deltaTime);
@@ -351,7 +326,7 @@ public abstract class Unit : MonoBehaviour
 
     public void Idle()
     {
-        charAnimation.PlayAnimation(Enum_AnimationType.Idle);
+        charAnimController.PlayAnimation(Enum_AnimationType.Idle);
         //animator.SetInteger("AnimationState", 0);
     }
     /*
@@ -361,26 +336,26 @@ public abstract class Unit : MonoBehaviour
     {
         if (targetPos.x <= GetGameObject().transform.position.x)
         {
-            characterDirection = Enum_CharacterDirection.left;
+            characterDirection = Enum_FaceDirection.left;
             GetGameObject().transform.rotation = new Quaternion(0, 0, 0, 0);
         }
         else
         {
-            characterDirection = Enum_CharacterDirection.right;
+            characterDirection = Enum_FaceDirection.right;
             GetGameObject().transform.rotation = new Quaternion(0, 180, 0, 0);
         }
     }
 
     public void AttackAnimation(Enum_AttackAnimationType type){
         switch(type){
-            case Enum_AttackAnimationType.sword:
-                charAnimation.PlayAnimationInLength(Enum_AnimationType.AttackSword, GetAttackInterval());
+            case Enum_AttackAnimationType.Sword:
+                charAnimController.PlayAnimationInLength(Enum_AnimationType.AttackSword, GetAttackInterval());
                 break;
-            case Enum_AttackAnimationType.bow:
-                charAnimation.PlayAnimationInLength(Enum_AnimationType.AttackBow, GetAttackInterval());
+            case Enum_AttackAnimationType.Bow:
+                charAnimController.PlayAnimationInLength(Enum_AnimationType.AttackBow, GetAttackInterval());
                 break;
-            case Enum_AttackAnimationType.magic:
-                charAnimation.PlayAnimationInLength(Enum_AnimationType.AttackMagic,GetAttackInterval());
+            case Enum_AttackAnimationType.Magic:
+                charAnimController.PlayAnimationInLength(Enum_AnimationType.AttackMagic,GetAttackInterval());
                 break;
 
         }
@@ -399,10 +374,8 @@ public abstract class Unit : MonoBehaviour
     public void RangedAttack(Unit target)
     {   
         AttackUtils(target);
-        DamageInfo damageInfo = charAttr.GetAttackDamageInfo();
-        ProjectileArgs projectileArgs = new ProjectileArgs(charAttr.projectileData, transform.position, damageInfo, target);
-        Action action = ()=>EventManager.TriggerEvent("InstantiateProjectile", JsonUtility.ToJson(projectileArgs));
-        StartCoroutine(DelayInvokeAction(action, charAttr.attributeData.fixedData.AtkInterval*0.6f));
+        attackComponent?.TryAttack(this, target);
+
     }
 
     public void TakeDamage(DamageInfo damageInfo){
@@ -460,8 +433,8 @@ public abstract class Unit : MonoBehaviour
         SetAI(null);
         StopAllCoroutines();
         StartCoroutine(ShaderChange(HurtTimerLength, Color.red));
-        charAnimation.PlayAnimation(Enum_AnimationType.Death);
-        StartCoroutine(DelayDeath(charAnimation.DeathAnimationLength));
+        charAnimController.PlayAnimation(Enum_AnimationType.Death);
+        StartCoroutine(DelayDeath(charAnimController.DeathAnimationLength));
     }
 
 
@@ -498,14 +471,6 @@ public abstract class Unit : MonoBehaviour
 
     }
     #endregion
-
-    IEnumerator DelayInvokeAction(Action action, float delaySeconds)
-    {
-        if (delaySeconds > 0)
-            yield return new WaitForSeconds(delaySeconds);
-        else
-            yield return null;
-        action?.Invoke();
-    }
+    
 }
 

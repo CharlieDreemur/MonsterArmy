@@ -20,6 +20,7 @@ public struct DamageInfo
         float damage,
         Unit instigator, 
         float knockback = 0.0f,
+        //Buff
         DamageType damageType = DamageType.AttackDamage
     )
     {

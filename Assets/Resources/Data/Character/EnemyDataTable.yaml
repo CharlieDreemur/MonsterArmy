@@ -11,6 +11,8 @@
     CritChance: 0
     CritDamage: 1.5
     DodgeChance: 0 
+    AttackType: RangedAttack
+    AttackAnimationType: Bow
   - Name: Male Villager
     Description: Go out of the village and join the fight against monsters, and have great experience in against slimes.
     MAXHP: 20
@@ -24,6 +26,8 @@
     CritChance: 0.1
     CritDamage: 1.5
     DodgeChance: 0 
+    AttackType: Attack
+    AttackAnimationType: Sword
   - Name: New Recruit
     Description: A new recruit who just joined the army, and has no experience in fighting.
     MAXHP: 30
@@ -37,6 +41,8 @@
     CritChance: 0.1
     CritDamage: 1.5
     DodgeChance: 0
+    AttackType: RangedAttack
+    AttackAnimationType: Sword
   - Name: Wizard Apprentice
     Description: Apprentice of the wizard, and has little experience in magic.
     MAXHP: 20
@@ -50,6 +56,8 @@
     CritChance: 0
     CritDamage: 1.5
     DodgeChance: 0
+    AttackType: RangedAttack
+    AttackAnimationType: Magic
   - Name: Bandit King 'Wind Hunter'
     Description: A renowned figure in the world of bandits, his title is known far and wide, striking fear into those who hear of him. He wields the 'Gale Blade Technique,' famed for being able to slice through even the wind itself.
     MAXHP: 50
@@ -63,3 +71,5 @@
     CritChance: 0.2
     CritDamage: 1.5
     DodgeChance: 0.2
+    AttackType: Attack
+    AttackAnimationType: Sword

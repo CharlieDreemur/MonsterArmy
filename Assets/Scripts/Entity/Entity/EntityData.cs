@@ -28,12 +28,6 @@ public abstract class EntityData : ScriptableObject, IPoolData
     [LabelWidth(70f)]
     public Color color = Color.white; 
 
-    
-    [FoldoutGroup("角色基本设置")]
-    [LabelText("材质")]
-    [LabelWidth(70f)]
-    public Material material;
-
 
     [FoldoutGroup("角色基本设置")]
     [HideLabel]
@@ -47,24 +41,10 @@ public abstract class EntityData : ScriptableObject, IPoolData
     [LabelText("攻击类型")]
     [LabelWidth(70f)]
 
-    public Enum_AttackType attackType = Enum_AttackType.none;
+    public Enum_AttackType attackType = Enum_AttackType.None;
 
     [FoldoutGroup("角色基本设置")] [LabelText("攻击动画类型")]
     public Enum_AttackAnimationType attackAnimationType;
-
-    [ShowIf("attackType", Enum_AttackType.rangedAttack)]
-    [FoldoutGroup("角色基本设置")]
-    [HideLabel]
-    [LabelText("投掷物数据")]
-    [LabelWidth(70f)]
-    public ProjectileData projectileData; //投掷物
-
-    [ShowIf("attackType", Enum_AttackType.rangedAttack)]
-    [FoldoutGroup("角色基本设置")]
-    [HideLabel]
-    [LabelText("枪口位置")]
-    [LabelWidth(70f)]
-    public Vector3 relativePos; //枪口（投掷物实例的位置）
 
 
     [FoldoutGroup("角色基本设置")]

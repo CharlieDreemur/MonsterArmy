@@ -79,7 +79,7 @@ public class ProjectileTrackParabola : AbstractProjectileTrack
         velocity_x = Mathf.Cos(radian) * v;
         velocity_y = -Mathf.Sin(radian) * v;
         finalvelocity = new Vector2(velocity_x, velocity_y);
-        if(projectile.args.damageInfo.attacker.characterDirection == Enum_CharacterDirection.right){
+        if(projectile.args.damageInfo.attacker.characterDirection == Enum_FaceDirection.right){
             //弓箭向右
             projectile.RB.velocity = finalvelocity; 
         }

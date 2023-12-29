@@ -39,10 +39,10 @@ public abstract class ICharacterAI
        attackIntervalTimer = character.GetAttackInterval();
        //攻击目标
        switch (character.GetCharacterData().attackType){
-            case Enum_AttackType.attack:
+            case Enum_AttackType.Attack:
             character.Attack(Target);
             break;
-            case Enum_AttackType.rangedAttack:
+            case Enum_AttackType.RangedAttack:
             character.RangedAttack(Target);
             break;
 

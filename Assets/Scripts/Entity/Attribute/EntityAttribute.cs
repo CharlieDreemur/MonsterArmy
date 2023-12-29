@@ -17,7 +17,6 @@ public EntityData data;
     protected Unit entity;
     protected Color color = Color.white;
     protected Vector3 scale;
-    protected Material material;
 
     public AttributeDataField attributeData;
     public Vector3 Transform_SpawnPos = Vector3.zero; //ICharacter出生的坐标
@@ -54,15 +53,7 @@ public EntityData data;
         }
     }
 
-    public Material Material{
-        set{
-            material = value;
-        }
-        get{
-            return material;
-        }
-    }
-    
+
    
 #endregion
     /// <summary>
@@ -75,9 +66,7 @@ public EntityData data;
         characterName = data.name;
         Color = data.color;
         Scale = data.scale;
-        Material = data.material;
         Transform_SpawnPos = data.Transform_SpawnPos;
-        projectileData = data.projectileData;
         InitAttributeData(data.attributeData);
         //List_AbilityData =new List<AbilityData>(data.List_AbilityData); //List的复制，对原始值的修改不会影响此值
         List_AbilityData = data.List_AbilityData; //List的引用，修改原始值时此指也会修改

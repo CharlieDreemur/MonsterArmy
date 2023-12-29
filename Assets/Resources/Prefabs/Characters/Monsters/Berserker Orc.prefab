@@ -3334,7 +3334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1054350621132116258}
   m_Layer: 5
-  m_Name: Unit043
+  m_Name: Berserker Orc
   m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

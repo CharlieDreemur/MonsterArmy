@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using YamlDotNet.Serialization;
 
-namespace MonsterArmy.Core.Unit
+namespace MonsterArmy.Core.UnitSystem
 {
     public class UnitAttributeConfigLoader : MonoBehaviour
     {

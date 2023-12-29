@@ -5,19 +5,20 @@ using UnityEngine;
 //control all the componets that will be auto setup to each characters
 public static class EntityComponetsControllerUtils
 {
-
-
-    public static void AddAllComponents(SetupData data, GameObject obj){
+    public static void AddAllComponents(SetupData data, GameObject obj)
+    {
         //必须添加组件
-        if(obj == null){
-            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name+"gameobject does not exist");
+        if (obj == null)
+        {
+            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name + "gameobject does not exist");
             return;
         }
         AddEntityAnimation(obj);
-
+        SetMaterial(data, obj);
         //可选添加组件
-        if(data == null){
-            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name+"setup data does not exist");
+        if (data == null)
+        {
+            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name + "setup data does not exist");
             return;
         }
         AddHealthBar(data, obj);
@@ -31,10 +32,12 @@ public static class EntityComponetsControllerUtils
     /// </summary>
     /// <param name="data"></param>
     /// <param name="character"></param>
-    public static void AddEntityAnimation(GameObject character){
+    public static void AddEntityAnimation(GameObject character)
+    {
         //CheckComponents
-        if(character.gameObject.GetComponent<AnimationController>()!=null){
-            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name+"components already exist");
+        if (character.gameObject.GetComponent<AnimationController>() != null)
+        {
+            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name + "components already exist");
             return;
         }
         character.gameObject.AddComponent<AnimationController>();
@@ -42,13 +45,16 @@ public static class EntityComponetsControllerUtils
     }
 
 
-    public static void AddHealthBar(SetupData data, GameObject character){
-        if(!data.isHealthBar){
+    public static void AddHealthBar(SetupData data, GameObject character)
+    {
+        if (!data.isHealthBar)
+        {
             return;
         }
         //CheckComponents
-        if(character.gameObject.GetComponent<HealthBar>()!=null){
-            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name+"components already exist");
+        if (character.gameObject.GetComponent<HealthBar>() != null)
+        {
+            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name + "components already exist");
             return;
         }
         HealthBar toReturn = character.gameObject.AddComponent<HealthBar>();
@@ -56,13 +62,16 @@ public static class EntityComponetsControllerUtils
 
     }
 
-    public static void AddRigidBody2D(SetupData data, GameObject character){
-        if(!data.isRigidBody2D){
+    public static void AddRigidBody2D(SetupData data, GameObject character)
+    {
+        if (!data.isRigidBody2D)
+        {
             return;
         }
         //CheckComponents
-        if(character.gameObject.GetComponent<Rigidbody2D>()!=null){
-            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name+"components already exist");
+        if (character.gameObject.GetComponent<Rigidbody2D>() != null)
+        {
+            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name + "components already exist");
             return;
         }
         Rigidbody2D toReturn = character.gameObject.AddComponent<Rigidbody2D>();
@@ -70,13 +79,16 @@ public static class EntityComponetsControllerUtils
 
     }
 
-     public static void AddCapsuleCollider2D(SetupData data, GameObject character){
-        if(!data.isRigidBody2D){
+    public static void AddCapsuleCollider2D(SetupData data, GameObject character)
+    {
+        if (!data.isRigidBody2D)
+        {
             return;
         }
         //CheckComponents
-        if(character.gameObject.GetComponent<CapsuleCollider2D>()!=null){
-            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name+"components already exist");
+        if (character.gameObject.GetComponent<CapsuleCollider2D>() != null)
+        {
+            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name + "components already exist");
             return;
         }
         CapsuleCollider2D toReturn = character.gameObject.AddComponent<CapsuleCollider2D>();
@@ -85,20 +97,33 @@ public static class EntityComponetsControllerUtils
     }
 
 
-    public static void SetRigidBody2D(Rigidbody2D obj){
-        if(obj==null){
-            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name+"obj does not exist");
+    public static void SetRigidBody2D(Rigidbody2D obj)
+    {
+        if (obj == null)
+        {
+            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name + "obj does not exist");
             return;
         }
         obj.bodyType = RigidbodyType2D.Kinematic;
     }
 
-    public static void SetCapsuleCollider2D(CapsuleCollider2D obj, SetupData data){
-        if(obj==null){
-            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name+"obj does not exist");
+    public static void SetCapsuleCollider2D(CapsuleCollider2D obj, SetupData data)
+    {
+        if (obj == null)
+        {
+            Debug.LogWarning(System.Reflection.MethodBase.GetCurrentMethod().Name + "obj does not exist");
             return;
         }
         obj.offset = data.CapsuleCollider2D_offset;
         obj.size = data.CapsuleCollider2D_size;
+    }
+
+    public static void SetMaterial(SetupData data, GameObject obj)
+    {
+        SpriteRenderer[] spriteRenderers = obj.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer item in spriteRenderers)
+        {
+            item.material = data.material;
+        }
     }
 }

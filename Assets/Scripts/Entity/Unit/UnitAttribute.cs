@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using YamlDotNet.Serialization;
-namespace MonsterArmy.Core.Unit
+namespace MonsterArmy.Core.UnitSystem
 {
     [System.Serializable]
     [HideLabel]
     public class UnitAttribute
     {
-        public UnitAttribute(UnitAttributeConfig config)
-        {
-            Init(config);
-        }
         [Title("Basic Attribute")]
         [GUIColor(0f, 1f, 1f, 1f)]
         [LabelWidth(70f)]
@@ -127,6 +123,11 @@ namespace MonsterArmy.Core.Unit
         [LabelText("Dodge%")]
         private FloatNumeric dodgeChance;
 
+        [SerializeField]
+        private Enum_AttackType attackType;
+        [SerializeField]
+        private Enum_AttackAnimationType attackAnimationType;
+
         public float DamageReduction
         {
             get
@@ -219,6 +220,8 @@ namespace MonsterArmy.Core.Unit
             critChance.BaseAttribute = config.CritChance;
             critDamage.BaseAttribute = config.CritDamage;
             dodgeChance.BaseAttribute = config.DodgeChance;
+            attackType = config.AttackType;
+            attackAnimationType = config.AttackAnimationType;
             hp = maxhp.FinalAttribute;
             mp = maxmp.FinalAttribute;
         }
@@ -229,6 +232,8 @@ namespace MonsterArmy.Core.Unit
         {
             Name = "";
             Description = "";
+            hp=0;
+            mp=0;
             maxhp.Reset();
             maxmp.Reset();
             atk.Reset();
@@ -243,6 +248,8 @@ namespace MonsterArmy.Core.Unit
             critDamage.Reset();
             critDamage.BaseAttribute = 1.5f;
             dodgeChance.Reset();
+            attackType = Enum_AttackType.None;
+            attackAnimationType = Enum_AttackAnimationType.Sword;
         }
 
         [Button("Clear", ButtonSizes.Medium)]
@@ -250,6 +257,8 @@ namespace MonsterArmy.Core.Unit
         {
             Name = "";
             Description = "";
+            hp=0;
+            mp=0;
             maxhp.Reset();
             maxmp.Reset();
             atk.Reset();
@@ -261,6 +270,8 @@ namespace MonsterArmy.Core.Unit
             critChance.Reset();
             critDamage.Reset();
             dodgeChance.Reset();
+            attackType = Enum_AttackType.None;
+            attackAnimationType = Enum_AttackAnimationType.Sword;
         }
 
 
