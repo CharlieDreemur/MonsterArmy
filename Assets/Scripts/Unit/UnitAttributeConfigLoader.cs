@@ -5,16 +5,17 @@ using YamlDotNet.Serialization;
 
 namespace MonsterArmy.Core.Unit
 {
-
-
-    public class UnitDataContainer : MonoBehaviour
+    public class UnitAttributeConfigLoader : MonoBehaviour
     {
         public TextAsset enemyYamlConfig; // Drag and drop your YAML file here in the Inspector
         public TextAsset allyYamlConfig;
         [SerializeField]
-        private List<UnitAttributeConfig> enemyConfig;
+        public List<UnitAttributeConfig> enemyConfig;
         [SerializeField]
-        private List<UnitAttributeConfig> allyConfig;
+        public List<UnitAttributeConfig> allyConfig;
+        private void Awake() {
+            LoadYamlConfig();
+        }
 
         [ContextMenu("Load Yaml Config")]
         private void LoadYamlConfig()

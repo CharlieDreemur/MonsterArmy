@@ -95,7 +95,8 @@ using Sirenix.OdinInspector;
 
         public void Init()
         {
-            BaseAttribute = AddAttribute;
+            BaseAttribute = 0;
+            AddAttribute = 0;
             PctAddAttribute = 0f;
             Update();
         }

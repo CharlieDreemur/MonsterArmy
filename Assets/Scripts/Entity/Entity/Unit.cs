@@ -12,7 +12,7 @@ public abstract class Unit : MonoBehaviour
 {
     [FoldoutGroup("角色基本信息")]
     public EntityData data;
-    public EntityType entityType = EntityType.None;
+    public UnitType entityType = UnitType.None;
     [FoldoutGroup("角色基本资源")]
     public Texture2D Icon;
     [FoldoutGroup("角色基本信息")]

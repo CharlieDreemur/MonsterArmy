@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 [EnumToggleButtons]
-public enum EntityType
+public enum UnitType
 {
     None,
     Ally,

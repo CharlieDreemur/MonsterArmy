@@ -10,22 +10,14 @@ using Sirenix.OdinInspector;
     {
         [OnInspectorInit("Update")]
         [SerializeField]
-        [PropertyTooltip("Basic Value, positive float only")]
+        [PropertyTooltip("Basic Value, can be negative & positive")]
         [OnValueChanged("Update"), HorizontalGroup("Attribute"), HideLabel]
-        [MinValue(0)]
         private float baseAttribute;
         public float BaseAttribute
         {
             set
             {
-                if (value > 0)
-                {
-                    baseAttribute = value;
-                }
-                else
-                {
-                    baseAttribute = 0;
-                }
+                baseAttribute = value;
             }
             get
             {
@@ -77,14 +69,7 @@ using Sirenix.OdinInspector;
         {
             set
             {
-                if (value > 0)
-                {
-                    finalAttribute = value;
-                }
-                else
-                {
-                    finalAttribute = 0;
-                }
+                finalAttribute = value;
             }
 
             get
@@ -134,7 +119,7 @@ using Sirenix.OdinInspector;
 
         public void Update()
         {
-            FinalAttribute = (int)((BaseAttribute + AddAttribute) * (1 + PctAddAttribute) );
+            FinalAttribute = (BaseAttribute + AddAttribute) * (1 + PctAddAttribute);
         }
 
         public void Init(IntNumeric value)

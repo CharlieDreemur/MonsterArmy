@@ -65,10 +65,10 @@ public class EntityManager: Singleton<EntityManager>, IManager
             }
             //更新目标
             switch (item.entityType){
-                case EntityType.Ally:
+                case UnitType.Ally:
                     item.GetCharacterAbility().UpdateTargets(List_Enemy, List_Ally);
                     break;
-                case EntityType.Enemy:
+                case UnitType.Enemy:
                     item.GetCharacterAbility().UpdateTargets(List_Ally, List_Enemy);
                     break;
             }
@@ -84,10 +84,10 @@ public class EntityManager: Singleton<EntityManager>, IManager
         List_Enemy.Clear();
         foreach(Unit item in _Dic_ICharController.Values){
             switch (item.entityType){
-                case EntityType.Ally:
+                case UnitType.Ally:
                     List_Ally.Add(item as Ally);
                     break;
-                case EntityType.Enemy:
+                case UnitType.Enemy:
                     List_Enemy.Add(item as Enemy);
                     break;
             }

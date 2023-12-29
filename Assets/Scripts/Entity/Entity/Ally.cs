@@ -14,7 +14,7 @@ public class Ally : Unit
     public new AllyData data;
     public override void Init(EntityData data){
         this.data = data as AllyData;
-        entityType = EntityType.Ally;
+        entityType = UnitType.Ally;
         SetCharacterAttribute(GetComponent<AllyAttribute>());
         base.Init(data);
 

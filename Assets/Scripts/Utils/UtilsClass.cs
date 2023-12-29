@@ -9,7 +9,11 @@ using System.Text;
 //辅助工具集
 public static class UtilsClass
 {
-    /* 利用反射实现深拷贝*/
+    /// <summary>
+    /// Use reflection to copy all properties from one object to another
+    /// </summary>
+    /// <param name="_object"></param>
+    /// <returns></returns>
     public static object DeepCopy(object _object)
     {
         Type T = _object.GetType();

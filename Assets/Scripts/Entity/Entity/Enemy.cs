@@ -17,7 +17,7 @@ public class Enemy : Unit
 
         this.data = data as EnemyData;
         //Debug.Log("Enemy.Init()");
-        entityType = EntityType.Enemy;
+        entityType = UnitType.Enemy;
         SetCharacterAttribute(GetComponent<EnemyAttribute>());
         base.Init(data);
 
