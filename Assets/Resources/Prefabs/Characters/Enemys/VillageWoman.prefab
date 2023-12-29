@@ -843,6 +843,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2488944840467738132}
   - component: {fileID: -3089041337912285551}
+  - component: {fileID: 5512965479063386694}
   m_Layer: 5
   m_Name: VillageWoman
   m_TagString: Character
@@ -884,6 +885,85 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileData: {fileID: 11400000, guid: ec51828e1bc884f4e9390128a8fc3a4a, type: 2}
   shootPosOffset: {x: 1, y: 3, z: 0}
+--- !u!114 &5512965479063386694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637100202565874678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a6ae6c6aaf15b940bf4245e0e2a4e5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  unitType: 2
+  scale: {x: 1, y: 1, z: 1}
+  spawnPos: {x: 0, y: 0, z: 0}
+  attribute:
+    Name: Female Villager
+    Description: Go out of the village and join the fight against monsters, and have
+      great experience in shooting slimes.
+    hp: 0
+    mp: 0
+    maxhp:
+      baseAttribute: 15
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 15
+    maxmp:
+      baseAttribute: 0
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 0
+    atk:
+      baseAttribute: 3
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 3
+    def:
+      baseAttribute: 0
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 0
+    ap:
+      baseAttribute: 0
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 0
+    atkspd:
+      baseAttribute: 0
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 0
+    movespd:
+      baseAttribute: 2
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 2
+    atkRange:
+      baseAttribute: 25
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 25
+    critChance:
+      baseAttribute: 0
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 0
+    critDamage:
+      baseAttribute: 1.5
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 1.5
+    dodgeChance:
+      baseAttribute: 0
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 0
+    attackType: 2
+    attackAnimationType: 1
 --- !u!1 &1700293661344614848
 GameObject:
   m_ObjectHideFlags: 0

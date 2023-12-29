@@ -710,7 +710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6ae6c6aaf15b940bf4245e0e2a4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  configLoader: {fileID: 8983885497778400310, guid: 0a40353ac6a94f145a183faa69b321be, type: 3}
   id: 0
   unitType: 1
   scale: {x: 1, y: 1, z: 1}
@@ -719,7 +718,7 @@ MonoBehaviour:
     Name: Small Skeleton
     Description: A small skeleton that has been reanimated by dark magic. It is weak,
       but it is still a threat to the unprepared.
-    hp: 0
+    hp: 15
     mp: 0
     maxhp:
       baseAttribute: 15

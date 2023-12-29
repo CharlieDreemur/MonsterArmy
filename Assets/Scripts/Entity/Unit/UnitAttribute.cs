@@ -222,8 +222,8 @@ namespace MonsterArmy.Core.UnitSystem
             dodgeChance.BaseAttribute = config.DodgeChance;
             attackType = config.AttackType;
             attackAnimationType = config.AttackAnimationType;
-            hp = maxhp.FinalAttribute;
-            mp = maxmp.FinalAttribute;
+            hp = config.MAXHP;
+            mp = config.MAXHP;
         }
 
 

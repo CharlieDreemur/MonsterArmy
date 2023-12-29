@@ -46,15 +46,6 @@ public abstract class EntityData : ScriptableObject, IPoolData
     [FoldoutGroup("角色基本设置")] [LabelText("攻击动画类型")]
     public Enum_AttackAnimationType attackAnimationType;
 
-
-    [FoldoutGroup("角色基本设置")]
-    [ShowInInspector]
-    [HideLabel]
-    [LabelText("最大侦察范围")]
-    [ReadOnly]
-    [LabelWidth(80f)]
-    public static float CONST_DETECT_RANGE = 999f; //默认最大侦察范围
-
     [FoldoutGroup("角色基本设置")]
     [HideLabel]
     [LabelText("角色出生坐标")]

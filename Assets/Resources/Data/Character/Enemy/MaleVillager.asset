@@ -18,12 +18,9 @@ MonoBehaviour:
     description: "\u8D70\u51FA\u6751\u5B50\u52A0\u5165\u8BA8\u4F10\u9B54\u7269\u7684\u4E00\u5458\uFF0C\u662F\u5BF9\u4ED8\u53F2\u83B1\u59C6\u7684\u4E00\u628A\u624B"
   prefab: {fileID: 7634593670180511573, guid: cd1b4737953963941a9a46e939561816, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
-  material: {fileID: 2100000, guid: 8a37d575fdee5064492410056578aac6, type: 2}
   scale: {x: 8, y: 8, z: 0}
   attackType: 1
   attackAnimationType: 0
-  projectileData: {fileID: 0}
-  relativePos: {x: 0, y: 0, z: 0}
   Transform_SpawnPos: {x: 20, y: 0, z: 0}
   attributeData:
     nowData:

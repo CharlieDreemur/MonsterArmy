@@ -108,6 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6128711829160057918}
   - component: {fileID: -1906300820761799434}
+  - component: {fileID: -6964056813591545335}
   m_Layer: 5
   m_Name: Apprentice
   m_TagString: Character
@@ -150,6 +151,85 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileData: {fileID: 11400000, guid: fc3ce5b72a1c1994cba67511e01046c5, type: 2}
   shootPosOffset: {x: 0, y: 4, z: 0}
+--- !u!114 &-6964056813591545335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447021986826283652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a6ae6c6aaf15b940bf4245e0e2a4e5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  configLoader: {fileID: 0}
+  id: 3
+  unitType: 2
+  scale: {x: 1, y: 1, z: 1}
+  spawnPos: {x: 0, y: 0, z: 0}
+  attribute:
+    Name: Wizard Apprentice
+    Description: Apprentice of the wizard, and has little experience in magic.
+    hp: 30
+    mp: 0
+    maxhp:
+      baseAttribute: 20
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 20
+    maxmp:
+      baseAttribute: 10
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 10
+    atk:
+      baseAttribute: 5
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 5
+    def:
+      baseAttribute: 0
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 0
+    ap:
+      baseAttribute: 5
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 5
+    atkspd:
+      baseAttribute: 0
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 0
+    movespd:
+      baseAttribute: 2
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 2
+    atkRange:
+      baseAttribute: 20
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 20
+    critChance:
+      baseAttribute: 0
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 0
+    critDamage:
+      baseAttribute: 1.5
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 1.5
+    dodgeChance:
+      baseAttribute: 0
+      addAttribute: 0
+      pctAddAttribute: 0
+      finalAttribute: 0
+    attackType: 2
+    attackAnimationType: 2
 --- !u!1 &516426807586114207
 GameObject:
   m_ObjectHideFlags: 0

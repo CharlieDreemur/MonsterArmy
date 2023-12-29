@@ -7,7 +7,6 @@ namespace MonsterArmy.Core.UnitSystem
     public class UnitAttributeContainer : MonoBehaviour
     {
         [Title("Config")]
-        [SerializeField]
         private UnitAttributeConfigLoader configLoader;
         [SerializeField]
         private int id;
@@ -34,6 +33,7 @@ namespace MonsterArmy.Core.UnitSystem
         [ContextMenu("Load Config")]
         private void LoadConfig()
         {
+            configLoader = FindObjectOfType<UnitAttributeConfigLoader>();
             switch (unitType)
             {
                 case UnitType.Ally:

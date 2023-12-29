@@ -10,6 +10,8 @@ using MonsterArmy.Core.UnitSystem.Components;
 //继承monobehavior，我们使用一个统一的manager来遍历每个ICharacter
 public abstract class Unit : MonoBehaviour
 {
+    //Const
+    public const float CONST_DETECT_RANGE = 999f;
     [FoldoutGroup("角色基本信息")]
     public EntityData data;
     public UnitType entityType = UnitType.None;

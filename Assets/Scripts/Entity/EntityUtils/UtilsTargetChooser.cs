@@ -110,7 +110,7 @@ public static class UtilsTargetChooser
     public static Unit FindClosest(Unit character, List<Unit> targets){
         Vector3 charPos = character.GetPosition();
         Unit closestTarget = null;
-        float MinDist = AllyData.CONST_DETECT_RANGE;
+        float MinDist = Unit.CONST_DETECT_RANGE;
         foreach(Unit target in targets){
             //已经阵亡的不计算
             if(target.IsKilled()){

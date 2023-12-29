@@ -18,3 +18,4 @@ MonoBehaviour:
   CapsuleCollider2D_offset: {x: 0, y: 0.35}
   CapsuleCollider2D_size: {x: 0.4, y: 0.7}
   healthBarData: {fileID: 11400000, guid: 18e3f71e638809a428b7b56923d6fb60, type: 2}
+  material: {fileID: 2100000, guid: 8a37d575fdee5064492410056578aac6, type: 2}
