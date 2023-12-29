@@ -1,0 +1,65 @@
+  - Name: Small Skeleton
+    Description: A small skeleton that has been reanimated by dark magic. It is weak, but it is still a threat to the unprepared.
+    MAXHP: 15
+    MAXMP: 0
+    ATK: 3
+    DEF: 0
+    AP: 0
+    ATKSPD: 0
+    MOVSPD: 2
+    ATKRange: 5
+    CritChance: 0
+    CritDamage: 1.5
+    DodgeChance: 0 
+  - Name: Spear Skeleton
+    Description: A skeleton that has been reanimated by dark magic. It wields a spear, and is more dangerous than the small skeleton.
+    MAXHP: 30
+    MAXMP: 0
+    ATK: 5
+    DEF: 1
+    AP: 0
+    ATKSPD: 0
+    MOVSPD: 2
+    ATKRange: 6
+    CritChance: 0.1
+    CritDamage: 1.5
+    DodgeChance: 0 
+  - Name: Shield Skeleton
+    Description: A skeletal warrior armed with a shield, known for its high defense and moderate attack power.
+    MAXHP: 50
+    MAXMP: 0
+    ATK: 2
+    DEF: 3
+    AP: 0
+    ATKSPD: 0
+    MOVSPD: 2
+    ATKRange: 4
+    CritChance: 0
+    CritDamage: 1.5
+    DodgeChance: 0
+  - Name: Bow Skeleton
+    Description: A skeletal archer, it can easily pick off enemies from a distance.
+    MAXHP: 20
+    MAXMP: 0
+    ATK: 5
+    DEF: 0
+    AP: 5
+    ATKSPD: 0.5
+    MOVSPD: 2
+    ATKRange: 25
+    CritChance: 0.1
+    CritDamage: 1.5
+    DodgeChance: 0
+  - Name: Blood Messenger
+    Description: The Blood Messenger, a skeletal figure wielding dual swords, is a fearsome warrior in the realm of the undead. Clothed in tattered, blood-stained garments, this relentless combatant uses its swords with deadly precision. Known for its ability to drain the life force of its enemies, the Blood Messenger strikes terror into the hearts of all who face it.
+    MAXHP: 50
+    MAXMP: 30
+    ATK: 8
+    DEF: 2
+    AP: 0
+    ATKSPD: 1
+    MOVSPD: 5
+    ATKRange: 5
+    CritChance: 0.2
+    CritDamage: 1.5
+    DodgeChance: 0.2

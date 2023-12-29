@@ -1,0 +1,65 @@
+  - Name: Female Villager
+    Description: Go out of the village and join the fight against monsters, and have great experience in shooting slimes.
+    MAXHP: 15
+    MAXMP: 0
+    ATK: 3
+    DEF: 0
+    AP: 0
+    ATKSPD: 0
+    MOVSPD: 2
+    ATKRange: 25
+    CritChance: 0
+    CritDamage: 1.5
+    DodgeChance: 0 
+  - Name: Male Villager
+    Description: Go out of the village and join the fight against monsters, and have great experience in against slimes.
+    MAXHP: 20
+    MAXMP: 0
+    ATK: 3
+    DEF: 0
+    AP: 0
+    ATKSPD: 0
+    MOVSPD: 2
+    ATKRange: 6
+    CritChance: 0.1
+    CritDamage: 1.5
+    DodgeChance: 0 
+  - Name: New Recruit
+    Description: A new recruit who just joined the army, and has no experience in fighting.
+    MAXHP: 30
+    MAXMP: 0
+    ATK: 4
+    DEF: 1
+    AP: 0
+    ATKSPD: 0
+    MOVSPD: 2
+    ATKRange: 5
+    CritChance: 0.1
+    CritDamage: 1.5
+    DodgeChance: 0
+  - Name: Wizard Apprentice
+    Description: Apprentice of the wizard, and has little experience in magic.
+    MAXHP: 20
+    MAXMP: 10
+    ATK: 5
+    DEF: 0
+    AP: 5
+    ATKSPD: 0
+    MOVSPD: 2
+    ATKRange: 20
+    CritChance: 0
+    CritDamage: 1.5
+    DodgeChance: 0
+  - Name: Bandit King 'Wind Hunter'
+    Description: A renowned figure in the world of bandits, his title is known far and wide, striking fear into those who hear of him. He wields the 'Gale Blade Technique,' famed for being able to slice through even the wind itself.
+    MAXHP: 50
+    MAXMP: 0
+    ATK: 6
+    DEF: 0
+    AP: 0
+    ATKSPD: 0.5
+    MOVSPD: 5
+    ATKRange: 5
+    CritChance: 0.2
+    CritDamage: 1.5
+    DodgeChance: 0.2

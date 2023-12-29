@@ -5,19 +5,12 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 
-    /// <summary>
-    /// 一层属性 = 基本属性,
-    /// 二层属性 = 一层属性+装备属性+buff属性,
-    /// 三层属性 = 二层属性*装备加成 * （1+装备百分比加成+buff百分比加成）
-    /// 最终属性为三层属性
-    /// </summary>
-
     [System.Serializable]
     public struct IntNumeric
     {
         [OnInspectorInit("Update")]
         [SerializeField]
-        [PropertyTooltip("角色的基本属性，只能为正整数")]
+        [PropertyTooltip("Basic Value, positive integar only")]
         [OnValueChanged("Update"), HorizontalGroup("Attribute"), HideLabel]
         [MinValue(0)]
         private int baseAttribute;
@@ -42,7 +35,7 @@ using Sirenix.OdinInspector;
 
         [SerializeField]
         [OnValueChanged("Update")]
-        [PropertyTooltip("角色的附加属性"), HorizontalGroup("Attribute"), HideLabel]
+        [PropertyTooltip("Extra Attribute"), HorizontalGroup("Attribute"), HideLabel]
         private int addAttribute;
 
 
@@ -60,7 +53,7 @@ using Sirenix.OdinInspector;
 
         [SerializeField]
         [OnValueChanged("Update")]
-        [PropertyTooltip("角色的百分比加成属性"), HorizontalGroup("Attribute"), HideLabel]
+        [PropertyTooltip("Percentage Attribute"), HorizontalGroup("Attribute"), HideLabel]
         private float pctAddAttribute;
 
         public float PctAddAttribute
@@ -75,9 +68,11 @@ using Sirenix.OdinInspector;
             }
         }
 
-        [SerializeField, PropertyTooltip("计算所有加成的最后的属性(正整数）"), HorizontalGroup("Attribute"), HideLabel]
+        [SerializeField, PropertyTooltip("Final Attribute"), HorizontalGroup("Attribute"), HideLabel]
         private int finalAttribute;
-
+        /// <summary>
+        /// Final Attribute = (Base Attribute + Add Attribute) * (1 + Pct Add Attribute)
+        /// </summary>
         public int FinalAttribute
         {
             set
@@ -114,7 +109,7 @@ using Sirenix.OdinInspector;
 
 
         /// <summary>
-        /// 直接增加属性
+        /// Add AddAttribute
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -126,7 +121,7 @@ using Sirenix.OdinInspector;
         }
 
         /// <summary>
-        /// 百分比增加属性，比如增加30%的攻击力，请输入30 而不是0.3
+        /// 0.1 = 10%
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

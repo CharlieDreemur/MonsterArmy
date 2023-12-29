@@ -4,6 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
 
+
 /// <summary>
 /// ICharacter请使用这个数据Struct
 /// </summary>
@@ -80,7 +81,6 @@ public struct AttributeDataField
     {
         NowMP = fixedData.maxMP.FinalAttribute;
     }
-
 
 }
 

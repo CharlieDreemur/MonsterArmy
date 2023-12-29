@@ -16,4 +16,5 @@ public class EnemyData : EntityData
 {
     [FoldoutGroup("敌方类型")]
     public Enum_Enemy type_enemy = Enum_Enemy.pawn;
+
 }

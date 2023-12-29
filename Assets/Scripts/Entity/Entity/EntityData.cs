@@ -1,8 +1,9 @@
-using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using YamlDotNet.Serialization;
+using System.IO;
 
 //常数集，一些所有character共用的属性，不会更改
 
@@ -87,5 +88,4 @@ public abstract class EntityData : ScriptableObject, IPoolData
     [LabelText("技能配置")]
     [LabelWidth(80f)]
     public List<AbilityData> List_AbilityData; //关于技能的List
-
 }
