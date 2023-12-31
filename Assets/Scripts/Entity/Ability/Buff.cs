@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
+using MonsterArmy.Core.UnitSystem;
 
 /// <summary>
 /// Buff的实体,注意 除开nowHP or nowMP是本回合战斗内永久的减少,其他的减少都是有持续时间的,之后会考虑做个工厂模式? 现在先switch case凑合下
@@ -16,7 +17,7 @@ public class Buff : IBuff
     [SerializeField]
     private Unit character;
 
-    private EntityAttribute charAttribute;
+    private UnitAttributeController charAttribute;
 
     [SerializeField]
     private AttributeDataFixed changedfixedData = new AttributeDataFixed(); //该Buff修改的英雄数据，方便回潮
@@ -33,8 +34,8 @@ public class Buff : IBuff
     {
         character = _character;
         this.data = data;
-        charAttribute = _character.GetCharacterAttribute();
-        changedfixedData = charAttribute.attributeData.fixedData;
+        charAttribute = _character.AttributeController;
+        //changedfixedData = charAttribute.attributeData.fixedData;
     }
 
     public void SetValue(int value){
@@ -57,10 +58,10 @@ public class Buff : IBuff
                 switch (data.attributeType)
                 {
                     case Enum_AttributeType.add:
-                        charAttribute.attributeData.fixedData.Add(data.fixedData);
+                        //charAttribute.attributeData.fixedData.Add(data.fixedData);
                         break;
                     case Enum_AttributeType.minus:
-                        charAttribute.attributeData.fixedData.Minus(data.fixedData);
+                        //charAttribute.attributeData.fixedData.Minus(data.fixedData);
                         break;
                 }
                 break;
@@ -86,12 +87,12 @@ public class Buff : IBuff
                 switch (data.attributeType)
                 {
                     case Enum_AttributeType.add:
-                        charAttribute.attributeData.fixedData.Add(data.fixedData);
+                        //charAttribute.attributeData.fixedData.Add(data.fixedData);
                         character.UnderHeal(buffValue);
                         changedfixedData.Add(data.fixedData);
                         break;
                     case Enum_AttributeType.minus:
-                        charAttribute.attributeData.fixedData.Minus(data.fixedData);
+                        //charAttribute.attributeData.fixedData.Minus(data.fixedData);
                         character.UnderHurt(buffValue, Enum_DamageType.ability);
                         changedfixedData.Minus(data.fixedData);
                         break;
@@ -110,10 +111,10 @@ public class Buff : IBuff
         switch (data.attributeType)
                 {
                     case Enum_AttributeType.add:
-                        charAttribute.attributeData.fixedData.Minus(data.fixedData);
+                        //charAttribute.attributeData.fixedData.Minus(data.fixedData);
                         break;
                     case Enum_AttributeType.minus:
-                        charAttribute.attributeData.fixedData.Add(data.fixedData);
+                        //charAttribute.attributeData.fixedData.Add(data.fixedData);
                         break;
         }
                 

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 
-
 /// <summary>
 /// 目标选择器
 /// </summary>
@@ -243,7 +242,7 @@ public static class UtilsTargetChooser
             if(target.IsKilled()){
                 continue;
             }
-            int hp = target.GetCharacterAttribute().attributeData.NowHP;
+            int hp = target.Attribute.HP;
             if(hp < MinHP){
                 MinHP = hp;
                 leastHPTarget = target;
@@ -273,7 +272,7 @@ public static class UtilsTargetChooser
             (a,b)=>{
             if(a.IsKilled()){targets.Remove(a);} //阵亡的不计算
             if(b.IsKilled()){targets.Remove(b);}
-            return a.GetCharacterAttribute().attributeData.NowHP.CompareTo(b.GetCharacterAttribute().attributeData.NowHP);
+            return a.Attribute.HP.CompareTo(b.Attribute.HP);
             }
         ); 
         
@@ -309,7 +308,7 @@ public static class UtilsTargetChooser
                 if(Vector3.Distance(charPos, a.GetPosition())>radius){targets.Remove(a);} //距离超过radius的不计算
                 if(Vector3.Distance(charPos, b.GetPosition())>radius){targets.Remove(b);}
             }
-            return a.GetCharacterAttribute().attributeData.NowHP.CompareTo(b.GetCharacterAttribute().attributeData.NowHP);
+            return a.Attribute.HP.CompareTo(b.Attribute.HP);
             }
         ); 
         
@@ -327,7 +326,7 @@ public static class UtilsTargetChooser
             if(target.IsKilled()){
                 continue;
             }
-            int hp = target.GetCharacterAttribute().attributeData.NowHP;
+            int hp = target.Attribute.HP;
             if(hp > MaxHP){
                 MaxHP = hp;
                 mostHPTarget = target;
@@ -357,7 +356,7 @@ public static class UtilsTargetChooser
             (a,b)=>{
             if(a.IsKilled()){targets.Remove(a);} //阵亡的不计算
             if(b.IsKilled()){targets.Remove(b);}
-            return -a.GetCharacterAttribute().attributeData.NowHP.CompareTo(b.GetCharacterAttribute().attributeData.NowHP);
+            return -a.Attribute.HP.CompareTo(b.Attribute.HP);
             }
         ); 
         
@@ -393,7 +392,7 @@ public static class UtilsTargetChooser
                 if(Vector3.Distance(charPos, a.GetPosition())>radius){targets.Remove(a);} //距离超过radius的不计算
                 if(Vector3.Distance(charPos, b.GetPosition())>radius){targets.Remove(b);}
             }
-            return -a.GetCharacterAttribute().attributeData.NowHP.CompareTo(b.GetCharacterAttribute().attributeData.NowHP);
+            return -a.Attribute.HP.CompareTo(b.Attribute.HP);
             }
         ); 
         

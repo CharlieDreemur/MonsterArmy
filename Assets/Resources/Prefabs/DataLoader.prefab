@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5068368639856614417}
   - component: {fileID: 8983885497778400310}
-  - component: {fileID: 21816471624517499}
   m_Layer: 0
   m_Name: DataLoader
   m_TagString: Untagged
@@ -211,81 +210,3 @@ MonoBehaviour:
     DodgeChance: 0.2
     AttackType: 1
     AttackAnimationType: 0
---- !u!114 &21816471624517499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7954620123788025543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a6ae6c6aaf15b940bf4245e0e2a4e5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
-  configLoader: {fileID: 8983885497778400310}
-  unitType: 2
-  attribute:
-    Name: Female Villager
-    Description: Go out of the village and join the fight against monsters, and have
-      great experience in shooting slimes.
-    hp: 0
-    mp: 0
-    maxhp:
-      baseAttribute: 15
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 15
-    maxmp:
-      baseAttribute: 0
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 0
-    atk:
-      baseAttribute: 3
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 3
-    def:
-      baseAttribute: 0
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 0
-    ap:
-      baseAttribute: 0
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 0
-    atkspd:
-      baseAttribute: 0
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 0
-    movespd:
-      baseAttribute: 2
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 2
-    atkRange:
-      baseAttribute: 25
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 25
-    critChance:
-      baseAttribute: 0
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 0
-    critDamage:
-      baseAttribute: 1.5
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 1.5
-    dodgeChance:
-      baseAttribute: 0
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 0
-    attackType: 2
-    attackAnimationType: 1

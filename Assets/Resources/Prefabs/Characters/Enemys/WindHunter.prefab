@@ -2803,7 +2803,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7695320899356276645}
-  - component: {fileID: 6432779557693130959}
+  - component: {fileID: 2089186430623493619}
   m_Layer: 5
   m_Name: WindHunter
   m_TagString: Character
@@ -2831,7 +2831,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6432779557693130959
+--- !u!114 &2089186430623493619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2840,35 +2840,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 5554153846112641341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a6ae6c6aaf15b940bf4245e0e2a4e5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 40b41e709949d1646a5968716ee0dea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 4
   unitType: 2
-  scale: {x: 1, y: 1, z: 1}
-  spawnPos: {x: 0, y: 0, z: 0}
+  scale: {x: 8, y: 8, z: 8}
+  spawnPos: {x: 5, y: 0, z: 0}
   attribute:
     Name: Bandit King 'Wind Hunter'
     Description: A renowned figure in the world of bandits, his title is known far
       and wide, striking fear into those who hear of him. He wields the 'Gale Blade
       Technique,' famed for being able to slice through even the wind itself.
-    hp: 0
-    mp: 0
+    hp: 50
+    mp: 50
     maxhp:
-      baseAttribute: 50
+      baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
-      finalAttribute: 50
+      finalAttribute: 0
     maxmp:
       baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
       finalAttribute: 0
     atk:
-      baseAttribute: 6
+      baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
-      finalAttribute: 6
+      finalAttribute: 0
     def:
       baseAttribute: 0
       addAttribute: 0

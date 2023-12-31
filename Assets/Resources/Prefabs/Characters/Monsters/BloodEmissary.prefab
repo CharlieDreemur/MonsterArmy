@@ -1819,7 +1819,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 567266595581022394}
-  - component: {fileID: -464976591257769714}
+  - component: {fileID: 8704158833791836808}
   m_Layer: 5
   m_Name: BloodEmissary
   m_TagString: Character
@@ -1847,7 +1847,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &-464976591257769714
+--- !u!114 &8704158833791836808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1856,13 +1856,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3420454545649129682}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a6ae6c6aaf15b940bf4245e0e2a4e5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 40b41e709949d1646a5968716ee0dea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 4
   unitType: 1
-  scale: {x: 1, y: 1, z: 1}
-  spawnPos: {x: 0, y: 0, z: 0}
+  scale: {x: 8, y: 8, z: 8}
+  spawnPos: {x: -10, y: 0, z: 0}
   attribute:
     Name: Blood Messenger
     Description: The Blood Messenger, a skeletal figure wielding dual swords, is
@@ -1872,31 +1872,6 @@ MonoBehaviour:
       strikes terror into the hearts of all who face it.
     hp: 50
     mp: 50
-    maxhp:
-      baseAttribute: 50
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 50
-    maxmp:
-      baseAttribute: 30
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 30
-    atk:
-      baseAttribute: 8
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 8
-    def:
-      baseAttribute: 2
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 2
-    ap:
-      baseAttribute: 0
-      addAttribute: 0
-      pctAddAttribute: 0
-      finalAttribute: 0
     atkspd:
       baseAttribute: 1
       addAttribute: 0

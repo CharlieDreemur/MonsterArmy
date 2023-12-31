@@ -8,10 +8,9 @@ using Sirenix.OdinInspector;
     [System.Serializable]
     public struct IntNumeric
     {
-        [OnInspectorInit("Update")]
         [SerializeField]
         [PropertyTooltip("Basic Value, positive integar only")]
-        [OnValueChanged("Update"), HorizontalGroup("Attribute"), HideLabel]
+        [HorizontalGroup("Attribute"), HideLabel]
         [MinValue(0)]
         private int baseAttribute;
         public int BaseAttribute
@@ -34,7 +33,6 @@ using Sirenix.OdinInspector;
         }
 
         [SerializeField]
-        [OnValueChanged("Update")]
         [PropertyTooltip("Extra Attribute"), HorizontalGroup("Attribute"), HideLabel]
         private int addAttribute;
 
@@ -52,7 +50,6 @@ using Sirenix.OdinInspector;
         }
 
         [SerializeField]
-        [OnValueChanged("Update")]
         [PropertyTooltip("Percentage Attribute"), HorizontalGroup("Attribute"), HideLabel]
         private float pctAddAttribute;
 
@@ -75,21 +72,10 @@ using Sirenix.OdinInspector;
         /// </summary>
         public int FinalAttribute
         {
-            set
-            {
-                if (value > 0)
-                {
-                    finalAttribute = value;
-                }
-                else
-                {
-                    finalAttribute = 0;
-                }
-            }
 
             get
             {
-                return finalAttribute;
+                return (int)((BaseAttribute + AddAttribute) * (1 + PctAddAttribute) );
             }
         }
 
@@ -98,44 +84,6 @@ using Sirenix.OdinInspector;
             BaseAttribute = 0;
             AddAttribute = 0;
             PctAddAttribute = 0f;
-            Update();
-        }
-
-        public int SetBase(int value)
-        {
-            BaseAttribute = value;
-            Update();
-            return BaseAttribute;
-        }
-
-
-        /// <summary>
-        /// Add AddAttribute
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public int Add(int value)
-        {
-            AddAttribute += value;
-            Update();
-            return AddAttribute;
-        }
-
-        /// <summary>
-        /// 0.1 = 10%
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public float PctAdd(int value)
-        {
-            PctAddAttribute += value;
-            Update();
-            return PctAddAttribute;
-        }
-
-        public void Update()
-        {
-            FinalAttribute = (int)((BaseAttribute + AddAttribute) * (1 + PctAddAttribute) );
         }
 
         public void Init(IntNumeric value)
@@ -143,7 +91,6 @@ using Sirenix.OdinInspector;
             BaseAttribute = value.BaseAttribute;
             AddAttribute = value.AddAttribute;
             PctAddAttribute = value.PctAddAttribute;
-            Update();
         }
 
         public void Add(IntNumeric value)
@@ -151,7 +98,6 @@ using Sirenix.OdinInspector;
             BaseAttribute += value.BaseAttribute;
             AddAttribute += value.AddAttribute;
             PctAddAttribute += value.PctAddAttribute;
-            Update();
         }
 
         public void Minus(IntNumeric value)
@@ -159,14 +105,13 @@ using Sirenix.OdinInspector;
             BaseAttribute -= value.BaseAttribute;
             AddAttribute -= value.AddAttribute;
             PctAddAttribute -= value.PctAddAttribute;
-            Update();
         }
 
 
         public void Reset()
         {
-            BaseAttribute = AddAttribute = FinalAttribute = 0;
-            PctAddAttribute = 0;
+            BaseAttribute = AddAttribute = 0;
+            PctAddAttribute = 0.0f;
         }
     }
 

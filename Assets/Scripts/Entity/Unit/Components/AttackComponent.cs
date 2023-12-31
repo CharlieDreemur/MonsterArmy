@@ -2,15 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace MonsterArmy.Core.UnitSystem.Components
+namespace MonsterArmy.Core.UnitSystem.Interface
 {
     public class AttackComponent : MonoBehaviour, IAttackComponent
     {
+        public void Init(IUnitComponentInitData initData)
+        {
+        }
 
         public void TryAttack(Unit attacker, Unit target)
         {
-            DamageInfo damageInfo = attacker.GetCharacterAttribute().GetAttackDamageInfo();
-            StartCoroutine(DelayAttack(attacker.GetCharacterAttribute().attributeData.fixedData.AtkInterval * 0.6f, damageInfo, target));
+            DamageInfo damageInfo = attacker.GetAttackDamageInfo();
+            StartCoroutine(DelayAttack(attacker.Attribute.AtkInterval * 0.6f, damageInfo, target));
         }
 
         IEnumerator DelayAttack(float seconds, DamageInfo damageInfo, Unit target)

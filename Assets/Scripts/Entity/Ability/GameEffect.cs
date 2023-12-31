@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using MonsterArmy.Core.UnitSystem;
 
 [EnumToggleButtons]
 public enum Enum_GameEffectState{
@@ -16,7 +17,7 @@ public class GameEffect : IAbility
     public GameEffectData gameEffectData;
     public Enum_GameEffectState gameEffectState = Enum_GameEffectState.inactive;
     public Unit character;
-    private EntityAttribute charAttribute;
+    private UnitAttributeController charAttribute;
     private AttributeDataFixed charAttributeData;
     public List<Unit> List_Target; //最终技能目标的列表
     [LabelText("技能最终伤害")] [ShowInInspector] [ReadOnly]
@@ -42,8 +43,8 @@ public class GameEffect : IAbility
     public void SetCharacter(Unit _character)
     {
         character = _character;
-        charAttribute = _character.GetCharacterAttribute();
-        charAttributeData = charAttribute.attributeData.fixedData;
+        charAttribute = _character.AttributeController;
+        //charAttributeData = _character.Attribute;
         List_Target = _character.GetCharacterAbility().GetEnemyList();
     }
 
@@ -91,7 +92,7 @@ public class GameEffect : IAbility
             Debug.LogWarning("GameEffect的目标不存在");
         }
         gameEffectState = Enum_GameEffectState.active;
-        Debug.Log(charAttribute.CharacterName+"发动了技能"+gameEffectData.baseInfo.name);
+        //Debug.Log(charAttribute.Na+"发动了技能"+gameEffectData.baseInfo.name);
         finalValue = CalculateAmount();
         switch (gameEffectData.effectType)
         {

@@ -1147,7 +1147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6491840363018972725}
-  - component: {fileID: 6641057695116747521}
+  - component: {fileID: 8946232226889902625}
   m_Layer: 5
   m_Name: NewRecruit
   m_TagString: Character
@@ -1175,7 +1175,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6641057695116747521
+--- !u!114 &8946232226889902625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1184,39 +1184,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 1913146683106853599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a6ae6c6aaf15b940bf4245e0e2a4e5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 40b41e709949d1646a5968716ee0dea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 2
   unitType: 2
-  scale: {x: 1, y: 1, z: 1}
-  spawnPos: {x: 0, y: 0, z: 0}
+  scale: {x: 8, y: 8, z: 8}
+  spawnPos: {x: 10, y: 0, z: 0}
   attribute:
     Name: New Recruit
     Description: A new recruit who just joined the army, and has no experience in
       fighting.
-    hp: 50
-    mp: 0
+    hp: 30
+    mp: 30
     maxhp:
-      baseAttribute: 30
+      baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
-      finalAttribute: 30
+      finalAttribute: 0
     maxmp:
       baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
       finalAttribute: 0
     atk:
-      baseAttribute: 4
+      baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
-      finalAttribute: 4
+      finalAttribute: 0
     def:
-      baseAttribute: 1
+      baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
-      finalAttribute: 1
+      finalAttribute: 0
     ap:
       baseAttribute: 0
       addAttribute: 0

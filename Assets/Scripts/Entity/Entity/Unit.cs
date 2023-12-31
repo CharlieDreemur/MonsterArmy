@@ -5,16 +5,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using MonsterArmy.Core.UnitSystem.Components;
+using MonsterArmy.Core.UnitSystem.Interface;
+using MonsterArmy.Core.UnitSystem;
+using MonsterArmy.Core;
 
+public interface IUnit{
+
+}
 //继承monobehavior，我们使用一个统一的manager来遍历每个ICharacter
-public abstract class Unit : MonoBehaviour
+public class Unit : MonoBehaviour, IUnit
 {
     //Const
     public const float CONST_DETECT_RANGE = 999f;
     [FoldoutGroup("角色基本信息")]
     public EntityData data;
-    public UnitType entityType = UnitType.None;
+    public UnitType EntityType{
+        get{
+            return AttributeController.UnitType;
+        }
+    }
     [FoldoutGroup("角色基本资源")]
     public Texture2D Icon;
     [FoldoutGroup("角色基本信息")]
@@ -31,14 +40,13 @@ public abstract class Unit : MonoBehaviour
 
     [ShowInInspector] [FoldoutGroup("角色基本资源")]
     protected ICharacterAI charAI = null; //AI
+    private UnitAttributeController attributeController;
     [ShowInInspector] [FoldoutGroup("角色动画资源")]
-    protected AnimationController charAnimController = null; //动画控制
+    protected UnitAnimationController charAnimController = null; //动画控制
     
     [ShowInInspector] [FoldoutGroup("角色基本资源")]
     protected SpriteRenderer[] spriteRenderers; //精灵组
 
-    [ShowInInspector] [FoldoutGroup("角色细节数据")]
-    protected EntityAttribute charAttr = null; //数据计算(数据变量)
     [ShowInInspector] [FoldoutGroup("角色细节数据")]
     protected Vector3 spawnPos = Vector3.zero; //控制spawn坐标
 
@@ -58,7 +66,22 @@ public abstract class Unit : MonoBehaviour
     // */
     // protected ICharacter(GameObject _obj, ICharacterData _charData){
     // }
-
+    public UnitAttribute Attribute{
+        get{
+            return AttributeController.Attribute;
+        }
+    }
+    public UnitAttributeController AttributeController{
+        get{
+            if(attributeController == null){
+                if(TryGetComponent<UnitAttributeController>(out UnitAttributeController controller)){
+                    attributeController = controller;
+                    return attributeController;
+                }
+            }
+            return attributeController;
+        }
+    }
     void Awake()
     {
         obj = gameObject;
@@ -71,7 +94,7 @@ public abstract class Unit : MonoBehaviour
             return;
         }
 
-        if (charAttr.attributeData.NowHP <= 0 && !IsKilled())
+        if (attributeController.Attribute.HP <= 0 && !IsKilled())
         {
             Killed();
 
@@ -84,18 +107,18 @@ public abstract class Unit : MonoBehaviour
     
 
     }
-    public virtual void Init(EntityData data)
+    public virtual void Init()
     {
-        GetCharacterAttribute().Init(data, this);
         SetAI(new CharacterAI(this));
-        SetCharacterAnimation(GetComponent<AnimationController>());
+        SetCharacterAnimation(GetComponent<UnitAnimationController>());
         SetSpriteRenderers(GetComponentsInChildren<SpriteRenderer>());
-        SetSpawnPosition(charAttr.Transform_SpawnPos);
+        attributeController = GetComponent<UnitAttributeController>();
+        SetSpawnPosition(attributeController.SpawnPos);
         GetGameObject().transform.position = GetSpawnPosition();
         attackComponent = GetComponent<RangedAttackComponent>();
         //Const_AttackAnimationLength = UtilsClass.GetAnimatorLength(animator, "Attack");
         tag = "Unit";
-        transform.localScale = charAttr.Scale;
+        transform.localScale = attributeController.Scale;
         IsInit = true;
     }
 
@@ -111,12 +134,7 @@ public abstract class Unit : MonoBehaviour
         spawnPos = pos;
     }
 
-    public void SetCharacterAttribute(EntityAttribute charAttr)
-    {
-        this.charAttr = charAttr;
-    }
-
-    public void SetCharacterAnimation(AnimationController charAnimation){
+    public void SetCharacterAnimation(UnitAnimationController charAnimation){
         this.charAnimController = charAnimation;
     }
     
@@ -178,20 +196,24 @@ public abstract class Unit : MonoBehaviour
 
     public string Name{
         get{
-            return GetCharacterData().baseInfo.name;
+            return Attribute.Name;
         }
     }
 
-    public string ID{
+    public int ID{
          get{
-            return GetCharacterData().baseInfo.name;
+            return attributeController.ID;
         }
     }
 
     public string Description{
         get{
-            return GetCharacterData().baseInfo.description;
+            return Attribute.Description;
         }
+    }
+
+    public DamageInfo GetAttackDamageInfo(){
+        return new DamageInfo(Attribute.GetAttackDamage(), this);
     }
     public Vector3 GetPosition()
     {
@@ -211,25 +233,13 @@ public abstract class Unit : MonoBehaviour
         return spawnPos;
     }
    
-    public AnimationController GetCharacterAnimation(){
+    public UnitAnimationController GetCharacterAnimation(){
         return charAnimController;
     }
     public SpriteRenderer[] GetSpriteRenderers()
     {
         return spriteRenderers;
     }
-
-    public EntityData GetCharacterData()
-    {
-        return charAttr.data;
-    }
-
-
-    public EntityAttribute GetCharacterAttribute()
-    {
-        return charAttr;
-    }
-
  
     public AbilityController GetCharacterAbility(){
         return charAbility;
@@ -263,12 +273,12 @@ public abstract class Unit : MonoBehaviour
 
     public float GetAttackRange()
     {
-        return charAttr.attributeData.fixedData.AtkRange;
+        return Attribute.AtkRange;
     }
 
     public float GetAttackInterval()
     {
-        return charAttr.attributeData.fixedData.AtkInterval;
+        return Attribute.AtkInterval;
     }
 
 
@@ -281,12 +291,12 @@ public abstract class Unit : MonoBehaviour
     #region BasicFunction
     public void MoveTo(Vector3 targetPos)
     {
-        if (charAttr.attributeData.fixedData.MoveSpeed <= 0) return;
+        if (Attribute.MoveSpeed <= 0) return;
         FaceEnemy(targetPos);
-        charAnimController.PlayAnimationInLength(Enum_AnimationType.Run, GetCharacterAttribute().attributeData.fixedData.MoveSpeed);
+        charAnimController.PlayAnimationInLength(Enum_AnimationType.Run, Attribute.MoveSpeed);
         //animator.SetInteger("AnimationState", 1);
     
-        GetGameObject().transform.position = Vector3.MoveTowards(GetPosition(), targetPos, charAttr.attributeData.fixedData.MoveSpeed * Time.deltaTime);
+        GetGameObject().transform.position = Vector3.MoveTowards(GetPosition(), targetPos, Attribute.MoveSpeed * Time.deltaTime);
 
     }
 
@@ -333,7 +343,7 @@ public abstract class Unit : MonoBehaviour
     }
     public void TryAttack(Unit target){
         FaceEnemy(target.GetPosition());
-        AttackAnimation(GetCharacterData().attackAnimationType);
+        AttackAnimation(Attribute.AttackAnimationType);
         attackComponent?.TryAttack(this, target);
     }
 
@@ -341,7 +351,7 @@ public abstract class Unit : MonoBehaviour
         if(isKilled){
             return;
         }
-        int atkDamage = EntityAttribute.CalculateDamage(damageInfo.attacker, this, out bool IsDodge, out Enum_DamageType damageType);
+        int atkDamage = UnitAttributeController.CalculateDamage(damageInfo.attacker, this, out bool IsDodge, out Enum_DamageType damageType);
 
         // 伤害不能为负数
         if (atkDamage < 0)
@@ -352,13 +362,13 @@ public abstract class Unit : MonoBehaviour
         //闪避了就跳过判断
         if (IsDodge)
         {
-            Debug.Log(this.GetCharacterAttribute().CharacterName + "闪避了");
+            Debug.Log(Attribute.Name + "闪避了");
             //TODO: 闪避特效
             return;
         }
         if (damageType == Enum_DamageType.crit)
         {
-            Debug.Log(damageInfo.attacker.GetCharacterAttribute().CharacterName + "闪避了");
+            Debug.Log(damageInfo.attacker.Attribute.Name + "闪避了");
             //TODO: 暴击特效
         }
 
@@ -375,13 +385,13 @@ public abstract class Unit : MonoBehaviour
     }
     
     public void UnderHurt(int damage){
-        charAttr.UnderHurt(damage);
+        attributeController.UnderHurt(damage);
     }
 
     public void UnderHeal(int healAmount){
         string jsonValue = JsonUtility.ToJson(new CreateDamageTextEventArgs(GetPosition(), healAmount, Enum_DamageType.heal));
         EventManager.TriggerEvent("CreateDamageText", jsonValue);
-        charAttr.UnderHeal(healAmount);
+        attributeController.UnderHeal(healAmount);
     }
 
     [Button("Suicide")] 

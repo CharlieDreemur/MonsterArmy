@@ -3,7 +3,7 @@ namespace Physalia.Flexi.Samples.CardGame
     [NodeCategory("Card Game Sample")]
     public class OnTurnEndNode : EntryNode
     {
-        public Outport<EntityManager> gamePort;
+        public Outport<UnitManager> gamePort;
 
         public override bool CanExecute(IEventContext context)
         {

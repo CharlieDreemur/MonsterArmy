@@ -4,18 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Events;
+using MonsterArmy.Core.UnitSystem;
+using MonsterArmy.Core.UnitSystem.Data;
 //using Newtonsoft.Json;
 
 //管理所有的ICharacter，负责ICharacter的生成和更新,ICharacter的对象池，之后会考虑将这两个功能分离并增加characterFactory
-public class EntityManager: Singleton<EntityManager>, IManager
+public class UnitManager: Singleton<UnitManager>, IManager
 {   
     public SetupData setupData;
     [Header("Set in the Inspector")]
     [Header("Set Dynamically")]
     private UnityAction<string> initiateAllyAction;
     private UnityAction<string> initiateEnemyAction;
-    public List<AllyData> List_AllyData = new List<AllyData>();
-    public List<EnemyData> List_EnemyData = new List<EnemyData>();
+    public List<GameObject> List_AllyPrefabs = new List<GameObject>();
+    public List<GameObject> List_EnemyPrefabs = new List<GameObject>();
     public Dictionary<int, Unit> Dic_ICharController = new Dictionary<int, Unit>();
     public List<Unit> List_Ally = new List<Unit>(); //玩家方所有单位的List
     public List<Unit> List_Enemy = new List<Unit>(); //敌人方所有单位的List
@@ -30,14 +32,14 @@ public class EntityManager: Singleton<EntityManager>, IManager
     {   
         EventManager.StartListening("InstantiateAlly", initiateAllyAction);
         EventManager.StartListening("InstantiateEnemy", initiateEnemyAction);
-        for(int i = 0; i<List_AllyData.Count;i++){
-            EventManager.TriggerEvent("InstantiateAlly", JsonUtility.ToJson(new InstantiateAllyArgs(List_AllyData[i])));
-            //InitiateAlly(List_AllyData[i]);
+        for(int i = 0; i<List_AllyPrefabs.Count;i++){
+            //EventManager.TriggerEvent("InstantiateAlly", JsonUtility.ToJson(List_AllyPrefab[i]));
+            InitiateAlly(List_AllyPrefabs[i]);
         }
 
-        for(int i = 0; i<List_EnemyData.Count;i++){
-            EventManager.TriggerEvent("InstantiateEnemy", JsonUtility.ToJson(new InstantiateEnemyArgs(List_EnemyData[i])));
-            //InitiateEnemy(List_EnemyData[i]);
+        for(int i = 0; i<List_EnemyPrefabs.Count;i++){
+            //EventManager.TriggerEvent("InstantiateEnemy", JsonUtility.ToJson(List_EnemyPrefab[i]));
+            InitiateEnemy(List_EnemyPrefabs[i]);
         }
         SetDictionaryToList(Dic_ICharController);
     }
@@ -64,7 +66,7 @@ public class EntityManager: Singleton<EntityManager>, IManager
                 continue;
             }
             //更新目标
-            switch (item.entityType){
+            switch (item.EntityType){
                 case UnitType.Ally:
                     item.GetCharacterAbility().UpdateTargets(List_Enemy, List_Ally);
                     break;
@@ -83,63 +85,61 @@ public class EntityManager: Singleton<EntityManager>, IManager
         List_Ally.Clear();
         List_Enemy.Clear();
         foreach(Unit item in _Dic_ICharController.Values){
-            switch (item.entityType){
+            switch (item.EntityType){
                 case UnitType.Ally:
-                    List_Ally.Add(item as Ally);
+                    List_Ally.Add(item);
                     break;
                 case UnitType.Enemy:
-                    List_Enemy.Add(item as Enemy);
+                    List_Enemy.Add(item);
                     break;
             }
          
         }
     }
     public void InitiateAlly(string jsonValue){
-        InstantiateAllyArgs args =  JsonUtility.FromJson<InstantiateAllyArgs>(jsonValue);
-        InitiateAlly(args.data);
+        GameObject args =  JsonUtility.FromJson<GameObject>(jsonValue);
+        InitiateAlly(args);
     }
 
     public void InitiateEnemy(string jsonValue){
-        InstantiateEnemyArgs args =  JsonUtility.FromJson<InstantiateEnemyArgs>(jsonValue);
-        InitiateEnemy(args.data);
+        GameObject args =  JsonUtility.FromJson<GameObject>(jsonValue);
+        InitiateEnemy(args);
     }
 
-    public void InitiateAlly(AllyData data){
-        if(data==null){
-            Debug.LogWarning("没有对应的CharData");
+    public void InitiateAlly(GameObject prefab){
+        if(prefab==null){
+            Debug.LogWarning("InitiateAlly: Null prefab");
             return;
         }
-        GameObject Obj_char = InitiateEntity(data.Prefab);
-        if (Obj_char == null) return;
-        Ally charController = Obj_char.AddComponent<Ally>();        
-        AllyAttribute charAttr = Obj_char.AddComponent<AllyAttribute>();    
+        GameObject obj = InitiateEntity(prefab);
+        if (obj == null) return;
+        Unit unitController = obj.AddComponent<Unit>();
         if(parent != null){
-            Obj_char.transform.SetParent(parent);
+            obj.transform.SetParent(parent);
         }
 
         //传入初始敌方友军列表
-        charController.SetCharacterAbility(new AbilityController(charController, List_Enemy, List_Ally));
+        unitController.SetCharacterAbility(new AbilityController(unitController, List_Enemy, List_Ally));
         //注意一定要确保所有模块都添加好了再Init()
-        charController.Init(data);
-        Dic_ICharController.Add(Obj_char.GetInstanceID(), charController);
+        unitController.Init();
+        Dic_ICharController.Add(obj.GetInstanceID(), unitController);
         
     }
 
 
-     public void InitiateEnemy(EnemyData data){
-        if(data==null){
-            Debug.LogWarning("没有对应的EnemyData");
+     public void InitiateEnemy(GameObject prefab){
+        if(prefab==null){
+            Debug.LogWarning("InitiateEnemy: Null prefab");
              return;
         }
-        GameObject Obj_char = InitiateEntity(data.Prefab);
-        if (Obj_char == null) return;
-        Enemy enemyController = Obj_char.AddComponent<Enemy>();
-        EnemyAttribute charAttr = Obj_char.AddComponent<EnemyAttribute>(); 
+        GameObject obj = InitiateEntity(prefab);
+        if (obj == null) return;
+        Unit unitController = obj.AddComponent<Unit>();
         //传入初始敌方友军列表
-        enemyController.SetCharacterAbility(new AbilityController(enemyController, List_Enemy, List_Ally));  
+        unitController.SetCharacterAbility(new AbilityController(unitController, List_Enemy, List_Ally));  
         //注意一定要确保所有模块都添加好了再Init()      
-        enemyController.Init(data);
-        Dic_ICharController.Add(Obj_char.GetInstanceID(), enemyController);
+        unitController.Init();
+        Dic_ICharController.Add(obj.GetInstanceID(), unitController);
         
     }
 
@@ -154,7 +154,7 @@ public class EntityManager: Singleton<EntityManager>, IManager
         if(parent != null){
             obj.transform.SetParent(parent);
         }
-        EntityComponetsControllerUtils.AddAllComponents(setupData, obj);
+        UnitComponentsFactoryUtils.AddAllComponents(setupData, obj);
         return obj;
     }
     /*
@@ -207,20 +207,4 @@ public class EntityManager: Singleton<EntityManager>, IManager
         return GetEntity(obj.GetInstanceID());
     }
     
-}
-
-public class InstantiateAllyArgs : EventArgs{
-    public AllyData data;
-    public InstantiateAllyArgs(AllyData data){
-        this.data = data;
-    }
-}
-
-
-
-public class InstantiateEnemyArgs : EventArgs{
-    public EnemyData data;
-    public InstantiateEnemyArgs(EnemyData data){
-        this.data = data;
-    }
 }

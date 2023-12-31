@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Threading.Tasks;
 using Sirenix.OdinInspector;
+using MonsterArmy.Core.UnitSystem;
 
 /// <summary>
 /// 所以技能模块的实体都可以继承这个
@@ -55,7 +56,7 @@ public class Ability : IAbility
     [LabelText("冷却剩余时间")]
     public float remainTime; //还有多少s冷却结束
 
-    private EntityAttribute charAttribute;
+    private UnitAttributeController charAttribute;
     
     private AttributeDataFixed charFixedData;
 
@@ -140,8 +141,8 @@ public class Ability : IAbility
     }
     public void SetCharacter(Unit _character){
         character = _character;
-        charAttribute = character.GetCharacterAttribute();
-        charFixedData = charAttribute.attributeData.fixedData;
+        //charAttribute = character.GetCharacterAttribute();
+        //charFixedData = charAttribute.attributeData.fixedData;
     }
     /// <summary>
     /// 触发技能，会将所有List_GameEffect执行
@@ -273,7 +274,7 @@ public class Ability : IAbility
                 return true;
 
             case Enum_CostType.mp:
-            if(charAttribute.attributeData.NowMP >= abilityData.costValue){
+            if(charAttribute.Attribute.MP >= abilityData.costValue){
                 
                 return true;
             }
@@ -283,7 +284,7 @@ public class Ability : IAbility
             break;
 
             case (Enum_CostType.hp):
-            if(charAttribute.attributeData.NowHP >= abilityData.costValue){
+            if(charAttribute.Attribute.HP >= abilityData.costValue){
                 return true;
             }
             else{
@@ -303,16 +304,16 @@ public class Ability : IAbility
             break;
 
             case Enum_CostType.mp:
-            if(charAttribute.attributeData.NowMP >= abilityData.costValue){
-                charAttribute.attributeData.NowMP -= abilityData.costValue;
+            if(charAttribute.Attribute.MP >= abilityData.costValue){
+                charAttribute.Attribute.MP -= abilityData.costValue;
             
             }
 
             break;
 
             case (Enum_CostType.hp):
-            if(charAttribute.attributeData.NowHP >= abilityData.costValue){
-                charAttribute.attributeData.NowHP -= abilityData.costValue;
+            if(charAttribute.Attribute.HP >= abilityData.costValue){
+                charAttribute.Attribute.HP -= abilityData.costValue;
             }
            
             break;

@@ -17,7 +17,7 @@ namespace Physalia.Flexi.Samples.CardGame
 
             for (var i = 0; i < targets.Count; i++)
             {
-                int health = targets[i].GetCharacterAttribute().attributeData.NowHP;
+                int health = targets[i].Attribute.HP;
                 if (health <= 0)
                 {   
                     /*

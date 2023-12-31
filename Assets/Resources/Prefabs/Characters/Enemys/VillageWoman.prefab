@@ -842,8 +842,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2488944840467738132}
+  - component: {fileID: 5020663679809826653}
   - component: {fileID: -3089041337912285551}
-  - component: {fileID: 5512965479063386694}
   m_Layer: 5
   m_Name: VillageWoman
   m_TagString: Character
@@ -871,7 +871,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &-3089041337912285551
+--- !u!114 &5020663679809826653
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -880,48 +880,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 1637100202565874678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1acbcf06cb4c7e44e9c7e26df07ba0d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileData: {fileID: 11400000, guid: ec51828e1bc884f4e9390128a8fc3a4a, type: 2}
-  shootPosOffset: {x: 1, y: 3, z: 0}
---- !u!114 &5512965479063386694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1637100202565874678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a6ae6c6aaf15b940bf4245e0e2a4e5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 40b41e709949d1646a5968716ee0dea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
   unitType: 2
-  scale: {x: 1, y: 1, z: 1}
-  spawnPos: {x: 0, y: 0, z: 0}
+  scale: {x: 8, y: 8, z: 8}
+  spawnPos: {x: 10, y: 5, z: 0}
   attribute:
     Name: Female Villager
     Description: Go out of the village and join the fight against monsters, and have
       great experience in shooting slimes.
-    hp: 0
-    mp: 0
+    hp: 15
+    mp: 15
     maxhp:
-      baseAttribute: 15
+      baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
-      finalAttribute: 15
+      finalAttribute: 0
     maxmp:
       baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
       finalAttribute: 0
     atk:
-      baseAttribute: 3
+      baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
-      finalAttribute: 3
+      finalAttribute: 0
     def:
       baseAttribute: 0
       addAttribute: 0
@@ -964,6 +950,20 @@ MonoBehaviour:
       finalAttribute: 0
     attackType: 2
     attackAnimationType: 1
+--- !u!114 &-3089041337912285551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637100202565874678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1acbcf06cb4c7e44e9c7e26df07ba0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileData: {fileID: 11400000, guid: ec51828e1bc884f4e9390128a8fc3a4a, type: 2}
+  shootPosOffset: {x: 1, y: 3, z: 0}
 --- !u!1 &1700293661344614848
 GameObject:
   m_ObjectHideFlags: 0

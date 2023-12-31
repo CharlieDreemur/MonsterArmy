@@ -225,7 +225,7 @@ public class Projectile : MonoBehaviour, IPoolObject
             return;
         }
         //Only attack enemy
-        if (args.damageInfo.attacker.entityType == entity.entityType)
+        if (args.damageInfo.attacker.EntityType == entity.EntityType)
         {
             return;
         }

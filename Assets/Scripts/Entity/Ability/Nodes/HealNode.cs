@@ -19,7 +19,7 @@ namespace Physalia.Flexi.Samples.CardGame
             var value = valuePort.GetValue();
             for (var i = 0; i < targets.Count; i++)
             {
-                targets[i].GetCharacterAttribute().attributeData.NowHP += value;
+                targets[i].Attribute.HP += value;
             }
             /*
             EnqueueEvent(new HealEvent

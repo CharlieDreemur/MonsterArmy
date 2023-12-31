@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Physalia.Flexi;
+using MonsterArmy.Core;
 namespace MonsterEnemy.SkillNodeSystem
 {
     [NodeCategory("MonsterEnemy")]

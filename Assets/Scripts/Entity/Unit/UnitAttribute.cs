@@ -32,54 +32,40 @@ namespace MonsterArmy.Core.UnitSystem
         [LabelText("MP")]
         [SerializeField]
         private int mp;
-
-
-        public int HP
-        {
-            set
-            {
-                hp = Mathf.Clamp(value, 0, maxhp.FinalAttribute);
-            }
-            get
-            {
-                return hp;
-            }
-        }
-        public int MP
-        {
-            set
-            {
-                mp = Mathf.Clamp(value, 0, maxmp.FinalAttribute);
-            }
-            get
-            {
-                return mp;
-            }
-        }
+        [MinValue(0)]
+        [GUIColor(0f, 0f, 0f, 1f)]
+        [LabelWidth(70f)]
+        [LabelText("Shield")]
+        private int shield;
         [Title("Detailed Attribute")]
         [GUIColor(0f, 1f, 0f, 1f)]
         [InlineProperty]
+        [SerializeField]
         [LabelWidth(70f)]
-        public IntNumeric maxhp;
+        private IntNumeric maxhp;
 
         [GUIColor(0.2f, 0.5f, 1f, 1f)]
         [InlineProperty]
+        [SerializeField]
         [LabelWidth(70f)]
-        public IntNumeric maxmp;
-
+        private IntNumeric maxmp;
 
         [GUIColor(1f, 0f, 0f, 1f)]
         [InlineProperty]
+        [SerializeField]
         [LabelWidth(70f)]
-        public IntNumeric atk;
+        private IntNumeric atk;
         [GUIColor(0.9f, 0.6f, 0f, 1f)]
         [InlineProperty]
+        [SerializeField]
         [LabelWidth(70f)]
-        public IntNumeric def;
+        private IntNumeric def;
+
         [GUIColor(0.7f, 0.3f, 0.9f, 1f)]
         [InlineProperty]
+        [SerializeField]
         [LabelWidth(70f)]
-        public IntNumeric ap;
+        private IntNumeric ap;
 
         [Title("Special Attribute")]
         
@@ -127,6 +113,79 @@ namespace MonsterArmy.Core.UnitSystem
         private Enum_AttackType attackType;
         [SerializeField]
         private Enum_AttackAnimationType attackAnimationType;
+        
+        public int HP
+        {
+            set
+            {
+                hp = Mathf.Clamp(value, 0, maxhp.FinalAttribute);
+            }
+            get
+            {
+                return hp;
+            }
+        }
+        public int MP
+        {
+            set
+            {
+                mp = Mathf.Clamp(value, 0, maxmp.FinalAttribute);
+            }
+            get
+            {
+                return mp;
+            }
+        }
+        public int Shield
+        {
+            set
+            {
+                if(value<0)
+                {
+                    value = 0;
+                }
+                shield = value;
+            }
+            get
+            {
+                return shield;
+            }
+        }
+        public int MAXHP
+        {
+            get
+            {
+                return maxhp.FinalAttribute;
+            }
+        }
+        public int MAXMP
+        {
+            get
+            {
+                return maxmp.FinalAttribute;
+            }
+        }
+        public int ATK
+        {
+            get
+            {
+                return atk.FinalAttribute;
+            }
+        }
+        public int DEF
+        {
+            get
+            {
+                return def.FinalAttribute;
+            }
+        }
+        public int AP
+        {
+            get
+            {
+                return ap.FinalAttribute;
+            }
+        }
 
         public float DamageReduction
         {
@@ -200,7 +259,63 @@ namespace MonsterArmy.Core.UnitSystem
             }
         }
 
+        public Enum_AttackType AttackType
+        {
+            get
+            {
+                return attackType;
+            }
+        }
+        public Enum_AttackAnimationType AttackAnimationType
+        {
+            get
+            {
+                return attackAnimationType;
+            }
+        }
 
+        public bool IsCrit()
+        {
+            return CritChance >= Random.Range(0f, 1f);
+        }
+
+        public bool IsDodge()
+        {
+            return DodgeChance >= Random.Range(0f, 1f);
+        }
+
+
+        
+        public int GetAttackDamage()
+        {
+            int atkDamage = ATK;
+            if (IsCrit())
+            {
+                atkDamage = (int)(atkDamage * CritDamage);
+            }
+            return atkDamage;
+        }
+
+        public void TestPrint(){
+            string str = "";
+            str += "Name: " + Name + "\n";
+            str += "Description: " + Description + "\n";
+            str += "HP: " + HP + "\n";
+            str += "MP: " + MP + "\n";
+            str += "MAXHP: " + MAXHP + "\n";
+            str += "MAXMP: " + MAXMP + "\n";
+            str += "ATK: " + ATK + "\n";
+            str += "DEF: " + DEF + "\n";
+            str += "AP: " + AP + "\n";
+            str += "ATKSPD: " + ATKSPD + "\n";
+            str += "MoveSpeed: " + MoveSpeed + "\n";
+            str += "AtkRange: " + AtkRange + "\n";
+            str += "CritChance: " + CritChance + "\n";
+            str += "CritDamage: " + CritDamage + "\n";
+            str += "DodgeChance: " + DodgeChance + "\n";
+            Debug.Log(str);
+
+        }
         /// <summary>
         /// Init all attribute according to config, fill up hp and mp
         /// </summary>
@@ -223,7 +338,7 @@ namespace MonsterArmy.Core.UnitSystem
             attackType = config.AttackType;
             attackAnimationType = config.AttackAnimationType;
             hp = config.MAXHP;
-            mp = config.MAXHP;
+            mp = config.MAXMP;
         }
 
 

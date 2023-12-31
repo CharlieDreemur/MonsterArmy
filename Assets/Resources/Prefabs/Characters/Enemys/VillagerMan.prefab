@@ -3358,7 +3358,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2494879112216364211}
-  - component: {fileID: 1255425816254470008}
+  - component: {fileID: 8787088824098606568}
   m_Layer: 5
   m_Name: VillagerMan
   m_TagString: Character
@@ -3386,7 +3386,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1255425816254470008
+--- !u!114 &8787088824098606568
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3395,34 +3395,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 7634593670180511573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a6ae6c6aaf15b940bf4245e0e2a4e5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 40b41e709949d1646a5968716ee0dea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
   unitType: 2
-  scale: {x: 1, y: 1, z: 1}
-  spawnPos: {x: 0, y: 0, z: 0}
+  scale: {x: 8, y: 8, z: 8}
+  spawnPos: {x: 10, y: 0, z: 0}
   attribute:
     Name: Male Villager
     Description: Go out of the village and join the fight against monsters, and have
       great experience in against slimes.
-    hp: 0
-    mp: 0
+    hp: 20
+    mp: 20
     maxhp:
-      baseAttribute: 20
+      baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
-      finalAttribute: 20
+      finalAttribute: 0
     maxmp:
       baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
       finalAttribute: 0
     atk:
-      baseAttribute: 3
+      baseAttribute: 0
       addAttribute: 0
       pctAddAttribute: 0
-      finalAttribute: 3
+      finalAttribute: 0
     def:
       baseAttribute: 0
       addAttribute: 0

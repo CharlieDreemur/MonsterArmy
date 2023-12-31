@@ -2,16 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace MonsterArmy.Core.UnitSystem.Components
+namespace MonsterArmy.Core.UnitSystem.Interface
 {
     public class RangedAttackComponent : MonoBehaviour, IAttackComponent
     {
         public ProjectileData projectileData;
         public Vector3 shootPosOffset;
+
+        public void Init(IUnitComponentInitData initData)
+        {
+            throw new NotImplementedException();
+        }
+
         public void TryAttack(Unit attacker, Unit target)
         {
             Vector3 projectileSpawnPos = transform.position;
-            DamageInfo damageInfo = attacker.GetCharacterAttribute().GetAttackDamageInfo();
+            DamageInfo damageInfo = attacker.GetAttackDamageInfo();
             switch(attacker.characterDirection){
                 case Enum_FaceDirection.left:
                     projectileSpawnPos += new Vector3(-shootPosOffset.x, shootPosOffset.y, shootPosOffset.z);
@@ -25,7 +31,7 @@ namespace MonsterArmy.Core.UnitSystem.Components
 
             ProjectileArgs projectileArgs = new ProjectileArgs(projectileData, projectileSpawnPos, damageInfo, target);
             Action action = () => EventManager.TriggerEvent("InstantiateProjectile", JsonUtility.ToJson(projectileArgs));
-            StartCoroutine(DelayInvokeAction(action, attacker.GetCharacterAttribute().attributeData.fixedData.AtkInterval * 0.6f));
+            StartCoroutine(DelayInvokeAction(action, attacker.Attribute.AtkInterval * 0.6f));
         }
         IEnumerator DelayInvokeAction(Action action, float delaySeconds)
         {

@@ -4,7 +4,7 @@ namespace Physalia.Flexi.Samples.CardGame
 {
     public class TurnEndEvent : IEventContext
     {
-        public EntityManager game;
+        public UnitManager game;
     }
 
 
