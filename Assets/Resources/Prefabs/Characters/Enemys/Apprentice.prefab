@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b41e709949d1646a5968716ee0dea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  configLoader: {fileID: 0}
   id: 3
   unitType: 2
   scale: {x: 8, y: 8, z: 8}
@@ -228,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileData: {fileID: 11400000, guid: fc3ce5b72a1c1994cba67511e01046c5, type: 2}
-  shootPosOffset: {x: 0, y: 4, z: 0}
+  shootPosOffset: {x: 4, y: 2, z: 0}
 --- !u!1 &516426807586114207
 GameObject:
   m_ObjectHideFlags: 0

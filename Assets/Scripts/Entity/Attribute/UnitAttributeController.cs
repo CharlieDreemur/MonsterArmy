@@ -78,7 +78,7 @@ namespace MonsterArmy.Core.UnitSystem
             switch (unitType)
             {
                 case UnitType.Ally:
-                    attribute.Init(configLoader.allyConfig[id]);
+                    attribute.Init(configLoader.allyConfig[id]); 
                     break;
                 case UnitType.Enemy:
                     attribute.Init(configLoader.enemyConfig[id]);

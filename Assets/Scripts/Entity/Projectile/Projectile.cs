@@ -5,12 +5,20 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Reflection;
 using Sirenix.OdinInspector;
-
-public enum ProjectileTrackType { straight, homing, parabola }
+[System.Serializable]
+[EnumToggleButtons]
+public enum ProjectileTrackType
+{
+    straight,
+    straightRigidBody,
+    homing,
+    parabola
+}
 
 //WAY too much abstraction 
 
 //Everything needed for instantiate a projectile that given not by projectile itself and need to set by outer classes
+[RequireComponent(typeof(Rigidbody2D))]
 [System.Serializable]
 public class ProjectileArgs : EventArgs
 {
@@ -87,7 +95,7 @@ public class Projectile : MonoBehaviour, IPoolObject
     public ProjectileArgs args;
     [ShowInInspector]
     public AbstractProjectileTrack track;
-    public ETFXProjectile ETFX;
+    public ETFXProjectile2D ETFX;
     public float distance;
     public float time;
     public Rigidbody2D RB
@@ -123,14 +131,16 @@ public class Projectile : MonoBehaviour, IPoolObject
     public void Init(ProjectileArgs projectileArgs)
     {
         this.args = projectileArgs;
+        transform.localScale = args.Data.scale;
         //Only run after the cast is initialized
         if (!isInit || args.Data == projectileArgs.Data)
         {
             DataInit();
         }
+        ETFX = GetComponent<ETFXProjectile2D>();
         if (ETFX != null)
         {
-            ETFX.Init();
+            ETFX.Init(args.Data.scale);
         }
         isInit = true;
         OnEnable();
@@ -163,11 +173,6 @@ public class Projectile : MonoBehaviour, IPoolObject
 
     private void DataInit()
     {
-        transform.localScale = args.Data.scale;
-        if (ETFX != null)
-        {
-            ETFX.SetScale(args.Data.scale);
-        }
         switch (args.Data.trackType)
         {
             case ProjectileTrackType.straight:
@@ -175,6 +180,9 @@ public class Projectile : MonoBehaviour, IPoolObject
                 break;
             case ProjectileTrackType.parabola:
                 track = new ProjectileTrackParabola(this);
+                break;
+            case ProjectileTrackType.straightRigidBody:
+                track = new ProjectileTrackStraightRigidBody(this);
                 break;
             case ProjectileTrackType.homing:
                 if (args.target is null)
@@ -184,6 +192,7 @@ public class Projectile : MonoBehaviour, IPoolObject
                 }
                 break;
         }
+        track.Start();
     }
 
     /// <summary>

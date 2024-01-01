@@ -37,12 +37,15 @@ public abstract class AbstractProjectileTrack
         this.speedCurve = data.speedCurve;
         projectile.RB.gravityScale = data.gravityScale;
     }
+    public virtual void Start(){
+
+    }
     public virtual void Update()
     {
         projectile.transform.localScale = Scale;
         if (projectile.ETFX != null)
         {
-            projectile.ETFX.SetScale(projectile.args.Data.scale);
+            projectile.ETFX.Scale =projectile.args.Data.scale;
         }
     }
 
