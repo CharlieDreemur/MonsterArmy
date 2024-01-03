@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 using MonsterArmy.Core.UnitSystem.Interface;
 
 namespace MonsterArmy.Core.UnitSystem
-{   
+{
     [System.Serializable]
     //Character的数据，用于计算和表示角色obj的属性（变量）
     public class UnitAttributeController : MonoBehaviour, IUnitComponent
@@ -78,7 +78,7 @@ namespace MonsterArmy.Core.UnitSystem
             switch (unitType)
             {
                 case UnitType.Ally:
-                    attribute.Init(configLoader.allyConfig[id]); 
+                    attribute.Init(configLoader.allyConfig[id]);
                     break;
                 case UnitType.Enemy:
                     attribute.Init(configLoader.enemyConfig[id]);
@@ -122,15 +122,27 @@ namespace MonsterArmy.Core.UnitSystem
                 isCrit = true;
             }
 
-            return (int)(atkDamage * (1 - target_Attr.DamageReduction)); ;
+            atkDamage = (int)(atkDamage * (1 - target_Attr.DamageReduction));
+            if (atkDamage < 0)
+            {
+                atkDamage = 0;
+            }
+            return atkDamage;
         }
 
         #endregion
 
-
-        //先算伤害，再算防御
+        public void TakeDamage(DamageInfo damageInfo, out int damage, out bool isDodge, out bool isCrit)
+        {
+            damage = CalculateDamage(damageInfo.attacker.Attribute, this.attribute, out isDodge, out isCrit);
+            if (isDodge)
+            {
+                return;
+            }
+            UnderHurt(damage);
+        }
         /// <summary>
-        /// 使该角色减少damage的血量,如果有护盾先减护盾
+        /// First Calculate Shield, then health
         /// </summary>
         /// <param name="damage"></param>
         public void UnderHurt(int damage)

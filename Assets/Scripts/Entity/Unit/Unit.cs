@@ -9,7 +9,8 @@ using MonsterArmy.Core.UnitSystem.Interface;
 using MonsterArmy.Core.UnitSystem;
 using MonsterArmy.Core;
 
-public interface IUnit{
+public interface IUnit
+{
 
 }
 //继承monobehavior，我们使用一个统一的manager来遍历每个ICharacter
@@ -18,8 +19,10 @@ public class Unit : MonoBehaviour, IUnit
     //Const
     public const float CONST_DETECT_RANGE = 999f;
     [FoldoutGroup("角色基本信息")]
-    public UnitType EntityType{
-        get{
+    public UnitType EntityType
+    {
+        get
+        {
             return AttributeController.UnitType;
         }
     }
@@ -27,26 +30,33 @@ public class Unit : MonoBehaviour, IUnit
     public Texture2D Icon;
     [FoldoutGroup("角色基本信息")]
     public bool isKilled = false;
-    [ShowInInspector] [FoldoutGroup("角色基本信息")]
+    [ShowInInspector]
+    [FoldoutGroup("角色基本信息")]
     protected UnityEngine.GameObject obj;
-    
-    [ShowInInspector] [FoldoutGroup("角色基本信息")]
+
+    [ShowInInspector]
+    [FoldoutGroup("角色基本信息")]
     private bool IsInit = false; //是否已经初始化了
 
-    [FoldoutGroup("角色基本信息")] [LabelText("角色朝向")]
+    [FoldoutGroup("角色基本信息")]
+    [LabelText("角色朝向")]
 
     public Enum_FaceDirection characterDirection;
 
-    [ShowInInspector] [FoldoutGroup("角色基本资源")]
+    [ShowInInspector]
+    [FoldoutGroup("角色基本资源")]
     protected ICharacterAI charAI = null; //AI
     private UnitAttributeController attributeController;
-    [ShowInInspector] [FoldoutGroup("角色动画资源")]
+    [ShowInInspector]
+    [FoldoutGroup("角色动画资源")]
     protected UnitAnimationController charAnimController = null; //动画控制
-    
-    [ShowInInspector] [FoldoutGroup("角色基本资源")]
+
+    [ShowInInspector]
+    [FoldoutGroup("角色基本资源")]
     protected SpriteRenderer[] spriteRenderers; //精灵组
 
-    [ShowInInspector] [FoldoutGroup("角色细节数据")]
+    [ShowInInspector]
+    [FoldoutGroup("角色细节数据")]
     protected Vector3 spawnPos = Vector3.zero; //控制spawn坐标
 
     [FoldoutGroup("角色细节数据")]
@@ -55,7 +65,10 @@ public class Unit : MonoBehaviour, IUnit
     //public static event EventHandler<ProjectileArgs> Event_Shoot;
 
 
-    [ShowInInspector] [FoldoutGroup("角色战斗数据")] [InlineProperty] [HideLabel]
+    [ShowInInspector]
+    [FoldoutGroup("角色战斗数据")]
+    [InlineProperty]
+    [HideLabel]
     protected AbilityController charAbility = null; //角色与技能交互的部分，为了减少单个类的长度我们决定把一些功能放进别的类
 
     private IAttackComponent attackComponent;
@@ -65,15 +78,21 @@ public class Unit : MonoBehaviour, IUnit
     // */
     // protected ICharacter(GameObject _obj, ICharacterData _charData){
     // }
-    public UnitAttribute Attribute{
-        get{
+    public UnitAttribute Attribute
+    {
+        get
+        {
             return AttributeController.Attribute;
         }
     }
-    public UnitAttributeController AttributeController{
-        get{
-            if(attributeController == null){
-                if(TryGetComponent<UnitAttributeController>(out UnitAttributeController controller)){
+    public UnitAttributeController AttributeController
+    {
+        get
+        {
+            if (attributeController == null)
+            {
+                if (TryGetComponent<UnitAttributeController>(out UnitAttributeController controller))
+                {
                     attributeController = controller;
                     return attributeController;
                 }
@@ -87,7 +106,7 @@ public class Unit : MonoBehaviour, IUnit
     }
     public void Update()
     {
-     
+
         if (!IsInit)
         {
             return;
@@ -100,10 +119,10 @@ public class Unit : MonoBehaviour, IUnit
         }
         if (charAI != null)
         {
-           
+
             charAI.UpdateAI(charAbility.List_Enemy);
         }
-    
+
 
     }
     public virtual void Init()
@@ -133,38 +152,42 @@ public class Unit : MonoBehaviour, IUnit
         spawnPos = pos;
     }
 
-    public void SetCharacterAnimation(UnitAnimationController charAnimation){
+    public void SetCharacterAnimation(UnitAnimationController charAnimation)
+    {
         this.charAnimController = charAnimation;
     }
-    
+
     public void SetSpriteRenderers(SpriteRenderer[] spriteRenderer)
     {
         this.spriteRenderers = spriteRenderer;
     }
 
-    public void SetCharacterAbility(AbilityController charAbility){
+    public void SetCharacterAbility(AbilityController charAbility)
+    {
         this.charAbility = charAbility;
     }
 
     public void SetShaderFloat(string parameter, float amount)
     {
-        if (spriteRenderers == null || spriteRenderers.Length == 0) 
+        if (spriteRenderers == null || spriteRenderers.Length == 0)
         {
             return;
         }
-        foreach(SpriteRenderer item in spriteRenderers){
+        foreach (SpriteRenderer item in spriteRenderers)
+        {
             item.material.SetFloat(parameter, amount);
         }
-        
+
     }
 
     public void SetShaderColor(string parameter, Color color)
     {
-        if (spriteRenderers == null || spriteRenderers.Length == 0) 
+        if (spriteRenderers == null || spriteRenderers.Length == 0)
         {
             return;
         }
-        foreach(SpriteRenderer item in spriteRenderers){
+        foreach (SpriteRenderer item in spriteRenderers)
+        {
             item.material.SetColor(parameter, color);
         }
     }
@@ -193,30 +216,38 @@ public class Unit : MonoBehaviour, IUnit
         return obj;
     }
 
-    public string Name{
-        get{
+    public string Name
+    {
+        get
+        {
             return Attribute.Name;
         }
     }
 
-    public int ID{
-         get{
+    public int ID
+    {
+        get
+        {
             return attributeController.ID;
         }
     }
 
-    public string Description{
-        get{
+    public string Description
+    {
+        get
+        {
             return Attribute.Description;
         }
     }
 
-    public DamageInfo GetAttackDamageInfo(){
+    public DamageInfo GetAttackDamageInfo()
+    {
         return new DamageInfo(Attribute.GetAttackDamage(), this);
     }
     public Vector3 GetPosition()
     {
-        if(GetGameObject()==null){
+        if (GetGameObject() == null)
+        {
             Debug.LogWarning("GetPosition(): GameObject does not exist");
             return Vector3.zero;
         }
@@ -231,16 +262,18 @@ public class Unit : MonoBehaviour, IUnit
     {
         return spawnPos;
     }
-   
-    public UnitAnimationController GetCharacterAnimation(){
+
+    public UnitAnimationController GetCharacterAnimation()
+    {
         return charAnimController;
     }
     public SpriteRenderer[] GetSpriteRenderers()
     {
         return spriteRenderers;
     }
- 
-    public AbilityController GetCharacterAbility(){
+
+    public AbilityController GetCharacterAbility()
+    {
         return charAbility;
     }
 
@@ -294,7 +327,7 @@ public class Unit : MonoBehaviour, IUnit
         FaceEnemy(targetPos);
         charAnimController.PlayAnimationInLength(Enum_AnimationType.Run, Attribute.MoveSpeed);
         //animator.SetInteger("AnimationState", 1);
-    
+
         GetGameObject().transform.position = Vector3.MoveTowards(GetPosition(), targetPos, Attribute.MoveSpeed * Time.deltaTime);
 
     }
@@ -326,8 +359,10 @@ public class Unit : MonoBehaviour, IUnit
         }
     }
 
-    public void AttackAnimation(Enum_AttackAnimationType type){
-        switch(type){
+    public void AttackAnimation(Enum_AttackAnimationType type)
+    {
+        switch (type)
+        {
             case Enum_AttackAnimationType.Sword:
                 charAnimController.PlayAnimationInLength(Enum_AnimationType.AttackSword, GetAttackInterval());
                 break;
@@ -335,31 +370,28 @@ public class Unit : MonoBehaviour, IUnit
                 charAnimController.PlayAnimationInLength(Enum_AnimationType.AttackBow, GetAttackInterval());
                 break;
             case Enum_AttackAnimationType.Magic:
-                charAnimController.PlayAnimationInLength(Enum_AnimationType.AttackMagic,GetAttackInterval());
+                charAnimController.PlayAnimationInLength(Enum_AnimationType.AttackMagic, GetAttackInterval());
                 break;
 
         }
     }
-    public void TryAttack(Unit target){
+    public void TryAttack(Unit target)
+    {
         FaceEnemy(target.GetPosition());
         AttackAnimation(Attribute.AttackAnimationType);
         attackComponent?.TryAttack(this, target);
     }
-    public void TakeDamage(Unit attacker, int value, Enum_DamageType damageType=Enum_DamageType.PhysicalDamage){
-        TakeDamage(new DamageInfo(value, attacker));
+    public void TakeDamage(Unit attacker, int value, Enum_DamageType damageType = Enum_DamageType.PhysicalDamage)
+    {
+        TakeDamage(new DamageInfo(value, attacker, damageType: damageType));
     }
-    public void TakeDamage(DamageInfo damageInfo){
-        if(isKilled){
+    public void TakeDamage(DamageInfo damageInfo)
+    {
+        if (isKilled)
+        {
             return;
         }
-        int atkDamage = UnitAttributeController.CalculateDamage(damageInfo.attacker, this, out bool isDodge, out bool isCrit);
-
-        // 伤害不能为负数
-        if (atkDamage < 0)
-        {
-            atkDamage = 0;
-        }
-
+        attributeController.TakeDamage(damageInfo, out int damage, out bool isDodge, out bool isCrit);
         //闪避了就跳过判断
         if (isDodge)
         {
@@ -375,28 +407,26 @@ public class Unit : MonoBehaviour, IUnit
 
         //Play Hurt shader
         StartCoroutine(ShaderChange(HurtTimerLength, Color.white));
-        UnderHurt(atkDamage, damageInfo.damageType, isCrit);
+        //Create Damage Text
+        if (!isDodge)
+        {
+            string jsonValue = JsonUtility.ToJson(new CreateDamageTextEventArgs(GetPosition(), damage, damageInfo.damageType, isCrit));
+            EventManager.TriggerEvent("CreateDamageText", jsonValue);
+        }
     }
 
-  
-    private void UnderHurt(int damageAmount, Enum_DamageType damageType=Enum_DamageType.PhysicalDamage, bool isCrit = false){
-        Debug.Log(Attribute.Name + "受到了" + damageAmount + "点伤害");
-        string jsonValue = JsonUtility.ToJson(new CreateDamageTextEventArgs(GetPosition(), damageAmount, damageType, isCrit));
-        EventManager.TriggerEvent("CreateDamageText", jsonValue);
-        attributeController.UnderHurt(damageAmount);
-    }
-    
 
-    private void UnderHeal(int healAmount, bool isCrit = false){
+    private void UnderHeal(int healAmount, bool isCrit = false)
+    {
         string jsonValue = JsonUtility.ToJson(new CreateDamageTextEventArgs(GetPosition(), healAmount, Enum_DamageType.Heal, isCrit));
         EventManager.TriggerEvent("CreateDamageText", jsonValue);
         attributeController.UnderHeal(healAmount);
     }
 
-    [Button("Suicide")] 
+    [Button("Suicide")]
     public void Killed()
     {
-        MessageManager.AddMessage(Name+"已死亡");
+        MessageManager.AddMessage(Name + "已死亡");
         isKilled = true;
         SetAI(null);
         StopAllCoroutines();
@@ -432,6 +462,6 @@ public class Unit : MonoBehaviour, IUnit
 
     }
     #endregion
-    
+
 }
 

@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 public struct DamageInfo
 {
     public DamageInfo(
-        float damage,
+        int damage,
         Unit instigator, 
         bool isCrit=false,
         float knockback = 0.0f,
