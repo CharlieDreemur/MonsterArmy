@@ -17,13 +17,15 @@ public enum Enum_FaceDirection{
 }
 
 [EnumToggleButtons]
-public enum Enum_DamageType{
-    normal,
-    ability, //所有的技能伤害
-    crit,
-    heal,
-}
+public enum Enum_DamageType
+{
+    PhysicalDamage,
+    MagicDamage,
+    MixedDamage,
+    TureDamage,
+    Heal,
 
+}
 
 
 [EnumToggleButtons]

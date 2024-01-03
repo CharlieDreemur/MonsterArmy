@@ -3,7 +3,7 @@ using Physalia.Flexi;
 
 namespace MonsterArmy.SkillNodes
 {
-    [NodeCategory("MonsterEnemy")]
+    [NodeCategory("Selection Node")]
     public class AllEnemiesNode : ValueNode
     {
         public Inport<UnitManager> gamePort;

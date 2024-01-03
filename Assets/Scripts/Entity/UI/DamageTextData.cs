@@ -26,13 +26,13 @@ namespace MonsterArmy.UI
 
         [FoldoutGroup("伤害跳字细节设置")]
         [HideLabel]
-        [LabelText("暴击字体颜色")]
-        public Color critColor; //暴击状态的字体颜色
+        [LabelText("物理暴击字体颜色")]
+        public Color physicalCritColor;
 
         [FoldoutGroup("伤害跳字细节设置")]
         [HideLabel]
-        [LabelText("暴击字体大小")]
-        public int critFontSize = 20; //暴击状态的字体大小
+        [LabelText("物理暴击字体大小")]
+        public int physicalCritFontSize = 20;
         [FoldoutGroup("伤害跳字细节设置")]
         [HideLabel]
         [LabelText("治疗字体颜色")]
@@ -51,6 +51,15 @@ namespace MonsterArmy.UI
         [HideLabel]
         [LabelText("技能字体大小")]
         public int abilityFontSize = 16; //技能状态的字体大小
+        [FoldoutGroup("伤害跳字细节设置")]
+        [HideLabel]
+        [LabelText("魔法暴击字体颜色")]
+        public Color magicCritColor;
+
+        [FoldoutGroup("伤害跳字细节设置")]
+        [HideLabel]
+        [LabelText("魔法暴击字体大小")]
+        public int magicCritFontSize = 20;
 
         [FoldoutGroup("伤害跳字细节设置")]
         [HideLabel]

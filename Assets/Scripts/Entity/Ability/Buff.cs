@@ -88,12 +88,12 @@ public class Buff : IBuff
                 {
                     case Enum_AttributeType.add:
                         //charAttribute.attributeData.fixedData.Add(data.fixedData);
-                        character.UnderHeal(buffValue);
+                        //character.UnderHeal(buffValue);
                         changedfixedData.Add(data.fixedData);
                         break;
                     case Enum_AttributeType.minus:
                         //charAttribute.attributeData.fixedData.Minus(data.fixedData);
-                        character.UnderHurt(buffValue, Enum_DamageType.ability);
+                        //character.UnderHurt(buffValue, Enum_DamageType.ability);
                         changedfixedData.Minus(data.fixedData);
                         break;
                 }

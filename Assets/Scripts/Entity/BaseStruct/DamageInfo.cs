@@ -3,25 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-[EnumToggleButtons]
-public enum DamageType
-{
-    AttackDamage,
-    AbilityPowerDamage,
-    MixedDamage,
-    TureDamage,
-
-}
-
 [System.Serializable]
 public struct DamageInfo
 {
     public DamageInfo(
         float damage,
         Unit instigator, 
+        bool isCrit=false,
         float knockback = 0.0f,
         //Buff
-        DamageType damageType = DamageType.AttackDamage
+        Enum_DamageType damageType = Enum_DamageType.PhysicalDamage
     )
     {
         //Debug.Assert(damageIn >= 0.0f);
@@ -45,7 +36,7 @@ public struct DamageInfo
     public float damage;
     public float knockback;
     //public List<BuffFactory> BuffsToApply;
-    public DamageType damageType;
+    public Enum_DamageType damageType;
     public Unit attacker;
 
     

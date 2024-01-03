@@ -101,10 +101,10 @@ public class GameEffect : IAbility
                 List_Target.ForEach((target)=>{
                      switch(gameEffectData.hurtOrHeal){
                          case Enum_EffectHurtOrHeal.hurt:
-                         target.UnderHurt(finalValue, Enum_DamageType.ability);
+                        //target.UnderHurt(finalValue, Enum_DamageType.ability);
                              break;
                         case Enum_EffectHurtOrHeal.heal:
-                        target.UnderHeal(finalValue);
+                        //target.UnderHeal(finalValue);
                             break;
                     }
                     

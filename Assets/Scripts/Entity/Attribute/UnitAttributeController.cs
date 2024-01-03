@@ -93,25 +93,25 @@ namespace MonsterArmy.Core.UnitSystem
         /*
         @funciton:给予两个人物，返回一方对另一方的一次攻击造成的伤害，考虑闪避，暴击，防御等因素
         */
-        public static int CalculateDamage(Unit attacker, Unit target, out bool IsDodge, out Enum_DamageType damageType)
+        public static int CalculateDamage(Unit attacker, Unit target, out bool isDodge, out bool isCrit)
         {
 
-            return CalculateDamage(attacker.Attribute, target.Attribute, out IsDodge, out damageType);
+            return CalculateDamage(attacker.Attribute, target.Attribute, out isDodge, out isCrit);
         }
 
         /*
         @function: 给予两个角色属性，返回一方对另一方的一次攻击造成的伤害，考虑闪避，暴击，防御等因素
         */
-        public static int CalculateDamage(UnitAttribute attribute, UnitAttribute target_Attr, out bool IsDodge, out Enum_DamageType damageType)
+        public static int CalculateDamage(UnitAttribute attribute, UnitAttribute target_Attr, out bool isDodge, out bool isCrit)
         {
-            IsDodge = false;
-            damageType = Enum_DamageType.normal;
+            isDodge = false;
+            isCrit = false;
 
             int atkDamage = attribute.ATK;
             if (target_Attr.IsDodge())
             {
 
-                IsDodge = true;
+                isDodge = true;
                 return 0;
             }
 
@@ -119,7 +119,7 @@ namespace MonsterArmy.Core.UnitSystem
             {
                 Debug.Log(attribute.Name + "暴击了");
                 atkDamage = (int)(atkDamage * attribute.CritDamage);
-                damageType = Enum_DamageType.crit;
+                isCrit = true;
             }
 
             return (int)(atkDamage * (1 - target_Attr.DamageReduction)); ;

@@ -43,8 +43,10 @@ namespace MonsterArmy.Core
             //GameObject damageTextGameObject = Instantiate(data.prefab, pos, Quaternion.identity);
             UnityEngine.GameObject damageTextGameObject = PoolManager.Spawn(data.Prefab, args.pos, Quaternion.identity);
             DamageText damageText = damageTextGameObject.GetComponent<DamageText>();
-            damageText.Init(data, args.damageAmount, args.damageType);
+            Debug.Log("damageText:" + damageText);
+            damageText.Init(data, args);
             damageText.OnSpawn();
+
             //return damageText;
         }
 
@@ -52,14 +54,16 @@ namespace MonsterArmy.Core
 
     public class CreateDamageTextEventArgs : EventArgs
     {
-        public CreateDamageTextEventArgs(Vector3 pos, int damageAmount, Enum_DamageType damageType)
+        public CreateDamageTextEventArgs(Vector3 pos, int damageAmount, Enum_DamageType damageType, bool isCrit)
         {
             this.pos = pos;
             this.damageAmount = damageAmount;
             this.damageType = damageType;
+            this.isCrit = isCrit;
         }
         public Vector3 pos;
         public int damageAmount;
         public Enum_DamageType damageType;
+        public bool isCrit;
     }
 }

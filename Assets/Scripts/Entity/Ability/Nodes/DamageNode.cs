@@ -22,7 +22,7 @@ namespace MonsterArmy.SkillNodes
             var value = valuePort.GetValue();
             for (var i = 0; i < targets.Count; i++)
             {
-                targets[i].Attribute.HP -= value;
+                targets[i].TakeDamage(attacker, value);
             }
             /*
             EnqueueEvent(new DamageEvent

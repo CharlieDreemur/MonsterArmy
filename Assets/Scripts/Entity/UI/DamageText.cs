@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using MonsterArmy.Core;
 
 namespace MonsterArmy.UI
 {
@@ -10,39 +11,43 @@ namespace MonsterArmy.UI
         public DamageTextData data;
         private TextMeshPro textMesh;
         private Color color;
-        private int damageAmount;
-        private Enum_DamageType damageType;
-        private bool isCrit;
         private float disappearTimer;
         private Vector3 moveVector;
+        private CreateDamageTextEventArgs args;
 
         private static int sortingOrder; //渲染层级，确保后生产的text会在上层
 
         private void Awake()
         {
             textMesh = transform.GetComponent<TextMeshPro>();
-
         }
 
         public void OnSpawn()
         {
-            textMesh.SetText(damageAmount.ToString());
-            switch (damageType)
+            textMesh.SetText(args.damageAmount.ToString());
+            switch (args.damageType)
             {
-                case Enum_DamageType.normal:
+                case Enum_DamageType.PhysicalDamage:
+                    if (args.isCrit)
+                    {
+                        textMesh.fontSize = data.physicalCritFontSize;
+                        textMesh.color = data.physicalCritColor;
+                        break;
+                    }
                     textMesh.fontSize = data.noramlFontSize;
                     textMesh.color = data.normalColor;
                     break;
-                case Enum_DamageType.crit:
-                    //暴击字体 TODO:更多暴击特效
-                    textMesh.fontSize = data.critFontSize;
-                    textMesh.color = data.critColor;
-                    break;
-                case Enum_DamageType.heal:
+                case Enum_DamageType.Heal:
                     textMesh.fontSize = data.healFontSize;
                     textMesh.color = data.healColor;
                     break;
-                case Enum_DamageType.ability:
+                case Enum_DamageType.MagicDamage:
+                    if(args.isCrit)
+                    {
+                        textMesh.fontSize = data.magicCritFontSize;
+                        textMesh.color = data.magicCritColor;
+                        break;
+                    }
                     textMesh.fontSize = data.abilityFontSize;
                     textMesh.color = data.abilityColor;
                     break;
@@ -50,6 +55,7 @@ namespace MonsterArmy.UI
                     Debug.LogWarning("DamageText.OnObjectSpawn()未知的Enum_DamageType");
                     break;
             }
+
             color = textMesh.color;
             disappearTimer = data.disappearTime;
             sortingOrder++;
@@ -62,7 +68,7 @@ namespace MonsterArmy.UI
         {
             PoolManager.Release(gameObject);
         }
-        public void Init(DamageTextData data, int damageAmount, Enum_DamageType damageType)
+        public void Init(DamageTextData data, CreateDamageTextEventArgs args)
         {
             if (data == null)
             {
@@ -71,8 +77,7 @@ namespace MonsterArmy.UI
             }
             this.data = data;
             disappearTimer = data.disappearTime;
-            this.damageType = damageType;
-            this.damageAmount = damageAmount;
+            this.args = args;
 
         }
 

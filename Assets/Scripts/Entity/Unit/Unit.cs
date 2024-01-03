@@ -345,12 +345,14 @@ public class Unit : MonoBehaviour, IUnit
         AttackAnimation(Attribute.AttackAnimationType);
         attackComponent?.TryAttack(this, target);
     }
-
+    public void TakeDamage(Unit attacker, int value, Enum_DamageType damageType=Enum_DamageType.PhysicalDamage){
+        TakeDamage(new DamageInfo(value, attacker));
+    }
     public void TakeDamage(DamageInfo damageInfo){
         if(isKilled){
             return;
         }
-        int atkDamage = UnitAttributeController.CalculateDamage(damageInfo.attacker, this, out bool IsDodge, out Enum_DamageType damageType);
+        int atkDamage = UnitAttributeController.CalculateDamage(damageInfo.attacker, this, out bool isDodge, out bool isCrit);
 
         // 伤害不能为负数
         if (atkDamage < 0)
@@ -359,36 +361,34 @@ public class Unit : MonoBehaviour, IUnit
         }
 
         //闪避了就跳过判断
-        if (IsDodge)
+        if (isDodge)
         {
-            Debug.Log(Attribute.Name + "闪避了");
+            Debug.Log(Attribute.Name + " miss the attack");
             //TODO: 闪避特效
             return;
         }
-        if (damageType == Enum_DamageType.crit)
+        if (isCrit)
         {
-            Debug.Log(damageInfo.attacker.Attribute.Name + "闪避了");
+            Debug.Log(damageInfo.attacker.Attribute.Name + " makes a crit damage!");
             //TODO: 暴击特效
         }
 
-        //受伤特效shader
+        //Play Hurt shader
         StartCoroutine(ShaderChange(HurtTimerLength, Color.white));
-        UnderHurt(atkDamage, damageType);
+        UnderHurt(atkDamage, damageInfo.damageType, isCrit);
     }
 
   
-    public void UnderHurt(int damageAmount, Enum_DamageType damageType){
-        string jsonValue = JsonUtility.ToJson(new CreateDamageTextEventArgs(GetPosition(), damageAmount, damageType));
+    private void UnderHurt(int damageAmount, Enum_DamageType damageType=Enum_DamageType.PhysicalDamage, bool isCrit = false){
+        Debug.Log(Attribute.Name + "受到了" + damageAmount + "点伤害");
+        string jsonValue = JsonUtility.ToJson(new CreateDamageTextEventArgs(GetPosition(), damageAmount, damageType, isCrit));
         EventManager.TriggerEvent("CreateDamageText", jsonValue);
-        UnderHurt(damageAmount);
+        attributeController.UnderHurt(damageAmount);
     }
     
-    public void UnderHurt(int damage){
-        attributeController.UnderHurt(damage);
-    }
 
-    public void UnderHeal(int healAmount){
-        string jsonValue = JsonUtility.ToJson(new CreateDamageTextEventArgs(GetPosition(), healAmount, Enum_DamageType.heal));
+    private void UnderHeal(int healAmount, bool isCrit = false){
+        string jsonValue = JsonUtility.ToJson(new CreateDamageTextEventArgs(GetPosition(), healAmount, Enum_DamageType.Heal, isCrit));
         EventManager.TriggerEvent("CreateDamageText", jsonValue);
         attributeController.UnderHeal(healAmount);
     }
