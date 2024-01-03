@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: FireBall
   m_EditorClassIdentifier: 
   Name: Fireball
-  prefab: {fileID: 8796937763197882494, guid: 0525676f6228b364495f899d589f1d95, type: 3}
+  prefab: {fileID: 128572, guid: a99a57cf3a7bacc479881d230e99afc3, type: 3}
   isAreaAttack: 0
   collideData: {fileID: 11400000, guid: a4691eed2c6df894f99c0ddac5fd23a6, type: 2}
   lifeCycle: 5
   maxDistance: 100
-  trackType: 0
+  trackType: 1
   scale: {x: 2, y: 2, z: 2}
   scaleCurve:
     serializedVersion: 2

@@ -1,4 +1,6 @@
-namespace Physalia.Flexi.Samples.CardGame
+using Physalia.Flexi;
+
+namespace MonsterArmy.SkillNodes
 {
     public class SingleTargetChoiceContext : IChoiceContext
     {

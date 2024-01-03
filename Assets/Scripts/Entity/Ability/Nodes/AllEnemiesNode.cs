@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Physalia.Flexi;
 
-namespace MonsterEnemy.SkillNodeSystem
+namespace MonsterArmy.SkillNodes
 {
     [NodeCategory("MonsterEnemy")]
     public class AllEnemiesNode : ValueNode

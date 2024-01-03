@@ -18,7 +18,6 @@ public class Unit : MonoBehaviour, IUnit
     //Const
     public const float CONST_DETECT_RANGE = 999f;
     [FoldoutGroup("角色基本信息")]
-    public EntityData data;
     public UnitType EntityType{
         get{
             return AttributeController.UnitType;

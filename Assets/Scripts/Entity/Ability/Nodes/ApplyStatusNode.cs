@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Physalia.Flexi;
 
-namespace Physalia.Flexi.Samples.CardGame
+namespace MonsterArmy.SkillNodes
 {
     [NodeCategory("Card Game Sample")]
     public class ApplyStatusNode : ProcessNode

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Physalia.Flexi;
 using MonsterArmy.Core;
-namespace MonsterEnemy.SkillNodeSystem
+namespace MonsterArmy.SkillNodes
 {
     [NodeCategory("MonsterEnemy")]
     public class SkillEntryNode : EntryNode

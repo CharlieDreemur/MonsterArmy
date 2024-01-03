@@ -18,7 +18,7 @@ MonoBehaviour:
   collideData: {fileID: 11400000, guid: a4691eed2c6df894f99c0ddac5fd23a6, type: 2}
   lifeCycle: 5
   maxDistance: 100
-  trackType: 2
+  trackType: 3
   scale: {x: 0.5, y: 0.5, z: 1}
   scaleCurve:
     serializedVersion: 2
