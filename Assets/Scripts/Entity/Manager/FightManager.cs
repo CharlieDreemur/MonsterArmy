@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace MonsterArmy.Core
 {
-    public class MainManager : Singleton<MainManager>, IManager
+    public class FightManager : Singleton<FightManager>, IManager
     {
-        //游戏主系统，控制其他所有的系统
+        //System Related to Fight
         DamageTextManager damageTextManager;
-        UnitManager entityManager;
+        UnitManager unitManager;
         EventManager eventManager;
         ProjectileManager projectileManager;
         protected override void OnAwake()
         {
             eventManager = GetComponent<EventManager>();
             damageTextManager = GetComponent<DamageTextManager>();
-            entityManager = GetComponent<UnitManager>();
+            unitManager = GetComponent<UnitManager>();
             projectileManager = GetComponent<ProjectileManager>();
         }
 
@@ -26,7 +26,7 @@ namespace MonsterArmy.Core
         {
             eventManager.Init();
             damageTextManager.Init();
-            entityManager.Init();
+            unitManager.Init();
             projectileManager.Init();
         }
 
@@ -36,7 +36,7 @@ namespace MonsterArmy.Core
             {
                 MessageManager.AddMessage("测试消息");
             }
-            entityManager.OnUpdate();
+            unitManager.OnUpdate();
         }
 
         void OnApplicationQuit()

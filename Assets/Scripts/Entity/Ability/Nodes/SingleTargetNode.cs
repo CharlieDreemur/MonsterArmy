@@ -18,7 +18,7 @@ namespace MonsterArmy.SkillNodes
 
     }
 
-    [NodeCategory("Card Game Sample")]
+    [NodeCategory("Selection Node")]
     public class SingleTargetNode : ProcessNode
     {
         public Outport<Unit> target;

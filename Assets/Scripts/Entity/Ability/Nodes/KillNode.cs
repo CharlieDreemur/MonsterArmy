@@ -3,7 +3,7 @@ using Physalia.Flexi;
 
 namespace MonsterArmy.SkillNodes
 {
-    [NodeCategory("Card Game Sample")]
+    [NodeCategory("Basic Node")]
     public class KillNode : ProcessNode
     {
         public Inport<IReadOnlyList<Unit>> targetsPort;

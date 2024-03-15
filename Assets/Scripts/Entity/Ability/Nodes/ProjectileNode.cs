@@ -3,14 +3,16 @@ using Physalia.Flexi;
 
 namespace MonsterArmy.SkillNodes
 {
-    [NodeCategory("Basic Node")]
-    public class HealNode : ProcessNode
+    [NodeCategory("Skills Node")]
+    public class ProjectileNode : ProcessNode
     {
+        public Inport<Unit> attackerPort;
         public Inport<IReadOnlyList<Unit>> targetsPort;
         public Inport<int> valuePort;
 
         protected override AbilityState DoLogic()
         {
+            var attacker = attackerPort.GetValue();
             var targets = targetsPort.GetValue();
             if (targets.Count == 0)
             {
@@ -20,12 +22,13 @@ namespace MonsterArmy.SkillNodes
             var value = valuePort.GetValue();
             for (var i = 0; i < targets.Count; i++)
             {
-                targets[i].Attribute.HP += value;
+                targets[i].TakeDamage(attacker, value);
             }
             /*
-            EnqueueEvent(new HealEvent
+            EnqueueEvent(new DamageEvent
             {
-                targets = targets,
+                attacker = attacker,
+                targets = new List<Unit>(targets),
                 amount = value,
             });
             */

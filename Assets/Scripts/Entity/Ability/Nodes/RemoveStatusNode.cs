@@ -3,7 +3,7 @@ using Physalia.Flexi;
 
 namespace MonsterArmy.SkillNodes
 {
-    [NodeCategory("Card Game Sample")]
+    [NodeCategory("Status Node")]
     public class RemoveStatusNode : ProcessNode
     {
         public Inport<UnitManager> gamePort;

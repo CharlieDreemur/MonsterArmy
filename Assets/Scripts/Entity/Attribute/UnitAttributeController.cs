@@ -19,7 +19,7 @@ namespace MonsterArmy.Core.UnitSystem
         [SerializeField]
         private int id;
         [SerializeField]
-        private UnitType unitType;
+        private Enum_UnitType unitType;
         [SerializeField]
         private Vector3 scale = Vector3.one;
         [SerializeField]
@@ -47,7 +47,7 @@ namespace MonsterArmy.Core.UnitSystem
                 return id;
             }
         }
-        public UnitType UnitType
+        public Enum_UnitType UnitType
         {
             get
             {
@@ -77,10 +77,10 @@ namespace MonsterArmy.Core.UnitSystem
             configLoader = FindObjectOfType<UnitAttributeConfigLoader>();
             switch (unitType)
             {
-                case UnitType.Ally:
+                case Enum_UnitType.Ally:
                     attribute.Init(configLoader.allyConfig[id]);
                     break;
-                case UnitType.Enemy:
+                case Enum_UnitType.Enemy:
                     attribute.Init(configLoader.enemyConfig[id]);
                     break;
             }

@@ -67,10 +67,10 @@ public class UnitManager: Singleton<UnitManager>, IManager
             }
             //更新目标
             switch (item.EntityType){
-                case UnitType.Ally:
+                case Enum_UnitType.Ally:
                     item.GetCharacterAbility().UpdateTargets(List_Enemy, List_Ally);
                     break;
-                case UnitType.Enemy:
+                case Enum_UnitType.Enemy:
                     item.GetCharacterAbility().UpdateTargets(List_Ally, List_Enemy);
                     break;
             }
@@ -86,10 +86,10 @@ public class UnitManager: Singleton<UnitManager>, IManager
         List_Enemy.Clear();
         foreach(Unit item in _Dic_ICharController.Values){
             switch (item.EntityType){
-                case UnitType.Ally:
+                case Enum_UnitType.Ally:
                     List_Ally.Add(item);
                     break;
-                case UnitType.Enemy:
+                case Enum_UnitType.Enemy:
                     List_Enemy.Add(item);
                     break;
             }

@@ -10,7 +10,7 @@ namespace MonsterArmy.SkillNodes
     {
         public class Payload : IEventContext
         {
-            public MainManager mainManager;
+            public UnitManager game;
             public Unit owner;
         }
 
@@ -20,7 +20,7 @@ namespace MonsterArmy.SkillNodes
         }
 
         public Outport<FlowNode> selectionPort;
-        public Outport<MainManager> mainManagerPort;
+        public Outport<UnitManager> mainManagerPort;
         public Outport<Unit> unitPort;
         private State state = State.INITIAL;
 
@@ -86,7 +86,7 @@ namespace MonsterArmy.SkillNodes
                 PayCosts(payload);
             }
 
-            mainManagerPort.SetValue(payload.mainManager);
+            mainManagerPort.SetValue(payload.game);
             unitPort.SetValue(payload.owner);
             return AbilityState.RUNNING;
         }

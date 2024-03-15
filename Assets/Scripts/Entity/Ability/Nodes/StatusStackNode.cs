@@ -2,7 +2,7 @@ using Physalia.Flexi;
 
 namespace MonsterArmy.SkillNodes
 {
-    [NodeCategory("Card Game Sample")]
+    [NodeCategory("Status Node")]
     public class StatusStackNode : ValueNode
     {
         public Inport<UnitManager> gamePort;

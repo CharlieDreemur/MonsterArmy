@@ -3,7 +3,7 @@ using Physalia.Flexi;
 
 namespace MonsterArmy.SkillNodes
 {
-    [NodeCategory("Card Game Sample")]
+    [NodeCategory("Selection Node")]
     public class RandomPickNode : ValueNode
     {
         public Inport<IReadOnlyList<Unit>> sourcePort;
